@@ -1,0 +1,189 @@
+
+
+body{
+    margin: 0;
+}
+
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.LogoHeader{
+    text-align: center;
+
+}
+
+.BlocInformation {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+.Information{
+    width: 60%;
+}
+
+.BlocLiens {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.BlocInformationLien{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    justify-content: space-around;
+}
+.blocPrestations{
+    width: 300px;
+
+}
+
+.BlocActus {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.BlocInformationActu{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    justify-content: space-around;
+}
+.BlocActualite{
+    width: 300px;
+    height: 300px;
+
+}
+
+.Footer{
+    background-color: #a2415e;
+    color:black;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.centerOfFooter{
+    display: flex;
+    flex-direction: column;
+}
+.logosReseaux{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.BlocLeft > ul {
+    padding-top: 50px;
+}
+.BlocLeft > ul > li {
+   font-weight: bold;
+    list-style:none;
+    font-size: 20px;
+}
+.Divers > ul {
+    padding-top: 50px;
+}
+.Divers > ul > li {
+    font-weight: bold;
+    list-style:none;
+    font-size: 20px;
+}
+
+.Cards{
+    display: flex;
+    flex-direction: column;
+}
+.CardContent{
+    width: 700px;
+    margin-bottom: 20px;
+    background-color: #f8e7dd;
+    border:none;
+    box-shadow: none;
+}
+.texteCards{
+    padding-top: 80px;
+    padding-left: 200px;
+    width: 50%;
+}
+.texteCardsBis{
+    padding-top: 80px;
+    padding-left: 140px;
+    width: 50%;
+}
+.imageCard{
+    border-radius: 50%;
+    height: 300px;
+    width: 300px;
+}
+.ConteneurNavBar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.FormulaireContact{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 100px;
+}
+.formulaireContact{
+    width: 30%;
+    text-align: center;
+
+}
+
+.buttonWorkbook{
+    background-color: #a2415e;
+    color:white;
+    border-radius: 20px;
+    border:none;
+    font-family: 'Merriweather', serif;
+}
+.NavBar{
+    border-radius: 40px;
+    background-color: #a2415e;
+    width: 80%;
+    height: 60px;
+}
+.NavBar a{
+    font-size: 20px;
+    padding-top: 17px;
+    color: white;
+    font-family: 'Merriweather', serif;
+}
+
+.NavBar a:hover{
+    color: #ee9251;
+}
+
+h2{
+    font-family: 'Euphoria Script', cursive;
+}
+h1{
+    font-family: 'Merriweather', serif;
+}
+p{
+    text-align: justify;
+    font-family: 'Raleway', sans-serif;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+body{
+    background-color: #F8E7DD;
+}
+

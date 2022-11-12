@@ -1,0 +1,25 @@
+import * as React from 'react';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import {useEffect, useState} from "react";
+import {Table} from "@mui/material";
+
+export default function ProchainRdv(props: any) {
+
+    return (
+        <div>
+            <Table>
+                <tbody>
+                    <tr>
+                        <td>Mon Prochain RDV</td>
+                        <td> 28 h</td>
+                    </tr>
+                </tbody>
+            </Table>
+        </div>
+    );
+}
