@@ -6,7 +6,7 @@ export default function BlocInformation() {
         <Paper elevation={3} style={{borderRadius:"20px", marginTop:"50px", height:"300px", paddingTop:"20px"}}>
             <Container style={{display: "flex", flexDirection:"row"}}>
                 <div>
-                    <img src={"/PhotoCecilePresentation.PNG"} style={{width:"250px",borderRadius: "50%"}}/>
+                    <img src={"/PhotoCecilePresentation.png"} style={{width:"250px",borderRadius: "50%"}}/>
                 </div>
                 <div>
                     <p style={{fontSize:"18px", padding:"30px"}}>
