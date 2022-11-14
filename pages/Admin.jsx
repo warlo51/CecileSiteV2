@@ -212,7 +212,7 @@ export default function Administration(props) {
                     <Button onClick={()=>nouvelArticle()}>Ajouter un article</Button>
                     <br/>
                     <Accordion defaultActiveKey="0" style={{width:"800px"}}>
-                    {data !== undefined && data?.map((element)=> {
+                    {data !== undefined && data?.map((element, index)=> {
                         const id=element.idArticle;
                         return(
                             <Accordion.Item key={index} eventKey={id}>
