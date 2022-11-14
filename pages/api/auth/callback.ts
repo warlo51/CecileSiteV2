@@ -41,9 +41,9 @@ export default async function handler(
     if (mailUserAuth0 === "cecile.fabie@gmail.com") {
       res.redirect(303, "/Admin");
     } else {
-      res.redirect(`/?email=${JSON.stringify(auth0searchUser)}`);
+      res.redirect(`/`);
     }
   } else {
-    res.redirect(`/?error=${JSON.stringify(auth0searchUser)}`);
+    res.redirect(`/`);
   }
 }
