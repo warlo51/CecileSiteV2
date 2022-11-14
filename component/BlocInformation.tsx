@@ -6,10 +6,10 @@ export default function BlocInformation() {
         <Paper elevation={3} style={{borderRadius:"20px", marginTop:"50px", height:"300px", paddingTop:"20px"}}>
             <Container style={{display: "flex", flexDirection:"row"}}>
                 <div>
-                    <img src={"/PhotoCecilePresentation.png"} style={{width:"250px",borderRadius: "50%"}}/>
+                    <img src={"/PhotoCecilePresentation.png"} className={"imagePresentation"}/>
                 </div>
                 <div>
-                    <p style={{fontSize:"18px", padding:"30px"}}>
+                    <p className={"textePaperPresentation"}>
                         Bienvenue à vous ! Je suis praticienne en Yogathérapie et Massages Ayurvédiques.
                         Ma première formation étant celle d'infirmière, j'ai souhaité me former en médecine complémentaire
                         pour mieux accompagner mes patients au quotidien...

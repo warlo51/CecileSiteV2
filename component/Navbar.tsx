@@ -13,7 +13,7 @@ export default function Navbar() {
             <NavDropdown title="Prestations" id="nav-dropdown" >
                 <NavDropdown.Item href={"/Yogatherapie"}>Yogathérapie</NavDropdown.Item>
                 <NavDropdown.Item href={"/Massages"}>Massages</NavDropdown.Item>
-                <NavDropdown.Item eventKey="4.3">Boite à outils</NavDropdown.Item>
+                <NavDropdown.Item href={"/boiteaoutils"}>Boite à outils</NavDropdown.Item>
             </NavDropdown>
         </Nav.Item>
         <Nav.Item>

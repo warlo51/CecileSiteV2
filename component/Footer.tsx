@@ -18,7 +18,7 @@ export default function Footer() {
             </div>
             <div className="DernierActivite">
                 <div className="centerOfFooter">
-                    <Image alt=""  width={150} height={150} src={"/LogoSite.PNG"} style={{backgroundColor:"#F8E7DD",border:"solid", borderRadius:"20px",marginTop:"15px"}}/>
+                    <Image alt=""  width={150} height={150} src={"/LogoEntier.png"} style={{backgroundColor:"#F8E7DD",border:"solid", borderRadius:"20px",marginTop:"15px"}}/>
                     <div className="logosReseaux">
                         <FacebookIcon sx={{ color: "#ee9251" }}/>
                         <InstagramIcon sx={{ color: "#ee9251" }}/>

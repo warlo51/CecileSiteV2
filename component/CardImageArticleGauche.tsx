@@ -32,9 +32,9 @@ export default function CardImageArticleGauche(props: any) {
                 image={image}
                 className="imageCard"
             />
-            <CardContent>
+            <CardContent className={"texteCardGauche"}>
                 <Typography gutterBottom style={{color:"gray",textAlign:"center"}}>
-                    {titre}
+                    <h2>{titre}</h2>
                 </Typography>
                 <Typography color="text.secondary">
                     {phrase}

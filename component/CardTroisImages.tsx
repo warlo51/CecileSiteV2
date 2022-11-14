@@ -20,7 +20,7 @@ export default function CardTroisImages(props: any) {
                 height="100px"
                 width="100px"
                 image={premiereImage}
-                className="imageCard"
+                className="imageCardTroisImages"
             />
             <CardMedia
                 component="img"
@@ -28,7 +28,7 @@ export default function CardTroisImages(props: any) {
                 height="100px"
                 width="100px"
                 image={deuxiemeImage}
-                className="imageCard"
+                className="imageCardTroisImages"
             />
             <CardMedia
                 component="img"
@@ -36,7 +36,7 @@ export default function CardTroisImages(props: any) {
                 height="100px"
                 width="100px"
                 image={troisiemeImage}
-                className="imageCard"
+                className="imageCardTroisImages"
             />
         </Card>
     );

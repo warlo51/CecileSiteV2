@@ -10,7 +10,12 @@ body{
     flex-direction: column;
     align-items: center;
 }
-
+.dropdown-menu{
+    background-color: #a2415e;
+}
+.dropdown-menu :hover{
+    background-color: #a2415e;
+}
 .LogoHeader{
     text-align: center;
 
@@ -41,11 +46,22 @@ body{
     width: 60%;
     justify-content: space-around;
 }
-.blocPrestations{
-    width: 300px;
 
+.BlocBoiteAOutils{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    justify-content: space-between;
 }
 
+.blocPrestations{
+    width: 300px;
+}
+.blocBoiteOutil{
+    width: 300px;
+    margin-right: 60px;
+}
 .BlocActus {
     display: flex;
     flex-direction: column;
@@ -65,8 +81,27 @@ body{
     height: 300px;
 
 }
+ .texteCardGauche{
+     margin-left: 200px;
+ }
+.texteCardDroite{
+    margin-right: 200px;
+}
 
+.articleDetails{
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   background-color: white;
+    width: 60%;
+    border-radius: 30px;
+}
+.imagePageArticleDetail{
+    width: 400px;
+}
 .Footer{
+
     background-color: #a2415e;
     color:black;
     height: 200px;
@@ -105,7 +140,7 @@ body{
     flex-direction: column;
 }
 .CardContent{
-    width: 700px;
+    width: 1000px;
     margin-bottom: 20px;
     background-color: #f8e7dd;
     border:none;
@@ -116,6 +151,11 @@ body{
     padding-left: 200px;
     width: 50%;
 }
+.texteCardsBAO{
+    display: flex;
+    flex-direction: row;
+    padding-top: 70px;
+}
 .texteCardsBis{
     padding-top: 80px;
     padding-left: 140px;
@@ -125,6 +165,17 @@ body{
     border-radius: 50%;
     height: 300px;
     width: 300px;
+}
+.imageCardTroisImages{
+    border-radius: 50%;
+    height: 300px;
+    width: 300px;
+}
+
+.imageCardBOA{
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
 }
 .ConteneurNavBar{
     display: flex;
@@ -167,7 +218,10 @@ body{
 .NavBar a:hover{
     color: #ee9251;
 }
-
+.imagePresentation{
+    width:250px;
+    border-radius: 50%;
+}
 h2{
     font-family: 'Euphoria Script', cursive;
 }
@@ -186,4 +240,135 @@ a{
 body{
     background-color: #F8E7DD;
 }
+.commentaireCard{
+    color:gray;
+    text-align:center;
+    font-weight:bold;
+    margin-top:30px;
+}
+.textePaperPresentation{
+    fontSize:18px;
+    padding:30px;
+    padding-top: 20px;
+}
+.Bloc1{
+    border-adius:20px;
+    height:300px;
+}
+@media screen and (max-width: 1440px) {
+    .BlocInformationLien{
+        margin-top: 40px;
+        display: flex;
+        flex-direction: row;
+        width: 90%;
+        justify-content: space-around;
+    }
+    .BlocInformationActu{
+        margin-top: 40px;
+        display: flex;
+        flex-direction: row;
+        width: 90%;
+        justify-content: space-around;
+    }
+}
 
+@media screen and (max-width: 1024px) {
+    .textePaperPresentation{
+        font-size: 11px;
+        height: 300px;
+    }
+    .Bloc1{
+        border-adius:20px;
+        height:300px;
+        width: 250px;
+    }
+    .NavBar a{
+        font-size: 16px;
+        padding-top: 17px;
+        color: white;
+        font-family: 'Merriweather', serif;
+    }
+    .NavBar{
+        width: 90%;
+    }
+    .imageCardBOA{
+        width: 200px;
+        height: 200px;
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+    .phrasePageContact{
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+  .imageCard{
+      width: 250px;
+      height: 250px;
+      margin-left: 50px;
+      margin-right: 50px;
+  }
+  .texteCards{
+      padding-top: 40px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+    .Information{
+        width: 80%;
+    }
+    .imagePresentation{
+        padding-top: 10px;
+        width:200px;
+        border-radius: 50%;
+    }
+    .textePaperPresentation{
+        font-size: 11px;
+        height: 300px;
+    }
+    .Bloc1{
+        border-adius:20px;
+        height:300px;
+        width: 200px;
+    }
+    .NavBar a{
+        font-size: 12px;
+        padding-top: 17px;
+        color: white;
+        font-family: 'Merriweather', serif;
+    }
+    .NavBar{
+        width: 90%;
+        height: 50px;
+    }
+    .imageCardBOA{
+        width: 200px;
+        height: 200px;
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+    .phrasePageContact{
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+    .imageCard{
+        width: 200px;
+        height: 200px;
+        margin-left: 150px;
+    }
+    .texteCards{
+        padding-top: 30px;
+    }
+    .commentaireCard{
+        color:gray;
+        text-align:center;
+        font-weight:bold;
+        margin-top:20px;
+        margin-left: 150px;
+        margin-right: 150px;
+    }
+    .imageCardTroisImages{
+        border-radius: 50%;
+        height: 100px;
+        width: 100px;
+    }
+}

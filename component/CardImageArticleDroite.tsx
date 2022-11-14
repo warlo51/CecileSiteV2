@@ -31,14 +31,15 @@ export default function CardImageArticleDroite(props: any) {
                 image={image}
                 className="imageCard"
             />
-            <CardContent>
+            <CardContent className={"texteCardDroite"}>
                 <Typography gutterBottom style={{color:"gray",textAlign:"center"}}>
-                    {titre}
+                    <h2>{titre}</h2>
                 </Typography>
                 <Typography color="text.secondary">
                     {phrase}
                 </Typography>
                 <Link
+                    className={"buttonVoirArticle"}
                     href={{
                         pathname: "/ArticleDetails",
                         query: { titre: titre, texte:texte, image:image },

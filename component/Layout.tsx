@@ -3,6 +3,8 @@ import Image from "next/image";
 import NavBar from "./Navbar";
 import {useState} from "react";
 import Footer from "./Footer";
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import Link from "next/link";
 
 export default function Layout({ children }: any) {
     const [hoverRdv, setHoverRdv] = useState(false)
@@ -24,6 +26,9 @@ export default function Layout({ children }: any) {
                 </div>
                 <div onMouseEnter={()=>setHoverRdv(true)} onMouseLeave={()=>setHoverRdv(false)}style={{position:"fixed",zIndex:2,marginTop:"150px"}}>
                     {hoverRdv ? <Image alt="" width={70} height={100} src={"/RdvHover.png"} /> : <Image alt={""} src={"/Rdv.png"} width={70} height={100}/>}
+                </div>
+                <div onMouseEnter={()=>setHoverRdv(true)} onMouseLeave={()=>setHoverRdv(false)}style={{position:"fixed",zIndex:2,bottom:0, right:0, padding:"10px"}}>
+                    <Link href={"#top"}><button style={{backgroundColor:"#ee9251", borderRadius:"50%", color:"white"}}><ArrowUpwardIcon /></button></Link>
                 </div>
                 <div className="ConteneurNavBar">
                     <NavBar />

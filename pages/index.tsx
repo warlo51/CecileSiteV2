@@ -8,6 +8,7 @@ import {useEffect, useState} from "react";
 import PopUp from "../component/PopUp";
 import axios from "axios";
 import {formatDistance, isBefore} from "date-fns";
+import Link from "next/link";
 
 export default function Index() {
 const [PopUpShow, setShowPopUp] = useState(false);
@@ -42,7 +43,7 @@ const [articles, setArticles] = useState([])
                         <Bloc1 titre={<h2 style={{color:"#ee9251"}}>Yogathérapie</h2>}  image={"/Yogatherapie.png"} texte={<p>Je vous accompagne grâce aux outils du yoga pour la gestions de vos maux.</p>}/>
                     </div>
                     <div className="blocPrestations">
-                        <Bloc1 titre={<h2 style={{color:"#458a83"}}>Boite à outils</h2>} image={"/Boiteaoutil.png"}texte={<p>Retrouvez ici des e-book, vidéos et audios à télécharger.</p>}/>
+                        <Link href={"/boiteaoutils"}><Bloc1 titre={<h2 style={{color:"#458a83"}}>Boite à outils</h2>} image={"/Boiteaoutil.png"}texte={<p>Retrouvez ici des e-book, vidéos et audios à télécharger.</p>}/></Link>
                     </div>
                     <div className="blocPrestations">
                         <Bloc1 titre={<h2 style={{color:"#a2415e"}}>Massages Ayurvédiques</h2>}  image={"/Massages.png"} texte={<p>Massages à l'huile tiédit a destinations des femmes</p>}/>

@@ -59,7 +59,7 @@ export default function Massages() {
                     <Image alt="" src={"/SeparationBarre.png"} width={300} height={150}/>
                 </div>
                 <div style={{marginBottom:"50px"}}>
-                    <Link href={"https://www.celeste-community.com/places/cecile-fabie/"}><Button style={{backgroundColor:"white", color:"black"}}>Prise de RDV</Button></Link>
+                    <Link href={"https://www.celeste-community.com/places/cecile-fabie/"}><Button style={{backgroundColor:"#a2415e", color:"white",borderRadius:"40px", border:"none"}}>Prise de RDV</Button></Link>
                 </div>
             </div>
         </Layout>

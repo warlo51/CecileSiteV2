@@ -26,7 +26,7 @@ export default function Actualites() {
                     if(index%2 == 0){
                         return(
                             <div key={index}>
-                                <CardImageArticleGauche titre={<h2>{article.titre}</h2>} phrase={<p>{article.phrase}</p>}  texte={article.texte} image={article.image}/>
+                                <CardImageArticleGauche titre={article.titre} phrase={<p>{article.phrase}</p>}  texte={article.texte} image={article.image}/>
                                 <div className="Separateur1" style={{textAlign:"center"}}>
                                     <Image alt="" src={"/SeparationBarre.png"} width={300} height={150}/>
                                 </div>
@@ -36,7 +36,7 @@ export default function Actualites() {
                     }else{
                         return(
                             <div key={index}>
-                                <CardImageArticleDroite  titre={article.titre} phrase={article.phrase}  texte={article.texte} image={article.image}/>
+                                <CardImageArticleDroite  titre={article.titre} phrase={<p>{article.phrase}</p>}  texte={article.texte} image={article.image}/>
                                 <div className="Separateur1" style={{textAlign:"center"}}>
                                     <Image alt="" src={"/SeparationBarre.png"} width={300} height={150}/>
                                 </div>

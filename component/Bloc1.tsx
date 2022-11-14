@@ -18,7 +18,7 @@ export default function Bloc1(props: any) {
         setTitre(props.titre)
     },[])
     return (
-        <Card  style={{borderRadius:"20px", height:"300px"}} >
+        <Card  className={"Bloc1"} >
             <CardMedia
                 component="img"
                 alt="green iguana"
