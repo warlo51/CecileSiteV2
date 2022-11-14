@@ -24,8 +24,10 @@ export default async function handler(
       },
     }
   ).then((data) => data.json());
-  const mailUserAuth0 = auth0searchUser.email;
 
+  console.log("token",auth0searchUser)
+  const mailUserAuth0 = auth0searchUser.email;
+  console.log("mailUserAuth0",mailUserAuth0)
   if (mailUserAuth0) {
     const cookies = res.setHeader("Set-Cookie", [
       cookie.serialize("AccessToken", tokenAccess, {
