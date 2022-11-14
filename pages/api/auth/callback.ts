@@ -18,16 +18,16 @@ export default async function handler(
   const auth0searchUser = await fetch(
     `https://${process.env.AUTH0_DOMAIN}/userinfo`,
     {
-      method: "Post",
+      method: "get",
       headers: {
         Authorization: `Bearer ${tokenAccess}`,
       },
     }
   ).then((data) => data.json());
 
-  console.log("token",auth0searchUser)
+
   const mailUserAuth0 = auth0searchUser.email;
-  console.log("mailUserAuth0",mailUserAuth0)
+
   if (mailUserAuth0) {
     const cookies = res.setHeader("Set-Cookie", [
       cookie.serialize("AccessToken", tokenAccess, {
@@ -41,9 +41,9 @@ export default async function handler(
     if (mailUserAuth0 === "cecile.fabie@gmail.com") {
       res.redirect(303, "/Admin");
     } else {
-      res.redirect(`/?email=${JSON.stringify(tokenAccess)}`);
+      res.redirect(`/?email=${JSON.stringify(auth0searchUser)}`);
     }
   } else {
-    res.redirect(`/?error=${JSON.stringify(tokenAccess)}`);
+    res.redirect(`/?error=${JSON.stringify(auth0searchUser)}`);
   }
 }
