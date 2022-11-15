@@ -146,6 +146,10 @@ body{
     border:none;
     box-shadow: none;
 }
+.logoTop{
+    width: 500px;
+    height:300px;
+}
 .texteCards{
     padding-top: 80px;
     padding-left: 200px;
@@ -171,7 +175,11 @@ body{
     height: 300px;
     width: 300px;
 }
-
+.phraseBlocPres{
+    text-align:center;
+    margin-top:20px;
+    font-size:40px;
+}
 .imageCardBOA{
     border-radius: 50%;
     height: 200px;
@@ -330,16 +338,7 @@ body{
         height:300px;
         width: 200px;
     }
-    .NavBar a{
-        font-size: 12px;
-        padding-top: 17px;
-        color: white;
-        font-family: 'Merriweather', serif;
-    }
-    .NavBar{
-        width: 90%;
-        height: 50px;
-    }
+
     .imageCardBOA{
         width: 200px;
         height: 200px;
@@ -370,5 +369,149 @@ body{
         border-radius: 50%;
         height: 100px;
         width: 100px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .BlocInformationLien{
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+    }
+    .Information{
+        width: 100%;
+    }
+
+    .logoTop{
+        width: 100px;
+        height:100px;
+    }
+    .imagePresentation{
+        width: 100px;
+    }
+    .Separateur1{
+        width: 200px;
+        height: 100px;
+    }
+    .textePaperPresentation{
+        font-size: 10px;
+        padding-top: 0;
+    }
+    .phraseBlocPres{
+        font-size: 15px;
+    }
+    .BlocInformationActu{
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+    }
+    .Footer{
+        background-color: #a2415e;
+        color:black;
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+    .centerOfFooter{
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .BlocInformationLien{
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+    }
+    .Information{
+        width: 100%;
+    }
+
+    .logoTop{
+        width: 100px;
+        height:100px;
+    }
+    .imagePresentation{
+        width: 100px;
+    }
+    .Separateur1{
+        width: 200px;
+        height: 100px;
+    }
+    .textePaperPresentation{
+        font-size: 9px;
+        padding-top: 0;
+    }
+    .phraseBlocPres{
+        font-size: 15px;
+    }
+    .BlocInformationActu{
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+    }
+    .Footer{
+        background-color: #a2415e;
+        color:black;
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+    .centerOfFooter{
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .BlocInformationLien{
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+    }
+    .Information{
+        width: 100%;
+    }
+
+    .logoTop{
+        width: 100px;
+        height:100px;
+    }
+    .imagePresentation{
+        width: 100px;
+    }
+    .Separateur1{
+        width: 200px;
+        height: 100px;
+    }
+    .textePaperPresentation{
+        font-size: 6.5px;
+        padding-top: 0;
+    }
+    .phraseBlocPres{
+        font-size: 15px;
+    }
+    .BlocInformationActu{
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+    }
+    .Footer{
+        background-color: #a2415e;
+        color:black;
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+    .centerOfFooter{
+        align-items: center;
     }
 }

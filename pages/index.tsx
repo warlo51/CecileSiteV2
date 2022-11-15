@@ -28,12 +28,12 @@ const [articles, setArticles] = useState([])
     return (
         <Layout>
             <div className="BlocInformation">
-                <h2 style={{textAlign:"center", marginTop:"20px", fontSize:"40px"}}>« Je m&apos;apelle Cécile et j&apos;ai à coeur de vous accompagner vers un mieux être physique, psychique et émotionnel »</h2>
+                <h2  className="phraseBlocPres" >« Je m&apos;apelle Cécile et j&apos;ai à coeur de vous accompagner vers un mieux être physique, psychique et émotionnel »</h2>
                 <div className="Information">
                     <BlocInformation />
                 </div>
-                <div className="Separateur1" style={{textAlign:"center"}}>
-                    <Image alt="" src={"/SeparationBarre.png"} width={300} height={150}/>
+                <div  style={{textAlign:"center"}}>
+                    <Image alt="" src={"/SeparationBarre.png"} className="Separateur1" width={300} height={150}/>
                 </div>
             </div>
             <div className="BlocLiens">
@@ -52,7 +52,7 @@ const [articles, setArticles] = useState([])
                 <br/>
                 {PopUpShow === true ? <PopUp show={true} /> : <PopUp show={false} />}
                 <div className="Separateur2" style={{textAlign:"center"}}>
-                    <Image alt="" src={"/SeparationBarre.png"} width={300} height={150}/>
+                    <Image alt="" src={"/SeparationBarre.png"} className="Separateur1"  width={300} height={150}/>
                 </div>
             </div>
             <div className="BlocActus">
@@ -67,7 +67,7 @@ const [articles, setArticles] = useState([])
                     })}
                 </div>
                 <div className="Separateur3" style={{textAlign:"center"}}>
-                    <Image alt="" src={"/SeparationBarre.png"} width={300} height={150}/>
+                    <Image alt="" src={"/SeparationBarre.png"} className="Separateur1" width={300} height={150}/>
                 </div>
             </div>
             <div className="FormulaireContact">
@@ -80,7 +80,7 @@ const [articles, setArticles] = useState([])
                     })}
                 </div>
                 <div className="Separateur3" style={{textAlign:"center"}}>
-                    <Image alt="" src={"/SeparationBarre.png"} width={300} height={150}/>
+                    <Image alt="" src={"/SeparationBarre.png"} className="Separateur1" width={300} height={150}/>
                 </div>
             </div>
         </Layout>

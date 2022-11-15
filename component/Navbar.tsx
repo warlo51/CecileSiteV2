@@ -1,37 +1,29 @@
-import * as React from 'react';
-import {Nav, NavDropdown} from 'react-bootstrap';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
-export default function Navbar() {
+function NavBar() {
     return (
-        <Nav className="NavBar" activeKey="1" justify={true}>
-            <Nav.Item>
-                <Nav.Link eventKey="1" href="/">
-                    Accueil
-                </Nav.Link>
-            </Nav.Item>
-        <Nav.Item>
-            <NavDropdown title="Prestations" id="nav-dropdown" >
-                <NavDropdown.Item href={"/Yogatherapie"}>Yogathérapie</NavDropdown.Item>
-                <NavDropdown.Item href={"/Massages"}>Massages</NavDropdown.Item>
-                <NavDropdown.Item href={"/boiteaoutils"}>Boite à outils</NavDropdown.Item>
-            </NavDropdown>
-        </Nav.Item>
-        <Nav.Item>
-            <Nav.Link href={"/Actualites"}>
-                Actualités
-            </Nav.Link>
-        </Nav.Item>
-            <Nav.Item>
-                <Nav.Link href={"/Contact"}>
-                    Contact
-                </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link href={"/Membres"}>
-                    Espace Membres
-                </Nav.Link>
-            </Nav.Item>
-</Nav>
-
+        <Navbar expand="lg"  className="NavBar" >
+            <Container>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">
+                        <Nav.Link href="/">Accueil</Nav.Link>
+                        <NavDropdown title="Prestations" id="basic-nav-dropdown">
+                            <NavDropdown.Item href="/Yogatherapie">Yogathérapie</NavDropdown.Item>
+                            <NavDropdown.Item href="/Massages">Massages</NavDropdown.Item>
+                            <NavDropdown.Item href="/boiteaoutils">Boite à outils</NavDropdown.Item>
+                        </NavDropdown>
+                        <Nav.Link href="/Actualites">Actualites</Nav.Link>
+                        <Nav.Link href="/Contact">Contact</Nav.Link>
+                        <Nav.Link href="/Membres">Espace Membres</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     );
 }
+
+export default NavBar;

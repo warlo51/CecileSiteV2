@@ -21,7 +21,7 @@ export default function Layout({ children }: any) {
             <div className="container-fluid">
                 <div className="LogoHeader">
                     <div className="Logo">
-                        <Image alt=""  width={500} height={300} src={"/LogoSite.png"}/>
+                        <img alt="" className={"logoTop"} src={"/LogoSite.png"}/>
                     </div>
                 </div>
                 <div onMouseEnter={()=>setHoverRdv(true)} onMouseLeave={()=>setHoverRdv(false)}style={{position:"fixed",zIndex:2,marginTop:"150px"}}>
