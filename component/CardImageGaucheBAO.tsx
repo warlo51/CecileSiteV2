@@ -9,26 +9,41 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import { loadStripe } from '@stripe/stripe-js';
 
+const stripePromise = loadStripe(
+    process.env.STRIPE_PUBLIC_KEY!
+);
+
 export default function CardImageGaucheBAO(props: any) {
     const [montant, setMontant] = useState()
     const [commentaires, setCommentaire] = useState()
     const [titre, setTitre] = useState()
+    const [gratuit, setGratuit] = useState()
+    const [priceCode, setPriceCode] = useState()
     const image = props.image;
     const tailleImage = props.tailleImage;
 
-    function paymentAction(id: any){
-        axios.post("/api/achats/checkout_sessions",{
-            idArticle: id
-        }).then((result: any) => result);
-    }
+    React.useEffect(() => {
+        // Check to see if this is a redirect back from Checkout
+        const query = new URLSearchParams(window.location.search);
+        if (query.get('success')) {
+            console.log('Order placed! You will receive an email confirmation.');
+        }
+
+        if (query.get('canceled')) {
+            console.log('Order canceled -- continue to shop around and checkout when you’re ready.');
+        }
+    }, []);
 
     useEffect(()=>{
         setMontant(props.montant)
         setCommentaire(props.commentaires)
         setTitre(props.titre)
+        setGratuit(props.gratuit)
+        setPriceCode(props.priceCode)
+
     },[])
     return (
-        <form action={`/api/achats/checkout_sessions?article?price_1M4LdDCPvHQLvBLyqOtWYBf6`} method={"POST"}>
+        <form action={`/api/achats/checkout_sessions?priceCode=${priceCode}`} method="POST">
         <Card  className="CardContent" style={{display:"flex",flexDirection:"column",width:"1000px"}} >
             <div style={{display:"flex",flexDirection:"row"}}>
                 <CardMedia
@@ -45,9 +60,7 @@ export default function CardImageGaucheBAO(props: any) {
                     </Typography>
                     <Typography style={{display:"flex",flexDirection:"column"}}>
                         {montant}
-
-                            <button style={{backgroundColor:"#a2415e",color:"white", borderRadius:"40px"}} type={"submit"}>Telécharger</button>
-
+                        {gratuit === true ? <Button style={{backgroundColor:"#a2415e",color:"white", borderRadius:"40px"}}><a href="/EBook.pdf" download="EBooK_gratuit">Telécharger</a></Button>:<button style={{backgroundColor:"#a2415e",color:"white", borderRadius:"40px"}} type={"submit"}>Telécharger</button>}
                     </Typography>
                 </CardContent>
             </div>

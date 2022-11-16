@@ -7,9 +7,10 @@ export default async function handler(
 ) {
 
     const mongodb = await getDatabase();
-    const data = req.body.arrayOfPhotoToDelete;
-    if(data.length !== 0) {
-        const dataReceived = await mongodb.db().collection(`ImageRandom`).deleteMany({idPhoto: { $in: data}});
-    }
+    const id = req.body.id;
+    const titre = req.body.titre;
+
+   const dataReceived = await mongodb.db().collection(`Membres`).updateOne( { idMembre: id }, { $pull: { fichier : {titre:titre} } } )
+
     res.status(200).send({data: "Ok"});
 }

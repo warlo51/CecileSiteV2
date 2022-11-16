@@ -1,4 +1,4 @@
-import {Accordion, Button, Card, Col, Dropdown, Form, Row} from "react-bootstrap";
+import {Accordion, Button, Card, Col, Dropdown, Form, Row, Table} from "react-bootstrap";
 import React, { useEffect, useRef, useState } from "react";
 import jwt_decode from "jwt-decode";
 import Layout from "../component/Layout";
@@ -6,10 +6,12 @@ import LayoutAdmin from "../component/LayoutAdmin";
 import {useRouter} from "next/router";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
-import PopUpNouvelArticle from "../component/PopUpNouvelArticle";
+import AddIcon from '@mui/icons-material/Add';
+import CloseIcon from '@mui/icons-material/Close';
 import Modal from "react-bootstrap/Modal";
-import {ImageList, ImageListItem} from "@mui/material"
+import {Container, ImageList, ImageListItem, Paper} from "@mui/material"
 import CancelIcon from '@mui/icons-material/Cancel';
+import InfoBulle from "../component/Toast";
 
 
 export const getServerSideProps = async (context) =>{
@@ -38,8 +40,10 @@ export const getServerSideProps = async (context) =>{
 export default function Administration(props) {
 
     const [data, setData] = useState();
+    const [infoBulle, setInfoBulle] = useState(<></>);
     const [reload, setReaload] = useState(false);
     const [openPopUpNewArt, setOpenPopUpNewArt] = useState(false);
+    const [openPopUpNewProd, setOpenPopUpNewProd] = useState(false);
     const [openPopUpNewMembre, setOpenPopUpNewMembre] = useState(false);
 
     const [articles, setArticles] = useState([]);
@@ -56,11 +60,19 @@ export default function Administration(props) {
     const [texte, setTexte] = useState();
     const [phrase, setPhrase] = useState();
     const [image, setImage] = useState();
+    const [codePrix, setCodePrice] = useState();
+    const [prix, setPrix] = useState();
+    const [membreSelected, setMembreSelected] = useState();
+    const [addFichierMore, setAddFichierMore] = useState([]);
+    const [arrayOfPhotoToDelete, setArrayOfPhotoToDelete] = useState([]);
+    const [photoSelected, setPhotoSelected] = useState(false);
 
     const [nom, setNom] = useState();
     const [prenom, setPrenom] = useState();
     const [telephone, setTelephone] = useState();
     const [email, setEmail] = useState();
+    const [fichier, setFichier] = useState();
+    const [arrayOfFichier, setArrayOfFichier] = useState([]);
 
     const [selectionSectionMembre, setSelectionSectionMembre] = useState();
 
@@ -68,6 +80,32 @@ export default function Administration(props) {
         const file = event.target.files[0];
         const base64 = await convertBase64(file);
         setImage(base64);
+    }
+
+    async function fileSelectedMembre(event){
+        const file = event.target.files[0];
+        const base64 = await convertBase64(file);
+        setFichier(base64);
+    }
+
+    async function fileAddIntoArrayOfFile(event, index){
+        const file = event.target.files[0];
+        const base64 = await convertBase64(file);
+        setArrayOfFichier([...arrayOfFichier,{lien:base64}]);
+    }
+
+    async function fileAddIntoArrayOfFileTitre(titre, index){
+        arrayOfFichier[index] = {...arrayOfFichier[index],titre:titre}
+    }
+
+    async function validationFichierMembre(id){
+        const reponse = await axios.post(`/api/data/addNouveauFichierMembre`, {
+            idMembre: id,
+            fichier: arrayOfFichier
+        }).then((result) => result);
+        if(reponse.data.data === "Ok"){
+            setReaload(true)
+        }
     }
 
     async function changeImageArticles(id, event){
@@ -131,6 +169,17 @@ export default function Administration(props) {
         setReaload(true)
     }
 
+    async function addNewProduit() {
+        await axios.post(`/api/data/addNouveauProduit`, {
+            priceCode: codePrix,
+            image:image,
+            prix:prix,
+            titre:titre
+        }).then((result) => result);
+
+        setReaload(true)
+    }
+
     useEffect(()=>{
         async function loadData(){
             const listeArticles =  await axios.get(`/api/data/loadingArticles`).then((result) => result);
@@ -149,14 +198,24 @@ export default function Administration(props) {
 
             setData(listeMembres.data.data)
         }
+        async function loadProduits(){
+            const listeProduits =  await axios.get(`/api/data/loadingProduits`).then((result) => result);
+
+            setData(listeProduits.data.data)
+        }
         if(page === "articles"){
             loadData()
             setReaload(false)
         }else if(page === "photos"){
             loadPhotos()
+            setReaload(false)
+        }else if(page === "produits"){
+            loadProduits()
+            setReaload(false)
         }else if(page === "membres"){
             if(selectionSectionMembre === "listeMembres"){
                 loadMembres()
+                setReaload(false)
             }
         }
 
@@ -184,17 +243,136 @@ export default function Administration(props) {
         if(tableauArticlesModifie.length !== 0){
             const listeArticles = await axios.post(`/api/data/modificationArticles`,{tableauArticlesModifie}).then((result) => result);
             tableauArticlesModifie = [];
+
+            if(listeArticles.data.data === "Ok"){
+                setInfoBulle(<InfoBulle validation={true}/>)
+                setTimeout(()=>{
+                    setInfoBulle(<></>)
+                },3000)
+            }else{
+                setInfoBulle(<InfoBulle validation={false}/>)
+                setTimeout(()=>{
+                    setInfoBulle(<></>)
+                },3000)
+            }
+        }
+        setReaload(true)
+    }
+
+
+    async function validationMembre(id) {
+        const listeMembre = await axios.post(`/api/data/modificationMembre`,{email: email, telephone:telephone, nom:nom,prenom:prenom, id:id}).then((result) => result);
+        if(listeMembre.data.data === "Ok"){
+            setInfoBulle(<InfoBulle validation={true}/>)
+            setTimeout(()=>{
+                setInfoBulle(<></>)
+            },3000)
+        }else{
+            setInfoBulle(<InfoBulle validation={false}/>)
+            setTimeout(()=>{
+                setInfoBulle(<></>)
+            },3000)
+        }
+        setReaload(true)
+    }
+
+    async function validationProduits() {
+        if(tableauArticlesModifie.length !== 0){
+            const listeArticles = await axios.post(`/api/data/modificationProduits`,{tableauArticlesModifie}).then((result) => result);
+            if(listeArticles.data.data === "Ok"){
+                setInfoBulle(<InfoBulle validation={true}/>)
+                setTimeout(()=>{
+                    setInfoBulle(<></>)
+                },3000)
+            }else{
+                setInfoBulle(<InfoBulle validation={false}/>)
+                setTimeout(()=>{
+                    setInfoBulle(<></>)
+                },3000)
+            }
+            tableauArticlesModifie = [];
         }
         setReaload(true)
     }
 
     async function suppressionArticles(id) {
         const listeArticles = await axios.post(`/api/data/supressionArticles`, {id}).then((result) => result);
+        if(listeArticles.data.data === "Ok"){
+            setInfoBulle(<InfoBulle validation={true}/>)
+            setTimeout(()=>{
+                setInfoBulle(<></>)
+            },3000)
+        }else{
+            setInfoBulle(<InfoBulle validation={false}/>)
+            setTimeout(()=>{
+                setInfoBulle(<></>)
+            },3000)
+        }
         setReaload(true)
     }
-    async function suppressionPhoto(id) {
-        const photosDelete = await axios.post(`/api/data/supressionPhoto`, {id}).then((result) => result);
+
+    async function suppressionFichier(id, titre) {
+        const listeFichier = await axios.post(`/api/data/supressionFichier`, {id, titre}).then((result) => result);
+        if(listeFichier.data.data === "Ok"){
+            setInfoBulle(<InfoBulle validation={true}/>)
+            setTimeout(()=>{
+                setInfoBulle(<></>)
+            },3000)
+        }else{
+            setInfoBulle(<InfoBulle validation={false}/>)
+            setTimeout(()=>{
+                setInfoBulle(<></>)
+            },3000)
+        }
         setReaload(true)
+    }
+
+    async function suppressionMembre(id) {
+        const listeMembre = await axios.post(`/api/data/supressionMembre`, {id}).then((result) => result);
+        if(listeMembre.data.data === "Ok"){
+            setInfoBulle(<InfoBulle validation={true}/>)
+            setTimeout(()=>{
+                setInfoBulle(<></>)
+            },3000)
+        }else{
+            setInfoBulle(<InfoBulle validation={false}/>)
+            setTimeout(()=>{
+                setInfoBulle(<></>)
+            },3000)
+        }
+        setReaload(true)
+    }
+    async function suppressionProduits(id) {
+        const listeArticles = await axios.post(`/api/data/supressionProduits`, {id}).then((result) => result);
+        if(listeArticles.data.data === "Ok"){
+            setInfoBulle(<InfoBulle validation={true}/>)
+            setTimeout(()=>{
+                setInfoBulle(<></>)
+            },3000)
+        }else{
+            setInfoBulle(<InfoBulle validation={false}/>)
+            setTimeout(()=>{
+                setInfoBulle(<></>)
+            },3000)
+        }
+        setReaload(true)
+    }
+    async function suppressionPhoto() {
+        const photosDelete = await axios.post(`/api/data/supressionPhoto`, {arrayOfPhotoToDelete}).then((result) => result);
+        if(photosDelete.data.data === "Ok"){
+            setInfoBulle(<InfoBulle validation={true}/>)
+            setTimeout(()=>{
+                setInfoBulle(<></>)
+                setReaload(true)
+            },3000)
+        }else{
+            setInfoBulle(<InfoBulle validation={false}/>)
+            setTimeout(()=>{
+                setInfoBulle(<></>)
+                setReaload(false)
+            },3000)
+        }
+
     }
     async function nouvelArticle() {
         setOpenPopUpNewArt(true)
@@ -202,6 +380,9 @@ export default function Administration(props) {
     }
     async function nouveauMembre() {
         setOpenPopUpNewMembre(true)
+    }
+    async function nouveauProduit() {
+        setOpenPopUpNewProd(true)
         setReaload(true)
     }
 
@@ -268,34 +449,164 @@ export default function Administration(props) {
                         </Modal>
                     </>
                 </div>
+                {infoBulle}
+            </LayoutAdmin>)
+        }else if(page === "produits"){
+            return (<LayoutAdmin>
+                <div style={{display:"flex", flexDirection:"column", marginTop:"100px", marginBottom:"100px", alignItems:"center"}}>
+                    <Button onClick={()=>nouveauProduit()}>Ajouter un produit</Button>
+                    <br/>
+                    <Accordion defaultActiveKey="0" style={{width:"800px"}}>
+                        {data !== undefined && data?.map((element, index)=> {
+                            const id=element.priceCode;
+                            return(
+                                <Accordion.Item key={index} eventKey={id}>
+                                    <Accordion.Header><textarea onChange={(event)=> changeTitreArticles(id,event.target.value)} rows={1} style={{fontFamily:"Arial"}} cols={85}>{element.titre}</textarea></Accordion.Header>
+                                    <Accordion.Body>
+                                        <div style={{display:"flex",flexDirection:"row"}}>
+                                            <textarea onChange={(event)=> changeTexteArticles(id,event.target.value)} rows={10} cols={60}>{element.texte}</textarea>
+                                            <img src={element.image} width={"200px"}/>
+                                        </div>
+                                        <input type="file" id="titre" onChange={(event) => {changeImageArticles(id,event)}}></input><br></br><br></br>
+                                        <Button style={{marginRight:"10px"}} onClick={validationProduits}>Valider Modifications</Button>
+                                        <Button onClick={()=>suppressionProduits(id)}>Supprimer le produit</Button>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                            )
+                        })}
+                    </Accordion>
+                    <>
+                        <Modal
+                            id={"popUpNEwArticle"}
+                            show={openPopUpNewProd}
+                            onHide={() => setOpenPopUpNewProd(false)}
+                            dialogClassName="modal-90w"
+                            aria-labelledby="example-custom-modal-styling-title"
+                        >
+                            <Modal.Header closeButton>
+                                <Modal.Title id="example-custom-modal-styling-title" >
+                                    <h3 style={{padding:"30px", color:"#a2415e"}}>Nouveau produit</h3>
+                                </Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <div style={{display:"flex", flexDirection:"column", textAlign:"center"}}>
+                                    <Form className="formulaireContact">
+                                        <br/>
+                                        <div style={{display:"flex",flexDirection:"column"}}>
+                                            <Form.Group className="mb-3" controlId="codePrice" style={{width:"400px"}}>
+                                                <Form.Control type="text" name="codePrice" placeholder="Code Prix"onChange={(event)=>setCodePrice(event.target.value)} />
+                                            </Form.Group>
+                                            <Form.Group className="mb-3" controlId="titre" style={{width:"400px"}}>
+                                                <Form.Control type="text" name="titre" placeholder="Titre"onChange={(event)=>setTitre(event.target.value)} />
+                                            </Form.Group>
+                                            <Form.Group className="mb-3" controlId="prix" style={{width:"400px"}}>
+                                                <Form.Control type="text" name="prix" placeholder="Prix"onChange={(event)=>setPrix(event.target.value)} />
+                                            </Form.Group>
+                                            <Form.Label>Image :<Form.Control type="file" id="titre" onChange={(event) => {fileSelectedHandler(event)}}></Form.Control></Form.Label>
+                                        </div>
+                                        <Button onClick={()=>{addNewProduit()}} >
+                                            Valider
+                                        </Button>
+                                    </Form>
+                                </div>
+                            </Modal.Body>
+                        </Modal>
+                    </>
+                </div>
             </LayoutAdmin>)
         }else if (page === "membres"){
             return (<LayoutAdmin>
                 <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
                     <br/>
                     <div style={{display:"flex",flexDirection:"row", alignItems:"center"}}>
-                        <Button onClick={()=>nouveauMembre()}>Ajouter un membre</Button>
-                        <Button onClick={()=>setSelectionSectionMembre("listeMembres")}>Afficher les membres</Button>
+                        <Button style={{marginRight:"20px"}}  onClick={()=>setSelectionSectionMembre("listeMembres")}>Afficher les membres</Button>
                         <Button onClick={()=>setSelectionSectionMembre("???")}>???</Button>
                     </div>
                     <br/>
                     {selectionSectionMembre === "listeMembres" ?
-                        data?.map((membre, index)=>{
-                            return(<Accordion key={index}>
-                                <Accordion.Item>
-                                    <Accordion.Header style={{fontFamily:"Arial"}}>{membre.nom} {membre.prenom}</Accordion.Header>
-                                    <Accordion.Body>
-                                        <div>
-                                            <p>Telephone: {membre.telephone}</p>
-                                            <p>Email: {membre.email}</p>
+                        <Container maxWidth="xl">
+                            <Row>
+                                <Col sm={5} >
+                                    <AddIcon onClick={()=>nouveauMembre()}/>
+                                    <Table style={{width:"100px"}} striped bordered hover>
+                                        <thead style={{borderBottom:"solid"}}>
+                                        <tr style={{fontWeight:"bold"}}>
+                                            <td>Nom</td>
+                                            <td>Prénom</td>
+                                            <td>Email</td>
+                                            <td>Telephone</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody className={"trMembre"}>
+                                        {data?.map((membre, index)=> {
+                                            return(<tr onClick={()=>setMembreSelected(index)}>
+                                                <td style={{padding:"10px", marginRight:"10px"}}>{membre.nom}</td>
+                                                <td>{membre.prenom}</td>
+                                                <td>{membre.email}</td>
+                                                <td>{membre.telephone}</td>
+                                            </tr>)
+                                        })}
+                                        </tbody>
+                                    </Table>
+                                </Col>
+                                <Col sm={7}>
+                                    <Paper style={{width:"100%", height:"700px"}}>
+                                    {membreSelected !== undefined &&
+                                        <div style={{display:"flex",flexDirection:"column",justifyContent: "space-around"}}>
+                                               <Form style={{display:"flex",flexDirection:"row",justifyContent: "space-around"}}>
+                                                   <Form.Label>Nom :<Form.Control type="text" name="nom" placeholder={`${data[membreSelected].nom}`} onChange={(event)=>setNom(event.target.value)} /></Form.Label>
+                                                   <Form.Label>Prenom :<Form.Control type="text" name="prenom" placeholder={`${data[membreSelected].prenom}`} onChange={(event)=>setPrenom(event.target.value)} /></Form.Label>
+                                                   <Form.Label>Telephone :<Form.Control type="text" name="telephone" placeholder={`${data[membreSelected].telephone}`} onChange={(event)=>setTelephone(event.target.value)} /></Form.Label>
+                                                   <Form.Label>Email: <Form.Control type="text" name="email" placeholder={`${data[membreSelected].email}`} onChange={(event)=>setEmail(event.target.value)} /></Form.Label>
+                                               </Form>
+                                            <div style={{display:"flex",flexDirection:"row", justifyContent: "space-around"}}>
+                                                <Button style={{width:"150px", fontSize:"10px"}} onClick={()=>{validationMembre(data[membreSelected].idMembre)}}>Valider Modifications</Button>
+                                                <Button style={{width:"150px",fontSize:"10px"}} onClick={()=>suppressionMembre(data[membreSelected].idMembre)}>Supprimer le membre</Button>
+                                            </div>
+                                            <hr />
+                                            <div style={{display:"flex",flexDirection:"row",justifyContent: "space-around"}}>
+                                                {data[membreSelected].rdv?.map((rdv, index)=>{
+                                                    if(index === 0){
+                                                        return(<p>Precedent rdv {rdv}</p>)
+                                                    }else if(index === 1){
+                                                        return(<p>Prochain rdv {rdv}</p>)
+                                                    }
+                                                })}
+                                            </div>
+                                            <hr />
+                                            <AddIcon onClick={()=> setAddFichierMore([...addFichierMore,1])}/>
+                                            <div>
+                                                {addFichierMore?.map((fichier, index)=>{
+                                                    return(<>
+                                                        <Form.Label>Titre :<Form.Control type="texte" id="titre" onChange={(event) => {fileAddIntoArrayOfFileTitre(event.target.value,index)}}></Form.Control></Form.Label>
+                                                        <Form.Label>Fichier :<Form.Control type="file" id="fichier" onChange={(event) => {fileAddIntoArrayOfFile(event,index)}}></Form.Control></Form.Label>
+                                                    </>)
+                                                })}
+                                            </div>
+                                            <Button style={{width:"150px", fontSize:"10px"}} onClick={()=>{validationFichierMembre(data[membreSelected].idMembre)}}>Enregistrer les fichiers</Button>
+                                            <Table style={{width:"100px"}} striped bordered hover>
+                                                <thead style={{borderBottom:"solid"}}>
+                                                <tr style={{fontWeight:"bold"}}>
+                                                    <td>Lien</td>
+                                                </tr>
+                                                </thead>
+                                                <tbody style={{width:"100px"}}>
+                                                {data[membreSelected].fichier?.map((fichier, index)=> {
+                                                    return(<tr key={fichier.titre} onClick={()=>setMembreSelected(index)}>
+                                                        <td style={{padding:"10px", marginRight:"10px"}}>{fichier.titre} <CloseIcon style={{color:"#a2415e"}} onClick={()=> suppressionFichier(data[membreSelected].idMembre,fichier.titre)}/></td>
+                                                    </tr>)
+                                                })}
+                                                </tbody>
+                                            </Table>
                                         </div>
-                                    </Accordion.Body>
-                                </Accordion.Item>
-                            </Accordion>)
-                        }): <></>}
+                                    }
+                                    </Paper>
+                                </Col>
 
+                            </Row>
 
-
+                        </Container>
+                        : <></>}
                     <>
                         <Modal
                             id={"popUpNEwArticle"}
@@ -336,6 +647,7 @@ export default function Administration(props) {
                         </Modal>
                     </>
                 </div>
+                {infoBulle}
             </LayoutAdmin>)
         }else if (page === "photos"){
             return (<LayoutAdmin>
@@ -346,7 +658,9 @@ export default function Administration(props) {
                 <ImageList style={{marginTop:"20px",justifyContent:"start"}} cols={3}>
                     {data?.map((photo, index)=>{
                         return(<div key={index} style={{padding:"40px"}}>
-                            <Button style={{backgroundColor:"transparent", border:"none"}}><CancelIcon onClick={(event)=>{suppressionPhoto(photo.idPhoto)}} style={{color:"#a2415e"}}/></Button>
+                            <Button style={{backgroundColor:"transparent", border:"none"}}>
+                                <CancelIcon onClick={(event)=>{setArrayOfPhotoToDelete([...arrayOfPhotoToDelete,photo.idPhoto])}} style={{color:"#a2415e"}}/>
+                            </Button>
                             <ImageListItem key={index} style={{height:"200px",width:"200px"}}>
                                 <img
                                     src={photo.lien}
@@ -357,6 +671,8 @@ export default function Administration(props) {
                         </div>)
                     })}
                     </ImageList>
+                <Button style={{border:"none"}} onClick={()=>suppressionPhoto()}>Valider toutes les modifications</Button>
+                {infoBulle}
             </LayoutAdmin>)
         }else{
             return (<LayoutAdmin>

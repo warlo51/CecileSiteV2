@@ -7,9 +7,9 @@ export default async function handler(
 ) {
 
     const mongodb = await getDatabase();
-    const data = req.body.arrayOfPhotoToDelete;
-    if(data.length !== 0) {
-        const dataReceived = await mongodb.db().collection(`ImageRandom`).deleteMany({idPhoto: { $in: data}});
-    }
+    const data = req.body.id;
+
+    const dataReceived = await mongodb.db().collection(`Produits`).deleteOne({priceCode:`${data}`});
+
     res.status(200).send({data: "Ok"});
 }

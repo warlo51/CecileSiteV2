@@ -2,8 +2,23 @@ import Layout from "../../../component/Layout";
 import CardImageGauche from "../../../component/CardImageGauche";
 import CardImageGaucheBAO from "../../../component/CardImageGaucheBAO";
 import Link from "next/link";
+import {loadStripe} from "@stripe/stripe-js";
+import {useEffect, useState} from "react";
+import axios from "axios";
+
 
 export default function index() {
+
+    const [produits, setProduits] = useState([])
+    useEffect(()=>{
+        async function loadData(){
+            const listeProduits =  await axios.get("/api/data/loadingProduits").then((result: any) => result);
+
+            setProduits(listeProduits.data.data.reverse())
+        }
+        loadData();
+    },[])
+
     return (
         <Layout>
             <div className="container">
@@ -12,16 +27,25 @@ export default function index() {
                 <div style={{textAlign:"center", marginTop:"50px"}}>
                     <h1 style={{marginBottom:"20px"}}>Les outils numériques</h1>
                 </div>
-                <CardImageGaucheBAO
-                    image={"/YogatherapiePremierImage.png"}
-                    tailleImage={50}
-                    titre={<h2>Nom de l'outil</h2>}
-                    montant={<h2>Montant : 0 €</h2>}/>
-                <CardImageGaucheBAO
-                    image={"/YogatherapiePremierImage.png"}
-                    tailleImage={50}
-                    titre={<h2>Nom de l'outil</h2>}
-                    montant={<h2>Montant : 0 €</h2>}/>
+                {produits.length !== 0 && produits.map((produit:any)=> {
+                    if(produit.prix === '0'){
+                        return(<CardImageGaucheBAO
+                            image={produit.image}
+                            tailleImage={50}
+                            titre={<h2>{produit.titre}</h2>}
+                            montant={<h2>{produit.prix} €</h2>}
+                            gratuit={true}/>)
+
+                    }else{
+                        return(<CardImageGaucheBAO
+                            image={produit.image}
+                            tailleImage={50}
+                            priceCode={produit.priceCode}
+                            titre={<h2>{produit.titre}</h2>}
+                            montant={<h2>{produit.prix} €</h2>}
+                            gratuit={false}/>)
+                    }
+                })}
             </div>
             <br/>
             <br/>

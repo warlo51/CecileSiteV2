@@ -190,7 +190,15 @@ body{
     flex-direction: column;
     align-items: center;
 }
-
+.accordionMembres{
+    width: 400px;
+}
+.trMembre :hover{
+    background-color: #ee9251;
+}
+.trMembre {
+   font-size: 10px;
+}
 .FormulaireContact{
     display: flex;
     flex-direction: column;
