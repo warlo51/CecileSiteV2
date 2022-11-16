@@ -5,6 +5,8 @@ import Layout from "../component/Layout";
 import LayoutAdmin from "../component/LayoutAdmin";
 import {useRouter} from "next/router";
 import axios from "axios";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { v4 as uuidv4 } from 'uuid';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
@@ -12,6 +14,7 @@ import Modal from "react-bootstrap/Modal";
 import {Container, ImageList, ImageListItem, Paper} from "@mui/material"
 import CancelIcon from '@mui/icons-material/Cancel';
 import InfoBulle from "../component/Toast";
+import {isAfter, isBefore, format} from "date-fns";
 
 
 export const getServerSideProps = async (context) =>{
@@ -58,6 +61,8 @@ export default function Administration(props) {
 
     const [titre, setTitre] = useState();
     const [texte, setTexte] = useState();
+    const [dateBefore, setDateBefore] = useState();
+    const [dateAfter, setDateAfter] = useState();
     const [phrase, setPhrase] = useState();
     const [image, setImage] = useState();
     const [codePrix, setCodePrice] = useState();
@@ -68,6 +73,7 @@ export default function Administration(props) {
     const [photoSelected, setPhotoSelected] = useState(false);
 
     const [nom, setNom] = useState();
+    const [nouvelleDate, setNouvelleDate] = useState(new Date());
     const [prenom, setPrenom] = useState();
     const [telephone, setTelephone] = useState();
     const [email, setEmail] = useState();
@@ -108,6 +114,15 @@ export default function Administration(props) {
         }
     }
 
+    async function validationDate(id){
+        const reponse = await axios.post(`/api/data/modificationMembreNewDate`, {
+            idMembre: id,
+            date: nouvelleDate
+        }).then((result) => result);
+        if(reponse.data.data === "Ok"){
+            setReaload(true)
+        }
+    }
     async function changeImageArticles(id, event){
         const file = event.target.files[0];
         const base64 = await convertBase64(file);
@@ -374,6 +389,7 @@ export default function Administration(props) {
         }
 
     }
+
     async function nouvelArticle() {
         setOpenPopUpNewArt(true)
         setReaload(true)
@@ -564,14 +580,18 @@ export default function Administration(props) {
                                                 <Button style={{width:"150px",fontSize:"10px"}} onClick={()=>suppressionMembre(data[membreSelected].idMembre)}>Supprimer le membre</Button>
                                             </div>
                                             <hr />
-                                            <div style={{display:"flex",flexDirection:"row",justifyContent: "space-around"}}>
-                                                {data[membreSelected].rdv?.map((rdv, index)=>{
-                                                    if(index === 0){
-                                                        return(<p>Precedent rdv {rdv}</p>)
-                                                    }else if(index === 1){
-                                                        return(<p>Prochain rdv {rdv}</p>)
-                                                    }
-                                                })}
+                                            <div style={{display:"flex",flexDirection:"column",justifyContent: "space-around"}}>
+                                                <Form style={{display:"flex",flexDirection:"column",justifyContent: "space-around"}}>
+                                                    <Form.Label>Nouvelle Date :<DatePicker selected={nouvelleDate} onChange={(date) => setNouvelleDate(date)} /></Form.Label>
+                                                </Form>
+                                                <Button style={{width:"150px", fontSize:"10px"}} onClick={()=>{validationDate(data[membreSelected].idMembre)}}>Ajouter</Button>
+                                                <br></br>
+                                                <p>Precedent: {format(new Date(data[membreSelected].rdv?.filter((rdv, index)=> isBefore(new Date(rdv), new Date())).sort(function(a, b) {
+                                                    return new Date(b) - new Date(a);
+                                                })[0]),"dd-MM-yyyy")}</p>
+                                                <p>Prochain: {format(new Date(data[membreSelected].rdv?.filter((rdv, index)=> isAfter(new Date(rdv), new Date())).sort(function(a, b) {
+                                                    return new Date(a) - new Date(b);
+                                                })[0]),"dd-MM-yyyy")}</p>
                                             </div>
                                             <hr />
                                             <AddIcon onClick={()=> setAddFichierMore([...addFichierMore,1])}/>

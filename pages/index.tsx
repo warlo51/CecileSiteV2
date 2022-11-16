@@ -75,9 +75,9 @@ const [articles, setArticles] = useState([])
             </div>
             <div className="BlocActus">
                 <div className="BlocInformationActu">
-                    {imagesBottom?.map((imagesAAfficher: any, index) => {
-                        return (<img key={index} alt="" src={imagesAAfficher.lien}  width={200} height={200} style={{borderRadius: "50%"}}/>)
-                    })}
+                    <img alt="" src={"/54-min.png"}  width={200} height={200} style={{borderRadius: "50%"}}/>
+                    <img alt="" src={"/6-min.png"}  width={200} height={200} style={{borderRadius: "50%"}}/>
+                    <img  alt="" src={"/11-min.png"}  width={200} height={200} style={{borderRadius: "50%"}}/>
                 </div>
                 <div className="Separateur3" style={{textAlign:"center"}}>
                     <Image alt="" src={"/SeparationBarre.png"} className="Separateur1" width={300} height={150}/>

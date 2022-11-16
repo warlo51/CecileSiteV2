@@ -20,11 +20,6 @@ export default function NavbarAdmin() {
             </Nav.Link>
         </Nav.Item>
             <Nav.Item>
-                <Nav.Link href="/Admin?page=photos">
-                    Gestion des photos
-                </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
                 <Nav.Link href="/Admin?page=produits">
                     Gestion des produits
                 </Nav.Link>

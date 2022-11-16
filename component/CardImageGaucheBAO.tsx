@@ -17,6 +17,7 @@ export default function CardImageGaucheBAO(props: any) {
     const [montant, setMontant] = useState()
     const [commentaires, setCommentaire] = useState()
     const [titre, setTitre] = useState()
+    const [texte, setTexte] = useState()
     const [gratuit, setGratuit] = useState()
     const [priceCode, setPriceCode] = useState()
     const image = props.image;
@@ -38,6 +39,7 @@ export default function CardImageGaucheBAO(props: any) {
         setMontant(props.montant)
         setCommentaire(props.commentaires)
         setTitre(props.titre)
+        setTexte(props.texte)
         setGratuit(props.gratuit)
         setPriceCode(props.priceCode)
 
@@ -57,6 +59,9 @@ export default function CardImageGaucheBAO(props: any) {
                 <CardContent className="texteCardsBAO">
                     <Typography gutterBottom style={{color:"gray",textAlign:"left",marginLeft:"70px", marginRight:"200px"}}>
                         {titre}
+                    </Typography>
+                    <Typography gutterBottom style={{color:"gray",textAlign:"left",marginLeft:"70px", marginRight:"200px"}}>
+                        {texte}
                     </Typography>
                     <Typography style={{display:"flex",flexDirection:"column"}}>
                         {montant}
