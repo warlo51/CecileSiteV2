@@ -244,6 +244,14 @@ export default function Administration(props) {
            tableauArticlesModifie[idAlreadyExist] = {...tableauArticlesModifie[idAlreadyExist],texte:texte}
        }
     }
+    function changePhraseArticles (id,phrase){
+        const idAlreadyExist =  tableauArticlesModifie?.findIndex((element)=>element.id === id);
+        if(idAlreadyExist === -1){
+            tableauArticlesModifie.push({id:id,phrase:phrase})
+        }else{
+            tableauArticlesModifie[idAlreadyExist] = {...tableauArticlesModifie[idAlreadyExist],phrase:phrase}
+        }
+    }
 
     function changeTitreArticles (id,titre){
         const idAlreadyExist =  tableauArticlesModifie?.findIndex((element)=>element.id === id);
@@ -415,6 +423,7 @@ export default function Administration(props) {
                             <Accordion.Item key={index} eventKey={id}>
                                 <Accordion.Header><textarea onChange={(event)=> changeTitreArticles(id,event.target.value)} rows={1} style={{fontFamily:"Arial"}} cols={85}>{element.titre}</textarea></Accordion.Header>
                                 <Accordion.Body>
+                                    <textarea onChange={(event)=> changePhraseArticles(id,event.target.value)} rows={2} cols={60}>{element.phrase}</textarea>
                                     <div style={{display:"flex",flexDirection:"row"}}>
                                         <textarea onChange={(event)=> changeTexteArticles(id,event.target.value)} rows={10} cols={60}>{element.texte}</textarea>
                                         <img src={element.image} width={"200px"}/>
