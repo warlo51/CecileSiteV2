@@ -191,7 +191,7 @@ export default function Administration(props) {
     }
 
     async function addNewProduit() {
-        await axios.post(`/api/data/addNouveauProduit`, {
+        const ajout = await axios.post(`/api/data/addNouveauProduit`, {
             priceCode: codePrix,
             image:image,
             prix:prix,
@@ -200,6 +200,19 @@ export default function Administration(props) {
             fichier:fichier
         }).then((result) => result);
 
+        if(ajout.data.data === "Ok"){
+            setOpenPopUpNewProd(false)
+            setInfoBulle(<InfoBulle validation={true}/>)
+            setTimeout(()=>{
+                setInfoBulle(<></>)
+                setReaload(true)
+            },3000)
+        }else{
+            setInfoBulle(<InfoBulle validation={false}/>)
+            setTimeout(()=>{
+                setInfoBulle(<></>)
+            },3000)
+        }
         setReaload(true)
     }
 

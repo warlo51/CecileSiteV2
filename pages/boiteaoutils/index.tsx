@@ -1,62 +1,39 @@
-
-import Link from "next/link";
-import {loadStripe} from "@stripe/stripe-js";
-import {useEffect, useState} from "react";
-import axios from "axios";
 import Layout from "../../component/Layout";
-import CardImageGaucheBAO from "../../component/CardImageGaucheBAO";
+import Bloc1 from "../../component/Bloc1";
+import Link from "next/link";
 
 
 export default function index() {
-
-    const [produits, setProduits] = useState([])
-    useEffect(()=>{
-        async function loadData(){
-            const listeProduits =  await axios.get("/api/data/loadingProduits?categorie=Audios").then((result: any) => result);
-
-            setProduits(listeProduits.data.data.reverse())
-        }
-        loadData();
-    },[])
-
     return (
         <Layout>
             <div className="container">
-                <br/>
-                <Link href={"/boiteaoutils"}><button style={{backgroundColor:"#a2415e",color:"white",border:"none",borderRadius:"10px"}}>Retour</button></Link>
                 <div style={{textAlign:"center", marginTop:"50px"}}>
-                    <h1 style={{marginBottom:"20px"}}>Les outils numériques</h1>
+                    <h1 style={{marginBottom:"20px"}}>Bienvenue dans la boite à outils !</h1>
+                    <p>Ici vous retrouverez différents outils pour vous aider à développer votre bien être en toute autonomie.
+                        Retrouvez des outils à télécharger mêlants yogathérapie et des concepts de médecine ayurvédiques pour venir prendre soin de vous.</p>
                 </div>
-                {produits.length !== 0 && produits.map((produit:any)=> {
-                    if(produit.prix === '0'){
-                        return(<CardImageGaucheBAO
-                            image={produit.image}
-                            tailleImage={50}
-                            fichier={produit.fichier}
-                            texte={produit.texte}
-                            titre={<h2>{produit.titre}</h2>}
-                            montant={<h2>{produit.prix} €</h2>}
-                            gratuit={true}/>)
-
-                    }else{
-                        return(<CardImageGaucheBAO
-                            image={produit.image}
-                            tailleImage={50}
-                            fichier={produit.fichier}
-                            texte={produit.texte}
-                            priceCode={produit.priceCode}
-                            titre={<h2>{produit.titre}</h2>}
-                            montant={<h2>{produit.prix} €</h2>}
-                            gratuit={false}/>)
-                    }
-                })}
+                <div className="Separateur2" style={{textAlign:"center"}}>
+                    <img alt="" src={"/SeparationBarre.png"} width={300} height={150}/>
+                </div>
+                <div className="BlocLiens">
+                    <div className="TitreBlocLiens"><h1 style={{textAlign:"center"}}></h1></div>
+                    <div className="BlocBoiteAOutils">
+                        <div className="blocBoiteOutil">
+                            <Link href={"/boiteaoutils/videos"}><Bloc1 titre={<h2 style={{color:"#ee9251"}}>Les vidéos</h2>}  image={"/Yogatherapie.png"} texte={<p></p>}/></Link>
+                        </div>
+                        <div className="blocBoiteOutil">
+                            <Link href={"/boiteaoutils/outilsnumeriques"}><Bloc1 titre={<h2 style={{color:"#458a83"}}>Outils numériques</h2>} image={"/Boiteaoutil.png"}texte={<p></p>}/></Link>
+                        </div>
+                        <div className="blocBoiteOutil">
+                            <Link href={"/boiteaoutils/audios"}><Bloc1 titre={<h2 style={{color:"#a2415e"}}>Audios</h2>}  image={"/Massages.png"} texte={<p></p>}/></Link>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+                <div className="Separateur1" style={{textAlign:"center"}}>
+                    <img alt="" src={"/SeparationBarre.png"} width={300} height={150}/>
+                </div>
             </div>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
             <br/>
             <br/>
             <br/>

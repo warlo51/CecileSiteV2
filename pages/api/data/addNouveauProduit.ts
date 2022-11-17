@@ -16,9 +16,9 @@ export default async function handler(
     const mongodb = await getDatabase();
     const data = req.body;
 
-    if(data.titre !== undefined && data.priceCode !== undefined && data.prix !== undefined){
+    if(data.titre !== undefined && data.prix !== undefined && data.image !== undefined && data.fichier !== undefined){
         const dataReceived = await mongodb.db().collection(`Produits`).insertOne({
-            priceCode:data.priceCode,
+            priceCode: data.priceCode === undefined ? "":data.priceCode,
             prix: data.prix,
             createAt:new Date(),
             titre: data.titre,

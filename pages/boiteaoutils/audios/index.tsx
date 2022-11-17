@@ -12,7 +12,7 @@ export default function index() {
     const [produits, setProduits] = useState([])
     useEffect(()=>{
         async function loadData(){
-            const listeProduits =  await axios.get("/api/data/loadingProduits?categorie=Outils").then((result: any) => result);
+            const listeProduits =  await axios.get("/api/data/loadingProduits?categorie=Audios").then((result: any) => result);
 
             setProduits(listeProduits.data.data.reverse())
         }
