@@ -19,6 +19,7 @@ export default function CardImageArticleDroite(props: any) {
     useEffect(()=>{
         setTexte(props.texte)
         setTitre(props.titre)
+        setPhrase(props.phrase)
     },[])
 
     return (
