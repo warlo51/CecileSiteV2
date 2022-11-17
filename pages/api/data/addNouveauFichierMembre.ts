@@ -20,6 +20,7 @@ export default async function handler(
     const objetRequest: any = {
         createAt: new Date()
     }
+    
     if(data.fichier.length !== 0){
         await mongodb.db().collection(`Membres`).updateOne(
             { idMembre: data.idMembre },

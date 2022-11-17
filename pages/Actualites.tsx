@@ -12,7 +12,7 @@ export default function Actualites() {
         async function loadData(){
             const listeArticles =  await axios.get("/api/data/loadingArticles").then((result: any) => result);
 
-            setArticles(listeArticles.data.data.reverse())
+            setArticles(listeArticles.data.Items.reverse())
         }
         loadData();
     },[])

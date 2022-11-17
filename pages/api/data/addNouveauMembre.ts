@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import {getDatabase} from "../../../src/database/database";
+import db from "../../../src/database/db";
 
 export const config = {
     api: {
@@ -12,12 +13,10 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-
-    const mongodb = await getDatabase();
     const data = req.body;
-
-    if(data.idMembre !== undefined && data.nom !== undefined && data.prenom !== undefined  && data.telephone !== undefined  && data.email !== undefined){
-        const dataReceived = await mongodb.db().collection(`Membres`).insertOne({
+    const paramsAll = {
+        TableName: "Membres",
+        Item:{
             idMembre:data.idMembre,
             nom: data.nom,
             prenom: data.prenom,
@@ -25,8 +24,16 @@ export default async function handler(
             email: data.email,
             rdv:[],
             fichier:[]
-        });
+        }
     }
 
-    res.status(200).send({data: "Ok"});
+    if(data.idMembre !== undefined && data.nom !== undefined && data.prenom !== undefined  && data.telephone !== undefined  && data.email !== undefined){
+        try{
+            const data = await db.put(paramsAll).promise();
+            res.status(200).send({data: "Ok"});
+        }catch (err){
+            console.log(err)
+        }
+    }
+
 }

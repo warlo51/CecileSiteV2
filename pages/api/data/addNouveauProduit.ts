@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import {getDatabase} from "../../../src/database/database";
+import db from "../../../src/database/db";
+import {uuidV4} from "mongodb/src/utils";
 
 export const config = {
     api: {
@@ -13,11 +15,12 @@ export default async function handler(
     res: NextApiResponse
 ) {
 
-    const mongodb = await getDatabase();
-    const data = req.body;
 
-    if(data.titre !== undefined && data.prix !== undefined && data.image !== undefined && data.fichier !== undefined){
-        const dataReceived = await mongodb.db().collection(`Produits`).insertOne({
+    const data = req.body;
+    const paramsAll = {
+        TableName: "Produits",
+        Item:{
+            idProduit:uuidV4(),
             priceCode: data.priceCode === undefined ? "":data.priceCode,
             prix: data.prix,
             createAt:new Date(),
@@ -25,8 +28,14 @@ export default async function handler(
             image:data.image,
             categorie:data.categorie,
             fichier:data.fichier
-        });
+        }
     }
-
-    res.status(200).send({data: "Ok"});
+    if(data.titre !== undefined && data.prix !== undefined && data.image !== undefined && data.fichier !== undefined){
+        try{
+            const data = await db.put(paramsAll).promise();
+            res.status(200).send({data: "Ok"});
+        }catch (err){
+            console.log(err)
+        }
+    }
 }

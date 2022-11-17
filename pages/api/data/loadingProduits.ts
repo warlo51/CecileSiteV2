@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import {getDatabase} from "../../../src/database/database";
+import db from "../../../src/database/db";
 
 export const config = {
     api: {
@@ -17,11 +18,36 @@ export default async function handler(
     const mongodb = await getDatabase();
     const categorie = req.query.categorie;
 
+    const paramsAll = {
+        TableName: "Produits"
+    }
+    const paramsCategorie = {
+        TableName: 'Produits',
+        FilterExpression: '#item = :item',
+        ExpressionAttributeNames: {
+            '#item': 'categorie',
+        },
+        ExpressionAttributeValues: {
+            ':item': `${categorie}`,
+        },
+    };
+
     if(categorie === undefined){
-        const dataReceived = await mongodb.db().collection(`Produits`).find().toArray();
-        res.status(200).send({data: dataReceived});
+        console.log("dede")
+        try{
+            const data = await db.scan(paramsAll).promise();
+            res.json(data);
+        }catch (err){
+            console.log(err)
+        }
+
     }else{
-        const dataReceived = await mongodb.db().collection(`Produits`).find({categorie:categorie}).toArray();
-        res.status(200).send({data: dataReceived});
+        try{
+            const data = await db.scan(paramsCategorie).promise();
+            console.log(data)
+            res.json(data);
+        }catch (err){
+            console.log(err)
+        }
     }
 }

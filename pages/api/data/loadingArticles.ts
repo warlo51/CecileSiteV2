@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import {getDatabase} from "../../../src/database/database";
+import db from "../../../src/database/db";
 
 export const config = {
     api: {
@@ -13,8 +14,15 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
+    const paramsAll = {
+        TableName: "Actualites"
+    }
 
-    const mongodb = await getDatabase();
-    const dataReceived = await mongodb.db().collection(`Actualites`).find().toArray();
-    res.status(200).send({data: dataReceived});
+    try{
+        const data = await db.scan(paramsAll).promise();
+        res.json(data);
+    }catch (err){
+        console.log(err)
+    }
+
 }

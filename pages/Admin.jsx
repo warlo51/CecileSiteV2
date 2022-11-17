@@ -220,24 +220,24 @@ export default function Administration(props) {
         async function loadData(){
             const listeArticles =  await axios.get(`/api/data/loadingArticles`).then((result) => result);
 
-            setData(listeArticles.data.data)
+            setData(listeArticles.data.Items)
         }
 
         async function loadPhotos(){
             const listePhotos =  await axios.get(`/api/data/loadingPhotos`).then((result) => result);
 
-            setData(listePhotos.data.data)
+            setData(listePhotos.data.Items)
         }
 
         async function loadMembres(){
             const listeMembres =  await axios.get(`/api/data/listeMembres`).then((result) => result);
 
-            setData(listeMembres.data.data)
+            setData(listeMembres.data.Items)
         }
         async function loadProduits(){
             const listeProduits =  await axios.get(`/api/data/loadingProduits`).then((result) => result);
 
-            setData(listeProduits.data.data)
+            setData(listeProduits.data.Items)
         }
         if(page === "articles"){
             loadData()

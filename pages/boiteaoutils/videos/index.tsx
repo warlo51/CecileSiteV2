@@ -13,7 +13,7 @@ export default function index() {
         async function loadData(){
             const listeProduits =  await axios.get("/api/data/loadingProduits?categorie=Videos").then((result: any) => result);
 
-            setProduits(listeProduits.data.data.reverse())
+            setProduits(listeProduits.data.Items.reverse())
         }
         loadData();
     },[])
@@ -27,7 +27,7 @@ export default function index() {
                     <h1 style={{marginBottom:"20px"}}>Les outils numériques</h1>
                 </div>
                 {produits.length !== 0 && produits.map((produit:any)=> {
-                    if(produit.prix === '0'){
+                    if(produit.prix === 0){
                         return(<CardImageGaucheBAO
                             image={produit.image}
                             tailleImage={50}

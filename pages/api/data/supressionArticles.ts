@@ -1,15 +1,27 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import {getDatabase} from "../../../src/database/database";
+import db from "../../../src/database/db";
 
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
 
-    const mongodb = await getDatabase();
+
     const data = req.body.id;
 
-    const dataReceived = await mongodb.db().collection(`Actualites`).deleteOne({idArticle:`${data}`});
+    const paramsAll = {
+        TableName: "Actualites",
+        Key:{
+            idArticle:data
+        }
+    }
 
-    res.status(200).send({data: "Ok"});
+    try{
+        const data = await db.delete(paramsAll).promise();
+        res.status(200).send({data: "Ok"});
+    }catch (err){
+        console.log(err)
+    }
+
 }
