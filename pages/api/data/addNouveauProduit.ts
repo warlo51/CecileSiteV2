@@ -15,7 +15,8 @@ export default async function handler(
             prix: data.prix,
             createAt:new Date(),
             titre: data.titre,
-            image:data.image
+            image:data.image,
+            categorie:data.categorie
         });
     }
 

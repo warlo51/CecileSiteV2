@@ -14,6 +14,13 @@ export default async function handler(
 ) {
 
     const mongodb = await getDatabase();
-    const dataReceived = await mongodb.db().collection(`Produits`).find().toArray();
-    res.status(200).send({data: dataReceived});
+    const categorie = req.query.categorie;
+
+    if(categorie === undefined){
+        const dataReceived = await mongodb.db().collection(`Produits`).find().toArray();
+        res.status(200).send({data: dataReceived});
+    }else{
+        const dataReceived = await mongodb.db().collection(`Produits`).find({categorie:categorie}).toArray();
+        res.status(200).send({data: dataReceived});
+    }
 }

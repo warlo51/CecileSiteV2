@@ -48,6 +48,7 @@ export default function Administration(props) {
     const [openPopUpNewArt, setOpenPopUpNewArt] = useState(false);
     const [openPopUpNewProd, setOpenPopUpNewProd] = useState(false);
     const [openPopUpNewMembre, setOpenPopUpNewMembre] = useState(false);
+    const [categorie, setCategorie] = useState("Outils");
 
     const [articles, setArticles] = useState([]);
 
@@ -189,7 +190,8 @@ export default function Administration(props) {
             priceCode: codePrix,
             image:image,
             prix:prix,
-            titre:titre
+            titre:titre,
+            categorie:categorie
         }).then((result) => result);
 
         setReaload(true)
@@ -518,6 +520,13 @@ export default function Administration(props) {
                                     <Form className="formulaireContact">
                                         <br/>
                                         <div style={{display:"flex",flexDirection:"column"}}>
+                                            <Form.Group className="mb-3" controlId="categorie" style={{width:"400px"}}>
+                                                <Form.Select type="text" name="categorie" placeholder="Categorie"onChange={(event)=>setCategorie(event.target.value)}>
+                                                    <option value={"Audio"}>Audio</option>
+                                                    <option value={"Video"}>Video</option>
+                                                    <option value={"Outils"}>Outils Numériques</option>
+                                                </Form.Select>
+                                            </Form.Group>
                                             <Form.Group className="mb-3" controlId="codePrice" style={{width:"400px"}}>
                                                 <Form.Control type="text" name="codePrice" placeholder="Code Prix"onChange={(event)=>setCodePrice(event.target.value)} />
                                             </Form.Group>
