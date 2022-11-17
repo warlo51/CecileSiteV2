@@ -352,7 +352,15 @@ body{
         height:300px;
         width: 200px;
     }
-
+    .navbar-toggler{
+        margin-left: -550px;
+    }
+    .navbar-collapse{
+        background-color: #a2415e;
+        width: 100%;
+        border-radius: 10px;
+        padding: 10px;
+    }
     .imageCardBOA{
         width: 200px;
         height: 200px;
@@ -397,6 +405,10 @@ body{
         width: 100%;
     }
 
+    .navbar-toggler{
+        margin-left: -250px;
+    }
+
     .logoTop{
         width: 100px;
         height:100px;
@@ -435,6 +447,9 @@ body{
 }
 
 @media screen and (max-width: 375px) {
+    .navbar-toggler{
+        margin-left: -200px;
+    }
     .BlocInformationLien{
         margin-top: 20px;
         display: flex;
@@ -483,6 +498,9 @@ body{
 }
 
 @media screen and (max-width: 320px) {
+    .navbar-toggler{
+        margin-left: -180px;
+    }
     .BlocInformationLien{
         margin-top: 20px;
         display: flex;
