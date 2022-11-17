@@ -88,7 +88,7 @@ export default function Administration(props) {
         const base64 = await convertBase64(file);
         setImage(base64);
     }
-    async function fileSelectedHandlerichier(event){
+    async function fileSelectedHandlefichier(event){
         const file = event.target.files[0];
         const base64 = await convertBase64(file);
         setFichier(base64);
@@ -472,7 +472,6 @@ export default function Administration(props) {
                                                 <Form.Control as="textarea" name="texte" placeholder={"texte"} style={{width:"400px"}} onChange={(event)=>setTexte(event.target.value)}  rows={10} cols={20}/>
                                             </Form.Group>
                                             <Form.Label>Image :<Form.Control type="file" id="titre" onChange={(event) => {fileSelectedHandler(event)}}></Form.Control></Form.Label>
-                                            <Form.Label>Fichier A telecharger :<Form.Control type="file" id="fichier" onChange={(event) => {fileSelectedHandlerichier(event)}}></Form.Control></Form.Label>
                                         </div>
                                         <Button onClick={()=>{addNewArticle()}} >
                                             Valider
@@ -544,6 +543,7 @@ export default function Administration(props) {
                                                 <Form.Control type="text" name="prix" placeholder="Prix"onChange={(event)=>setPrix(event.target.value)} />
                                             </Form.Group>
                                             <Form.Label>Image :<Form.Control type="file" id="titre" onChange={(event) => {fileSelectedHandler(event)}}></Form.Control></Form.Label>
+                                            <Form.Label>Fichier A telecharger :<Form.Control type="file" id="fichier" onChange={(event) => {fileSelectedHandlefichier(event)}}></Form.Control></Form.Label>
                                         </div>
                                         <Button onClick={()=>{addNewProduit()}} >
                                             Valider
