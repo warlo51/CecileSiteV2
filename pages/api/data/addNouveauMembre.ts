@@ -15,7 +15,9 @@ export default async function handler(
             nom: data.nom,
             prenom: data.prenom,
             telephone: data.telephone,
-            email: data.email
+            email: data.email,
+            rdv:[],
+            fichier:[]
         });
     }
 

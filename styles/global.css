@@ -332,6 +332,12 @@ body{
     .Information{
         width: 80%;
     }
+    .paperAdminMembre{
+       width: 100%;
+    }
+    .tableauAdminMembre{
+        width: 100%;
+    }
     .imagePresentation{
         padding-top: 10px;
         width:200px;

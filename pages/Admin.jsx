@@ -414,7 +414,7 @@ export default function Administration(props) {
         if(page === "articles"){
             return (<LayoutAdmin>
                 <div style={{display:"flex", flexDirection:"column", marginTop:"100px", marginBottom:"100px", alignItems:"center"}}>
-                    <Button onClick={()=>nouvelArticle()}>Ajouter un article</Button>
+                    <Button style={{backgroundColor:"#a2415e", borderRadius:"40px"}} onClick={()=>nouvelArticle()}>Ajouter un article</Button>
                     <br/>
                     <Accordion defaultActiveKey="0" style={{width:"800px"}}>
                     {data !== undefined && data?.map((element, index)=> {
@@ -479,7 +479,7 @@ export default function Administration(props) {
         }else if(page === "produits"){
             return (<LayoutAdmin>
                 <div style={{display:"flex", flexDirection:"column", marginTop:"100px", marginBottom:"100px", alignItems:"center"}}>
-                    <Button onClick={()=>nouveauProduit()}>Ajouter un produit</Button>
+                    <Button style={{backgroundColor:"#a2415e", borderRadius:"40px"}} onClick={()=>nouveauProduit()}>Ajouter un produit</Button>
                     <br/>
                     <Accordion defaultActiveKey="0" style={{width:"800px"}}>
                         {data !== undefined && data?.map((element, index)=> {
@@ -544,14 +544,13 @@ export default function Administration(props) {
                 <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
                     <br/>
                     <div style={{display:"flex",flexDirection:"row", alignItems:"center"}}>
-                        <Button style={{marginRight:"20px"}}  onClick={()=>setSelectionSectionMembre("listeMembres")}>Afficher les membres</Button>
-                        <Button onClick={()=>setSelectionSectionMembre("???")}>???</Button>
+                        <Button style={{marginRight:"20px"}} style={{backgroundColor:"#a2415e", borderRadius:"40px"}} onClick={()=>setSelectionSectionMembre("listeMembres")}>Afficher les membres</Button>
                     </div>
                     <br/>
                     {selectionSectionMembre === "listeMembres" ?
                         <Container maxWidth="xl">
                             <Row>
-                                <Col sm={5} >
+                                <Col sm={5} className={"tableauAdminMembre"}>
                                     <AddIcon onClick={()=>nouveauMembre()}/>
                                     <Table style={{width:"100px"}} striped bordered hover>
                                         <thead style={{borderBottom:"solid"}}>
@@ -574,8 +573,8 @@ export default function Administration(props) {
                                         </tbody>
                                     </Table>
                                 </Col>
-                                <Col sm={7}>
-                                    <Paper style={{width:"100%", height:"700px"}}>
+                                <Col sm={7} className={"paperAdminMembre"}>
+                                    <Paper style={{width:"100%", height:"700px", padding:"10px"}}>
                                     {membreSelected !== undefined &&
                                         <div style={{display:"flex",flexDirection:"column",justifyContent: "space-around"}}>
                                                <Form style={{display:"flex",flexDirection:"row",justifyContent: "space-around"}}>
@@ -585,26 +584,31 @@ export default function Administration(props) {
                                                    <Form.Label>Email: <Form.Control type="text" name="email" placeholder={`${data[membreSelected].email}`} onChange={(event)=>setEmail(event.target.value)} /></Form.Label>
                                                </Form>
                                             <div style={{display:"flex",flexDirection:"row", justifyContent: "space-around"}}>
-                                                <Button style={{width:"150px", fontSize:"10px"}} onClick={()=>{validationMembre(data[membreSelected].idMembre)}}>Valider Modifications</Button>
-                                                <Button style={{width:"150px",fontSize:"10px"}} onClick={()=>suppressionMembre(data[membreSelected].idMembre)}>Supprimer le membre</Button>
+                                                <Button style={{width:"150px", fontSize:"10px"}} style={{backgroundColor:"#a2415e", borderRadius:"40px"}}onClick={()=>{validationMembre(data[membreSelected].idMembre)}}>Valider Modifications</Button>
+                                                <Button style={{width:"150px",fontSize:"10px"}}style={{backgroundColor:"#a2415e", borderRadius:"40px"}} onClick={()=>suppressionMembre(data[membreSelected].idMembre)}>Supprimer le membre</Button>
                                             </div>
                                             <hr />
                                             <div style={{display:"flex",flexDirection:"column",justifyContent: "space-around"}}>
-                                                <Form style={{display:"flex",flexDirection:"column",justifyContent: "space-around"}}>
-                                                    <Form.Label>Nouvelle Date :<DatePicker selected={nouvelleDate} onChange={(date) => setNouvelleDate(date)} /></Form.Label>
-                                                </Form>
-                                                <Button style={{width:"150px", fontSize:"10px"}} onClick={()=>{validationDate(data[membreSelected].idMembre)}}>Ajouter</Button>
-                                                <br></br>
-                                                <p>Precedent: {format(new Date(data[membreSelected].rdv?.filter((rdv, index)=> isBefore(new Date(rdv), new Date())).sort(function(a, b) {
+                                                <div style={{display:"flex",flexDirection:"row"}}>
+                                                    <Form style={{display:"flex",flexDirection:"column",justifyContent: "space-around"}}>
+                                                        <Form.Label>Nouvelle Date :<DatePicker selected={nouvelleDate} onChange={(date) => setNouvelleDate(date)} /></Form.Label>
+                                                    </Form>
+                                                    <Button style={{width:"150px", fontSize:"10px"}} style={{backgroundColor:"#a2415e", borderRadius:"40px", width:"200px", height:"40px"}} onClick={()=>{validationDate(data[membreSelected].idMembre)}}>Ajouter</Button>
+                                                </div>
+                                               <br></br>
+                                                {data[membreSelected].rdv.length !== 0 &&<><p>Precedent: {format(new Date(data[membreSelected].rdv?.filter((rdv, index)=> isBefore(new Date(rdv), new Date())).sort(function(a, b) {
                                                     return new Date(b) - new Date(a);
                                                 })[0]),"dd-MM-yyyy")}</p>
                                                 <p>Prochain: {format(new Date(data[membreSelected].rdv?.filter((rdv, index)=> isAfter(new Date(rdv), new Date())).sort(function(a, b) {
                                                     return new Date(a) - new Date(b);
-                                                })[0]),"dd-MM-yyyy")}</p>
+                                                })[0]),"dd-MM-yyyy")}</p></>}
                                             </div>
                                             <hr />
-                                            <AddIcon onClick={()=> setAddFichierMore([...addFichierMore,1])}/>
-                                            <div>
+                                            <div style={{display:"flex",flexDirection:"row"}}>
+                                                <AddIcon onClick={()=> setAddFichierMore([...addFichierMore,1])}/>
+                                                <Button style={{width:"150px", fontSize:"10px"}} style={{backgroundColor:"#a2415e", borderRadius:"40px",width:"200px"}}onClick={()=>{validationFichierMembre(data[membreSelected].idMembre)}}>Enregistrer les fichiers</Button>
+                                            </div>
+                                            <div style={{display:"flex",flexDirection:"row"}}>
                                                 {addFichierMore?.map((fichier, index)=>{
                                                     return(<>
                                                         <Form.Label>Titre :<Form.Control type="texte" id="titre" onChange={(event) => {fileAddIntoArrayOfFileTitre(event.target.value,index)}}></Form.Control></Form.Label>
@@ -612,7 +616,7 @@ export default function Administration(props) {
                                                     </>)
                                                 })}
                                             </div>
-                                            <Button style={{width:"150px", fontSize:"10px"}} onClick={()=>{validationFichierMembre(data[membreSelected].idMembre)}}>Enregistrer les fichiers</Button>
+                                            {data[membreSelected].fichier.length !== 0 &&
                                             <Table style={{width:"100px"}} striped bordered hover>
                                                 <thead style={{borderBottom:"solid"}}>
                                                 <tr style={{fontWeight:"bold"}}>
@@ -626,7 +630,7 @@ export default function Administration(props) {
                                                     </tr>)
                                                 })}
                                                 </tbody>
-                                            </Table>
+                                            </Table>}
                                         </div>
                                     }
                                     </Paper>
