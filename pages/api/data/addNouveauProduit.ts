@@ -23,7 +23,8 @@ export default async function handler(
             createAt:new Date(),
             titre: data.titre,
             image:data.image,
-            categorie:data.categorie
+            categorie:data.categorie,
+            fichier:data.fichier
         });
     }
 
