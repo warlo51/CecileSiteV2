@@ -4,7 +4,8 @@ import {getDatabase} from "../../../src/database/database";
 export const config = {
     api: {
         bodyParser: {
-            sizeLimit: '10mb' // Set desired value here
+            sizeLimit: '10mb', // Set desired value here
+            responseLimit: '100mb',
         }
     }
 }
