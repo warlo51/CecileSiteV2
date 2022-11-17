@@ -48,7 +48,7 @@ export default function Administration(props) {
     const [openPopUpNewArt, setOpenPopUpNewArt] = useState(false);
     const [openPopUpNewProd, setOpenPopUpNewProd] = useState(false);
     const [openPopUpNewMembre, setOpenPopUpNewMembre] = useState(false);
-    const [categorie, setCategorie] = useState("Outils");
+    const [categorie, setCategorie] = useState();
 
     const [articles, setArticles] = useState([]);
 
