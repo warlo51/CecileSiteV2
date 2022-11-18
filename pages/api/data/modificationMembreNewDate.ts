@@ -1,24 +1,30 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import {getDatabase} from "../../../src/database/database";
+import db from "../../../src/database/db";
 
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
 
-    const mongodb = await getDatabase();
     const data = req.body;
 
-    await mongodb.db().collection(`Membres`).updateOne(
-        { idMembre: data.idMembre },
-        {
-            $push: {
-                rdv: {
-                    $each: [data.date]
-                }
-            }
+    const params = {
+        TableName: 'Membres',
+        Key:{
+            idMembre:data.idMembre
+        },
+        UpdateExpression: "SET #ri = list_append(#ri, :vals)",
+        ExpressionAttributeNames:{"#ri": "rdv"},
+        ExpressionAttributeValues:{
+            ":vals": [`${data.date}`]
         }
-    );
 
-    res.status(200).send({data: "Ok"});
+    };
+
+    try{
+        const data = await db.update(params).promise();
+        res.status(200).send({data: "Ok"});
+    }catch (err){
+        console.log(err)
+    }
 }

@@ -23,7 +23,6 @@ const [articles, setArticles] = useState([])
             setArticles(dataArticles.data.data.reverse())
 
         }
-        loadData();
     },[])
     return (
         <Layout>

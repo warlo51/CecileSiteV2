@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import {getDatabase} from "../../../src/database/database";
+import db from "../../../src/database/db";
 
 export const config = {
     api: {
@@ -13,27 +13,45 @@ export default async function handler(
     res: NextApiResponse
 ) {
 
-    const mongodb = await getDatabase();
     const data = req.body.tableauArticlesModifie;
     const keys = Object.keys(data[0])
     const objetRequest: any = {
-        createAt: new Date()
+        createAt: new Date(),
+        id:data[0].id
     }
 
+    let updateExpression= "";
+    const ExpressionAttributeValues: any= {};
     if(keys.includes("texte")){
         objetRequest.texte = data[0].texte
-    }else if(keys.includes("titre")){
+        updateExpression = updateExpression +"texte = :texte,"
+        ExpressionAttributeValues[":texte"] = data[0].texte;
+    } if(keys.includes("titre")){
         objetRequest.titre = data[0].titre
+        updateExpression = updateExpression +"titre = :titre,"
+        ExpressionAttributeValues[":titre"]  = data[0].titre;
     }if(keys.includes("image")){
         objetRequest.image = data[0].image
+        updateExpression = updateExpression +"image = :image,"
+        ExpressionAttributeValues[":image"]  = data[0].image;
+    }
+    updateExpression = "Set " + updateExpression.substring(0, updateExpression.length - 1);
+
+    const params = {
+        TableName: 'Produits',
+        Key:{
+            idProduit:objetRequest.id
+        },
+        UpdateExpression: `${updateExpression}`,
+        ExpressionAttributeValues:ExpressionAttributeValues
+    };
+
+    try{
+        const data = await db.update(params).promise();
+        res.status(200).send({data: "Ok"});
+    }catch (err){
+        console.log(err)
     }
 
-    const dataReceived = await mongodb.db().collection(`Produits`).updateOne(
-        { priceCode: data[0].id },
-        {
-            $set: objetRequest,
-        }
-    );
 
-    res.status(200).send({data: "Ok"});
 }

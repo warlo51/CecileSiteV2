@@ -84,26 +84,18 @@ export default function Administration(props) {
     const [selectionSectionMembre, setSelectionSectionMembre] = useState();
 
     async function fileSelectedHandler(event){
-        const file = event.target.files[0];
-        const base64 = await convertBase64(file);
-        setImage(base64);
+        setImage(event.target.value);
     }
     async function fileSelectedHandlefichier(event){
-        const file = event.target.files[0];
-        const base64 = await convertBase64(file);
-        setFichier(base64);
+        setFichier(event.target.value);
     }
 
     async function fileSelectedMembre(event){
-        const file = event.target.files[0];
-        const base64 = await convertBase64(file);
-        setFichier(base64);
+        setFichier(event.target.value);
     }
 
     async function fileAddIntoArrayOfFile(event, index){
-        const file = event.target.files[0];
-        const base64 = await convertBase64(file);
-        setArrayOfFichier([...arrayOfFichier,{lien:base64}]);
+        setArrayOfFichier([...arrayOfFichier,{lien:event.target.value}]);
     }
 
     async function fileAddIntoArrayOfFileTitre(titre, index){
@@ -130,14 +122,12 @@ export default function Administration(props) {
         }
     }
     async function changeImageArticles(id, event){
-        const file = event.target.files[0];
-        const base64 = await convertBase64(file);
 
         const idAlreadyExist =  tableauArticlesModifie?.findIndex((element)=>element.id === id);
         if(idAlreadyExist === -1){
-            tableauArticlesModifie.push({id:id,image:base64})
+            tableauArticlesModifie.push({id:id,image:event.target.value})
         }else{
-            tableauArticlesModifie[idAlreadyExist] = {...tableauArticlesModifie[idAlreadyExist],image:base64}
+            tableauArticlesModifie[idAlreadyExist] = {...tableauArticlesModifie[idAlreadyExist],image:event.target.value}
         }
     }
     function convertBase64(file){
@@ -449,7 +439,7 @@ export default function Administration(props) {
                                         <textarea onChange={(event)=> changeTexteArticles(id,event.target.value)} rows={10} cols={60}>{element.texte}</textarea>
                                         <img src={element.image} width={"200px"}/>
                                     </div>
-                                    <input type="file" id="titre" onChange={(event) => {changeImageArticles(id,event)}}></input><br></br><br></br>
+                                    <label>image :</label><input type="texte" id="titre" placeholder={element.image} onChange={(event) => {changeImageArticles(id,event)}}></input><br></br><br></br>
                                     <Button style={{marginRight:"10px"}} onClick={validationArtciles}>Valider Modifications</Button>
                                     <Button onClick={()=>suppressionArticles(id)}>Supprimer l'article</Button>
                                 </Accordion.Body>
@@ -484,7 +474,7 @@ export default function Administration(props) {
                                             <Form.Group className="mb-3" controlId="texte">
                                                 <Form.Control as="textarea" name="texte" placeholder={"texte"} style={{width:"400px"}} onChange={(event)=>setTexte(event.target.value)}  rows={10} cols={20}/>
                                             </Form.Group>
-                                            <Form.Label>Image :<Form.Control type="file" id="titre" onChange={(event) => {fileSelectedHandler(event)}}></Form.Control></Form.Label>
+                                            <Form.Label>Image :<Form.Control type="texte" id="titre" onChange={(event) => {fileSelectedHandler(event)}}></Form.Control></Form.Label>
                                         </div>
                                         <Button onClick={()=>{addNewArticle()}} >
                                             Valider
@@ -504,16 +494,22 @@ export default function Administration(props) {
                     <br/>
                     <Accordion defaultActiveKey="0" style={{width:"800px"}}>
                         {data !== undefined && data?.map((element, index)=> {
-                            const id=element.priceCode;
+                            console.log(element)
+                            const id=element.idProduit;
                             return(
                                 <Accordion.Item key={index} eventKey={id}>
-                                    <Accordion.Header><textarea onChange={(event)=> changeTitreArticles(id,event.target.value)} rows={1} style={{fontFamily:"Arial"}} cols={85}>{element.titre}</textarea></Accordion.Header>
+                                    <Accordion.Header>
+                                        <p>{element.titre}</p>
+                                    </Accordion.Header>
                                     <Accordion.Body>
-                                        <div style={{display:"flex",flexDirection:"row"}}>
+                                        <div style={{display:"flex",flexDirection:"column"}}>
+                                            <textarea onChange={(event)=> changeTitreArticles(id,event.target.value)} rows={1} style={{fontFamily:"Arial"}} cols={85}>{element.titre}</textarea>
+                                            <br/>
                                             <textarea onChange={(event)=> changeTexteArticles(id,event.target.value)} rows={10} cols={60}>{element.texte}</textarea>
+                                            <br/>
                                             <img src={element.image} width={"200px"}/>
                                         </div>
-                                        <input type="file" id="titre" onChange={(event) => {changeImageArticles(id,event)}}></input><br></br><br></br>
+                                        <label>Image :</label><input placeholder={element.image} type="texte" id="titre" onChange={(event) => {changeImageArticles(id,event)}}></input><br></br><br></br>
                                         <Button style={{marginRight:"10px"}} onClick={validationProduits}>Valider Modifications</Button>
                                         <Button onClick={()=>suppressionProduits(id)}>Supprimer le produit</Button>
                                     </Accordion.Body>
@@ -555,8 +551,8 @@ export default function Administration(props) {
                                             <Form.Group className="mb-3" controlId="prix" style={{width:"400px"}}>
                                                 <Form.Control type="text" name="prix" placeholder="Prix"onChange={(event)=>setPrix(event.target.value)} />
                                             </Form.Group>
-                                            <Form.Label>Image :<Form.Control type="file" id="titre" onChange={(event) => {fileSelectedHandler(event)}}></Form.Control></Form.Label>
-                                            <Form.Label>Fichier A telecharger :<Form.Control type="file" id="fichier" onChange={(event) => {fileSelectedHandlefichier(event)}}></Form.Control></Form.Label>
+                                            <Form.Label>Image :<Form.Control type="texte" id="titre" onChange={(event) => {fileSelectedHandler(event)}}></Form.Control></Form.Label>
+                                            <Form.Label>Fichier A telecharger :<Form.Control  type="texte" id="fichier" onChange={(event) => {fileSelectedHandlefichier(event)}}></Form.Control></Form.Label>
                                         </div>
                                         <Button onClick={()=>{addNewProduit()}} >
                                             Valider
@@ -592,6 +588,7 @@ export default function Administration(props) {
                                         </thead>
                                         <tbody className={"trMembre"}>
                                         {data?.map((membre, index)=> {
+                                            console.log(membre)
                                             return(<tr onClick={()=>setMembreSelected(index)}>
                                                 <td style={{padding:"10px", marginRight:"10px"}}>{membre.nom}</td>
                                                 <td>{membre.prenom}</td>
@@ -625,10 +622,18 @@ export default function Administration(props) {
                                                     <Button style={{width:"150px", fontSize:"10px"}} style={{backgroundColor:"#a2415e", borderRadius:"40px", width:"200px", height:"40px"}} onClick={()=>{validationDate(data[membreSelected].idMembre)}}>Ajouter</Button>
                                                 </div>
                                                <br></br>
-                                                {data[membreSelected].rdv.length !== 0 &&<><p>Precedent: {format(new Date(data[membreSelected].rdv?.filter((rdv, index)=> isBefore(new Date(rdv), new Date())).sort(function(a, b) {
+                                                {data[membreSelected].rdv.length !== 0 &&
+                                                    <><p>Precedent: {
+                                                        data[membreSelected].rdv.filter((date)=> isBefore(new Date(date), new Date())).sort(function(a, b) {
+                                                            return new Date(b) - new Date(a);
+                                                        })[0] !== undefined && format(new Date(data[membreSelected].rdv.filter((date)=> isBefore(new Date(date), new Date())).sort(function(a, b) {
                                                     return new Date(b) - new Date(a);
                                                 })[0]),"dd-MM-yyyy")}</p>
-                                                <p>Prochain: {format(new Date(data[membreSelected].rdv?.filter((rdv, index)=> isAfter(new Date(rdv), new Date())).sort(function(a, b) {
+                                                <p>Prochain: {
+                                                    data[membreSelected].rdv.filter((date)=> isAfter(new Date(date), new Date())).sort(function(a, b) {
+                                                        return new Date(a) - new Date(b);
+                                                    })[0] !== undefined &&
+                                                    format(new Date(data[membreSelected].rdv.filter((date)=> isAfter(new Date(date), new Date())).sort(function(a, b) {
                                                     return new Date(a) - new Date(b);
                                                 })[0]),"dd-MM-yyyy")}</p></>}
                                             </div>
@@ -641,7 +646,7 @@ export default function Administration(props) {
                                                 {addFichierMore?.map((fichier, index)=>{
                                                     return(<>
                                                         <Form.Label>Titre :<Form.Control type="texte" id="titre" onChange={(event) => {fileAddIntoArrayOfFileTitre(event.target.value,index)}}></Form.Control></Form.Label>
-                                                        <Form.Label>Fichier :<Form.Control type="file" id="fichier" onChange={(event) => {fileAddIntoArrayOfFile(event,index)}}></Form.Control></Form.Label>
+                                                        <Form.Label>Fichier :<Form.Control type="texte" id="fichier" onChange={(event) => {fileAddIntoArrayOfFile(event,index)}}></Form.Control></Form.Label>
                                                     </>)
                                                 })}
                                             </div>
@@ -654,6 +659,7 @@ export default function Administration(props) {
                                                 </thead>
                                                 <tbody style={{width:"100px"}}>
                                                 {data[membreSelected].fichier?.map((fichier, index)=> {
+                                                    console.log(fichier)
                                                     return(<tr key={fichier.titre} onClick={()=>setMembreSelected(index)}>
                                                         <td style={{padding:"10px", marginRight:"10px"}}>{fichier.titre} <CloseIcon style={{color:"#a2415e"}} onClick={()=> suppressionFichier(data[membreSelected].idMembre,fichier.titre)}/></td>
                                                     </tr>)
@@ -714,7 +720,7 @@ export default function Administration(props) {
         }else if (page === "photos"){
             return (<LayoutAdmin>
                 <br/>
-                <Form.Control type="file" id="titre" style={{width:"400px"}} onChange={(event) => {fileSelectedHandler(event)}}></Form.Control>
+                <Form.Control type="texte" id="titre" style={{width:"400px"}} onChange={(event) => {fileSelectedHandler(event)}}></Form.Control>
                 <a href={"https://compresspng.com/fr/"} style={{color:"black"}} target="_blank"> Lien site pour compresser image ICI</a><br/>
                 <Button onClick={()=>{addNewPhoto()}}>Valider</Button>
                 <ImageList style={{marginTop:"20px",justifyContent:"start"}} cols={3}>

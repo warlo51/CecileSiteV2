@@ -12,7 +12,7 @@ export default function index() {
     useEffect(()=>{
         async function loadData(){
             const listeProduits =  await axios.get("/api/data/loadingProduits?categorie=Videos").then((result: any) => result);
-
+console.log("de",listeProduits)
             setProduits(listeProduits.data.Items.reverse())
         }
         loadData();

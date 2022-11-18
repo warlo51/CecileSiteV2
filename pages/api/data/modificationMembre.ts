@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import {getDatabase} from "../../../src/database/database";
+import db from "../../../src/database/db";
 
 export const config = {
     api: {
@@ -13,28 +14,46 @@ export default async function handler(
     res: NextApiResponse
 ) {
 
-    const mongodb = await getDatabase();
     const data = req.body;
     const objetRequest: any = {
         createAt: new Date()
     }
 
+    let updateExpression= "";
+    const ExpressionAttributeValues: any= {};
     if(data.telephone !== undefined){
         objetRequest.telephone = data.telephone
-    }else if(data.email !== undefined) {
+        updateExpression = updateExpression +"telephone = :telephone,"
+        ExpressionAttributeValues[":telephone"] = data.telephone;
+    } if(data.email !== undefined) {
         objetRequest.email = data.email
-    }else if(data.nom !== undefined) {
+        updateExpression = updateExpression +"email = :email,"
+        ExpressionAttributeValues[":email"] = data.email;
+    } if(data.nom !== undefined) {
         objetRequest.nom = data.nom
-    }else if(data.prenom !== undefined) {
+        updateExpression = updateExpression +"nom = :nom,"
+        ExpressionAttributeValues[":nom"] = data.nom;
+    } if(data.prenom !== undefined) {
         objetRequest.prenom = data.prenom
+        updateExpression = updateExpression +"prenom = :prenom,"
+        ExpressionAttributeValues[":prenom"] = data.prenom;
     }
 
-    const dataReceived = await mongodb.db().collection(`Membres`).updateOne(
-        { idMembre: data.id },
-        {
-            $set: objetRequest,
-        }
-    );
+    updateExpression = "Set " + updateExpression.substring(0, updateExpression.length - 1);
 
-    res.status(200).send({data: "Ok"});
+    const params = {
+        TableName: 'Membres',
+        Key:{
+            idArticle:objetRequest.id
+        },
+        UpdateExpression: `${updateExpression}`,
+        ExpressionAttributeValues:ExpressionAttributeValues
+    };
+
+    try{
+        const data = await db.update(params).promise();
+        res.status(200).send({data: "Ok"});
+    }catch (err){
+        console.log(err)
+    }
 }
