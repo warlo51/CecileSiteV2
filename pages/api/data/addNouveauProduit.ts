@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import {getDatabase} from "../../../src/database/database";
 import db from "../../../src/database/db";
-import {uuidV4} from "mongodb/src/utils";
+import { v4 as uuidv4 } from 'uuid';
 
 export const config = {
     api: {
@@ -20,7 +20,7 @@ export default async function handler(
     const paramsAll = {
         TableName: "Produits",
         Item:{
-            idProduit:uuidV4(),
+            idProduit: uuidv4(),
             priceCode: data.priceCode === undefined ? "":data.priceCode,
             prix: data.prix,
             createAt:new Date(),
