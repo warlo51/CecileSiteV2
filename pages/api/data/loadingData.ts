@@ -14,6 +14,7 @@ export default async function handler(
     res: NextApiResponse
 ) {
 
+    console.log("VARIABLE_AWS_ID",process.env.VARIABLE_AWS_ID)
     const mongodb = await getDatabase();
     const dataReceived = await mongodb.db().collection(`ImageRandom`).find().toArray();
     res.status(200).send({data: dataReceived});
