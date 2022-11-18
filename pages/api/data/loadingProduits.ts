@@ -32,8 +32,7 @@ export default async function handler(
         },
     };
 
-    if(categorie === undefined){
-        console.log("dede")
+
         try{
             const data = await db.scan(paramsAll).promise();
             res.json(data);
@@ -41,13 +40,4 @@ export default async function handler(
             console.log(err)
         }
 
-    }else{
-        try{
-            const data = await db.scan(paramsCategorie).promise();
-            console.log(data)
-            res.json(data);
-        }catch (err){
-            console.log(err)
-        }
-    }
 }
