@@ -30,13 +30,23 @@ export default async function handler(
         },
     };
 
+    if(categorie === undefined){
+
         try{
             const data = await db.scan(paramsAll).promise();
             res.json(data);
         }catch (err){
             console.log(err)
-            res.json(err)
         }
 
-
+    }else{
+        try{
+            const data = await db.scan(paramsCategorie).promise();
+            console.log(data)
+            res.json(data);
+        }catch (err){
+            console.log(err)
+            res.json(err);
+        }
+    }
 }
