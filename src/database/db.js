@@ -3,8 +3,8 @@ import DynamoDB from "aws-sdk/clients/dynamodb.js";
 
 // Update AWS config
 AWS.config.update({
-    accessKeyId: 'AKIAYWEDAZWFDIDG6FCA', // Do NOT HARD-CODE your secret credentials here
-    secretAccessKey: 'P25Ep95DdkPf9+fMEsYDl4wmL+d9+jJfbG04ChD2', // Do NOT HARD-CODE your secret credentials here
+    accessKeyId: process.env.NEXT_PUBLIC_VARIABLE_AWS_ID, // Do NOT HARD-CODE your secret credentials here
+    secretAccessKey: process.env.NEXT_PUBLIC_VARIABLE_AWS_SECRET_KEY, // Do NOT HARD-CODE your secret credentials here
     region: "eu-west-3",
 });
 

@@ -16,7 +16,6 @@ const [imagesBottom, setImagesBottom] = useState([])
 const [articles, setArticles] = useState([])
     useEffect(()=>{
         async function loadData(){
-            console.log("VARIABLE_AWS_ID",process.env.VARIABLE_AWS_ID)
             const dataImages =  await axios.get("/api/data/loadingData").then((result: any) => result);
             const dataArticles =  await axios.get("/api/data/loadingArticles").then((result: any) => result);
 
