@@ -7,16 +7,16 @@ export default async function handler(
 ) {
   const queryCode = req.query.code;
 
-  const auth0 = await fetch(`${process.env.AUTH0_TOKEN}`, {
+  const auth0 = await fetch(`${process.env.NEXT_PUBLIC_AUTH0_TOKEN}`, {
     method: "POST",
     headers: { "Content-type": "application/x-www-form-urlencoded" },
-    body: `grant_type=authorization_code&client_id=${process.env.AUTH0_CLIENTID}&client_secret=${process.env.AUTH0_CLIENTSECRET}&code=${queryCode}&redirect_uri=${process.env.AUTH0_LOCAL}`,
+    body: `grant_type=authorization_code&client_id=${process.env.NEXT_PUBLIC_AUTH0_CLIENTID}&client_secret=${process.env.NEXT_PUBLIC_AUTH0_CLIENTSECRET}&code=${queryCode}&redirect_uri=${process.env.NEXT_PUBLIC_AUTH0_LOCAL}`,
   })
     .then((data) => data.json())
     .then((token) => token);
   const tokenAccess = auth0.access_token;
   const auth0searchUser = await fetch(
-    `https://${process.env.AUTH0_DOMAIN}/userinfo`,
+    `https://${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}/userinfo`,
     {
       method: "get",
       headers: {

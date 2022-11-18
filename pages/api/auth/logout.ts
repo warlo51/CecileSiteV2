@@ -4,7 +4,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const auth0 = `https://${process.env.AUTH0_DOMAIN}/v2/logout?client_id=${process.env.AUTH0_CLIENTID}&returnTo=${process.env.AUTH0_LOCAL}`;
+  const auth0 = `https://${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}/v2/logout?client_id=${process.env.NEXT_PUBLIC_AUTH0_CLIENTID}&returnTo=${process.env.NEXT_PUBLIC_AUTH0_LOCAL}`;
   res.setHeader("Content-Type", "application/json");
   res.setHeader("Set-Cookie", [
     cookie.serialize("AccessToken", "deleted", {
