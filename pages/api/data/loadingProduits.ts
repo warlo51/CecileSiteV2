@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import {getDatabase} from "../../../src/database/database";
 import db from "../../../src/database/db";
 
 export const config = {
@@ -15,7 +14,6 @@ export default async function handler(
     res: NextApiResponse
 ) {
 
-    const mongodb = await getDatabase();
     const categorie = req.query.categorie;
 
     const paramsAll = {
@@ -32,12 +30,13 @@ export default async function handler(
         },
     };
 
-
         try{
             const data = await db.scan(paramsAll).promise();
             res.json(data);
         }catch (err){
             console.log(err)
+            res.json(err)
         }
+
 
 }
