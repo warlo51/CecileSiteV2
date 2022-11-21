@@ -670,18 +670,18 @@ export default function Administration(props) {
                                                <br></br>
                                                 {data[membreSelected].rdv.length !== 0 &&
                                                     <><p>Precedent: {
-                                                        data[membreSelected].rdv.filter((date)=> isBefore(new Date(date), new Date())).sort(function(a, b) {
-                                                            return new Date(b) - new Date(a);
-                                                        })[0] !== undefined && format(new Date(data[membreSelected].rdv.filter((date)=> isBefore(new Date(date), new Date())).sort(function(a, b) {
-                                                    return new Date(b) - new Date(a);
-                                                })[0]),"dd-MM-yyyy")}</p>
+                                                        data[membreSelected].rdv.filter((date)=> isBefore(new Date(date.date), new Date())).sort(function(a, b) {
+                                                            return new Date(b.date) - new Date(a.date);
+                                                        })[0] !== undefined && format(new Date(data[membreSelected].rdv.filter((date)=> isBefore(new Date(date.date), new Date())).sort(function(a, b) {
+                                                    return new Date(b.date) - new Date(a.date);
+                                                })[0].date),"dd-MM-yyyy")}</p>
                                                 <p>Prochain: {
-                                                    data[membreSelected].rdv.filter((date)=> isAfter(new Date(date), new Date())).sort(function(a, b) {
-                                                        return new Date(a) - new Date(b);
+                                                    data[membreSelected].rdv.filter((date)=> isAfter(new Date(date.date), new Date())).sort(function(a, b) {
+                                                        return new Date(a.date) - new Date(b.date);
                                                     })[0] !== undefined &&
-                                                    format(new Date(data[membreSelected].rdv.filter((date)=> isAfter(new Date(date), new Date())).sort(function(a, b) {
-                                                    return new Date(a) - new Date(b);
-                                                })[0]),"dd-MM-yyyy")}</p></>}
+                                                    format(new Date(data[membreSelected].rdv.filter((date)=> isAfter(new Date(date.date), new Date())).sort(function(a, b) {
+                                                    return new Date(a.date) - new Date(b.date);
+                                                })[0].date),"dd-MM-yyyy")}</p></>}
                                             </div>
                                             <hr />
                                             <div style={{display:"flex",flexDirection:"row"}}>
@@ -699,10 +699,10 @@ export default function Administration(props) {
                                                             <option value={"Fiches"}>Fiches</option>
                                                         </Form.Select></Form.Label>
                                                         <Form.Label>Date lié :<Form.Select type="texte" id="fichier" onClick={(event) => {fileAddIntoArrayOfFileDate(event,index)}}>
-                                                            <option value={data[membreSelected].rdv[0]} defaultValue={data[membreSelected].rdv[0]}>{data[membreSelected].rdv[0]}</option>
+                                                            <option value={data[membreSelected].rdv[0].date} defaultValue={data[membreSelected].rdv[0].date}>{data[membreSelected].rdv[0].date}</option>
                                                             {data[membreSelected].rdv.map((element, index)=>{
                                                                 if(index > 0){
-                                                                    return(<option key={index}>{element}</option>)
+                                                                    return(<option key={index}>{element.date}</option>)
                                                                 }
                                                             })}
                                                         </Form.Select></Form.Label>
