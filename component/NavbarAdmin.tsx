@@ -24,6 +24,11 @@ export default function NavbarAdmin() {
                     Gestion des produits
                 </Nav.Link>
             </Nav.Item>
+            <Nav.Item>
+                <Nav.Link href="/api/auth/logout">
+                    Deconnexion
+                </Nav.Link>
+            </Nav.Item>
 </Nav>
 
     );

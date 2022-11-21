@@ -22,11 +22,21 @@ export const getServerSideProps = async (context) =>{
     let decoded;
     let profile;
 
+    const auth0searchUser = await fetch(
+        `https://${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}/userinfo`,
+        {
+            method: "get",
+            headers: {
+                Authorization: `Bearer ${accessTokken}`,
+            },
+        }
+    ).then((data) => data.json());
+
     if (accessTokken === undefined) {
         decoded = null;
     } else {
         try{
-            decoded = jwt_decode(accessTokken);
+            decoded = auth0searchUser.email;
         }catch(error){
             decoded = null
         }
@@ -83,6 +93,7 @@ export default function Administration(props) {
 
     const [selectionSectionMembre, setSelectionSectionMembre] = useState();
 
+    if(props.decoded === "cecile.fabie@gmail.com"){
     async function fileSelectedHandler(event){
         setImage(event.target.value);
     }
@@ -95,7 +106,13 @@ export default function Administration(props) {
     }
 
     async function fileAddIntoArrayOfFile(event, index){
-        setArrayOfFichier([...arrayOfFichier,{lien:event.target.value}]);
+        arrayOfFichier[index] = {...arrayOfFichier[index],lien:event.target.value}
+    }
+    async function fileAddIntoArrayOfFileCategorie(event, index){
+        arrayOfFichier[index] = {...arrayOfFichier[index],categorie:event.target.value}
+    }
+    async function fileAddIntoArrayOfFileDate(event, index){
+        arrayOfFichier[index] = {...arrayOfFichier[index],date:event.target.value}
     }
 
     async function fileAddIntoArrayOfFileTitre(titre, index){
@@ -642,11 +659,23 @@ export default function Administration(props) {
                                                 <AddIcon onClick={()=> setAddFichierMore([...addFichierMore,1])}/>
                                                 <Button style={{width:"150px", fontSize:"10px"}} style={{backgroundColor:"#a2415e", borderRadius:"40px",width:"200px"}}onClick={()=>{validationFichierMembre(data[membreSelected].idMembre)}}>Enregistrer les fichiers</Button>
                                             </div>
-                                            <div style={{display:"flex",flexDirection:"row"}}>
+                                            <div style={{display:"flex",flexDirection:"column"}}>
                                                 {addFichierMore?.map((fichier, index)=>{
                                                     return(<>
                                                         <Form.Label>Titre :<Form.Control type="texte" id="titre" onChange={(event) => {fileAddIntoArrayOfFileTitre(event.target.value,index)}}></Form.Control></Form.Label>
                                                         <Form.Label>Fichier :<Form.Control type="texte" id="fichier" onChange={(event) => {fileAddIntoArrayOfFile(event,index)}}></Form.Control></Form.Label>
+                                                        <Form.Label>Categorie :<Form.Select type="texte" id="categorie" onClick={(event) => {fileAddIntoArrayOfFileCategorie(event,index)}}>
+                                                            <option value={"Audios"} defaultValue={"Audios"}>Audios</option>
+                                                            <option value={"Videos"}>Videos</option>
+                                                        </Form.Select></Form.Label>
+                                                        <Form.Label>Date lié :<Form.Select type="texte" id="fichier" onClick={(event) => {fileAddIntoArrayOfFileDate(event,index)}}>
+                                                            <option value={data[membreSelected].rdv[0]} defaultValue={data[membreSelected].rdv[0]}>{data[membreSelected].rdv[0]}</option>
+                                                            {data[membreSelected].rdv.map((element, index)=>{
+                                                                if(index > 0){
+                                                                    return(<option key={index}>{element}</option>)
+                                                                }
+                                                            })}
+                                                        </Form.Select></Form.Label>
                                                     </>)
                                                 })}
                                             </div>
@@ -769,5 +798,7 @@ export default function Administration(props) {
                 <Row style={{height:"1000px", display:"flex", justifyContent:"center", alignContent:"center"}}><Button href="/api/auth/login" style={{backgroundColor:"#3d1e7b",borderRadius:"30px", width:"200px", height:"150px"}}><p style={{marginTop:"50px"}}>Se connecter</p></Button></Row>
             </Layout>
         )
+    }}else{
+        return(<>Vous n'avez pas les droits</>)
     }
 }

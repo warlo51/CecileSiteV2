@@ -41,7 +41,7 @@ export default async function handler(
     if (mailUserAuth0 === "cecile.fabie@gmail.com") {
       res.redirect(303, "/Admin");
     } else {
-      res.redirect(`/`);
+      res.redirect(`/Membres`);
     }
   } else {
     res.redirect(`/`);

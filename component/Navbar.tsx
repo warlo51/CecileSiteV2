@@ -18,7 +18,8 @@ function NavBar() {
                         </NavDropdown>
                         <Nav.Link href="/Actualites">Actualites</Nav.Link>
                         <Nav.Link href="/Contact">Contact</Nav.Link>
-                        <Nav.Link href="/Membres">Espace Membres</Nav.Link>
+                        <Nav.Link href="/api/auth/login">Espace Membres</Nav.Link>
+                        <Nav.Link href="/api/auth/logout">Deconnexion</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
