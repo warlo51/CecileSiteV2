@@ -23,7 +23,7 @@ export default function index() {
                 <br/>
                 <Link href={"/boiteaoutils"}><button style={{backgroundColor:"#a2415e",color:"white",border:"none",borderRadius:"10px"}}>Retour</button></Link>
                 <div style={{textAlign:"center", marginTop:"50px"}}>
-                    <h1 style={{marginBottom:"20px"}}>Les outils numériques</h1>
+                    <h1 style={{marginBottom:"20px"}}>Les outils videos</h1>
                 </div>
                 {produits.length !== 0 && produits.map((produit:any)=> {
                     if(produit.prix === 0){
