@@ -579,8 +579,8 @@ export default function Administration(props) {
                                         <div style={{display:"flex",flexDirection:"column"}}>
                                             <Form.Group className="mb-3" controlId="categorie" style={{width:"400px"}}>
                                                 <Form.Select type="text" name="categorie" placeholder="Categorie"onChange={(event)=>setCategorie(event.target.value)}>
-                                                    <option value={"Audio"}>Audio</option>
-                                                    <option value={"Video"}>Video</option>
+                                                    <option value={"Audios"}>Audio</option>
+                                                    <option value={"Videos"}>Video</option>
                                                     <option value={"Outils"}>Outils Numériques</option>
                                                 </Form.Select>
                                             </Form.Group>
