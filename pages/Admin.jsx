@@ -73,6 +73,8 @@ export default function Administration(props) {
 
     const [titre, setTitre] = useState();
     const [texte, setTexte] = useState();
+    const [ville, setVille] = useState();
+    const [cp, setCp] = useState();
     const [dateBefore, setDateBefore] = useState();
     const [dateAfter, setDateAfter] = useState();
     const [phrase, setPhrase] = useState();
@@ -201,6 +203,8 @@ export default function Administration(props) {
             idMembre: uuidv4(),
             nom: nom,
             prenom: prenom,
+            ville:ville,
+            cp:cp,
             telephone: telephone,
             email: email,
         }).then((result) => result);
@@ -384,7 +388,6 @@ export default function Administration(props) {
     }
 
     async function suppressionFichier(id, titre) {
-        console.log()
         const listeFichier = await axios.post(`/api/data/supressionFichier`, {id, titre}).then((result) => result);
         if(listeFichier.data.data === "Ok"){
             setInfoBulle(<InfoBulle validation={true}/>)
@@ -695,7 +698,7 @@ export default function Administration(props) {
                                                         <Form.Label>Titre :<Form.Control type="texte" id="titre" onChange={(event) => {fileAddIntoArrayOfFileTitre(event.target.value,index)}}></Form.Control></Form.Label>
                                                         <Form.Label>Fichier :<Form.Control type="texte" id="fichier" onChange={(event) => {fileAddIntoArrayOfFile(event,index)}}></Form.Control></Form.Label>
                                                         <Form.Label>Categorie :<Form.Select type="texte" id="categorie" onClick={(event) => {fileAddIntoArrayOfFileCategorie(event,index)}}>
-                                                            <option value={"Audios"} defaultValue={"Audios"}>Audios</option>
+                                                            <option value={"Audios"}>Audios</option>
                                                             <option value={"Videos"}>Videos</option>
                                                             <option value={"Fiches"}>Fiches</option>
                                                         </Form.Select></Form.Label>
@@ -757,6 +760,12 @@ export default function Administration(props) {
                                             </Form.Group>
                                             <Form.Group className="mb-3" controlId="prenom" onChange={(event)=>setPrenom(event.target.value)} style={{width:"400px"}}>
                                                 <Form.Control type="text" name="prenom"  placeholder="Prenom" />
+                                            </Form.Group>
+                                            <Form.Group className="mb-3" controlId="ville" onChange={(event)=>setVille(event.target.value)} style={{width:"400px"}}>
+                                                <Form.Control type="texte" name="ville"  placeholder="Ville" />
+                                            </Form.Group>
+                                            <Form.Group className="mb-3" controlId="cp" onChange={(event)=>setCp(event.target.value)} style={{width:"400px"}}>
+                                                <Form.Control type="texte" name="cp"  placeholder="Code Postal" />
                                             </Form.Group>
                                             <Form.Group className="mb-3" controlId="telephone" onChange={(event)=>setTelephone(event.target.value)} style={{width:"400px"}}>
                                                 <Form.Control type="text" name="telephone"  placeholder="Telephone" />

@@ -20,9 +20,9 @@ export default async function handler(
             idMembre:data.idMembre,
             nom: data.nom,
             prenom: data.prenom,
-            photo:"",
-            ville:"",
-            codePostal:"",
+            photo:"https://documentsiteyogavedasante.s3.eu-west-3.amazonaws.com/photo+page+accueil+(1)/imageNotFound.webp",
+            ville:data.ville,
+            codePostal:data.cp,
             telephone: data.telephone,
             email: data.email,
             rdv:[],
@@ -30,7 +30,7 @@ export default async function handler(
         }
     }
 
-    if(data.idMembre !== undefined && data.nom !== undefined && data.prenom !== undefined  && data.telephone !== undefined  && data.email !== undefined){
+    if(data.idMembre !== undefined && data.cp !== undefined && data.ville !== undefined && data.nom !== undefined && data.prenom !== undefined  && data.telephone !== undefined  && data.email !== undefined){
         try{
             const data = await db.put(paramsAll).promise();
             res.status(200).send({data: "Ok"});
