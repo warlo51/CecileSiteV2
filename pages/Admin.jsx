@@ -58,7 +58,8 @@ export default function Administration(props) {
     const [openPopUpNewArt, setOpenPopUpNewArt] = useState(false);
     const [openPopUpNewProd, setOpenPopUpNewProd] = useState(false);
     const [openPopUpNewMembre, setOpenPopUpNewMembre] = useState(false);
-    const [categorie, setCategorie] = useState("yogatherapie");
+    const [categorie, setCategorie] = useState("Audios");
+    const [categorieDate, setCategorieDate] = useState("yogatherapie");
 
     const [articles, setArticles] = useState([]);
 
@@ -133,7 +134,7 @@ export default function Administration(props) {
         const reponse = await axios.post(`/api/data/modificationMembreNewDate`, {
             idMembre: id,
             date: nouvelleDate,
-            categorie: categorie
+            categorie: categorieDate
         }).then((result) => result);
         if(reponse.data.data === "Ok"){
             setReaload(true)
@@ -630,7 +631,6 @@ export default function Administration(props) {
                                         </thead>
                                         <tbody className={"trMembre"}>
                                         {data?.map((membre, index)=> {
-                                            console.log(membre)
                                             return(<tr onClick={()=>setMembreSelected(index)}>
                                                 <td style={{padding:"10px", marginRight:"10px"}}>{membre.nom}</td>
                                                 <td>{membre.prenom}</td>
@@ -660,7 +660,7 @@ export default function Administration(props) {
                                                 <div style={{display:"flex",flexDirection:"row"}}>
                                                     <Form style={{display:"flex",flexDirection:"column",justifyContent: "space-around"}}>
                                                         <Form.Label>Nouvelle Date :<DatePicker selected={nouvelleDate} onChange={(date) => setNouvelleDate(date)} /></Form.Label>
-                                                       <Form.Select selected={nouvelleDate} onChange={(event) => setCategorie(event.target.value)} >
+                                                       <Form.Select selected={nouvelleDate} onChange={(event) => setCategorieDate(event.target.value)} >
                                                         <option value={"yogatherapie"}>Yogatherapie</option>
                                                         <option value={"massages"}>Massages</option>
                                                         </Form.Select>
