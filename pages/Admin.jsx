@@ -384,6 +384,7 @@ export default function Administration(props) {
     }
 
     async function suppressionFichier(id, titre) {
+        console.log()
         const listeFichier = await axios.post(`/api/data/supressionFichier`, {id, titre}).then((result) => result);
         if(listeFichier.data.data === "Ok"){
             setInfoBulle(<InfoBulle validation={true}/>)
