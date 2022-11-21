@@ -58,7 +58,7 @@ export default function Administration(props) {
     const [openPopUpNewArt, setOpenPopUpNewArt] = useState(false);
     const [openPopUpNewProd, setOpenPopUpNewProd] = useState(false);
     const [openPopUpNewMembre, setOpenPopUpNewMembre] = useState(false);
-    const [categorie, setCategorie] = useState();
+    const [categorie, setCategorie] = useState("yogatherapie");
 
     const [articles, setArticles] = useState([]);
 
@@ -132,7 +132,8 @@ export default function Administration(props) {
     async function validationDate(id){
         const reponse = await axios.post(`/api/data/modificationMembreNewDate`, {
             idMembre: id,
-            date: nouvelleDate
+            date: nouvelleDate,
+            categorie: categorie
         }).then((result) => result);
         if(reponse.data.data === "Ok"){
             setReaload(true)
@@ -511,8 +512,7 @@ export default function Administration(props) {
                     <br/>
                     <Accordion defaultActiveKey="0" style={{width:"800px"}}>
                         {data !== undefined && data?.map((element, index)=> {
-                            console.log(element)
-                            const id=element.idProduit;
+                            const id=element.idProduits;
                             return(
                                 <Accordion.Item key={index} eventKey={id}>
                                     <Accordion.Header>
@@ -635,6 +635,10 @@ export default function Administration(props) {
                                                 <div style={{display:"flex",flexDirection:"row"}}>
                                                     <Form style={{display:"flex",flexDirection:"column",justifyContent: "space-around"}}>
                                                         <Form.Label>Nouvelle Date :<DatePicker selected={nouvelleDate} onChange={(date) => setNouvelleDate(date)} /></Form.Label>
+                                                       <Form.Select selected={nouvelleDate} onChange={(event) => setCategorie(event.target.value)} >
+                                                        <option value={"yogatherapie"}>Yogatherapie</option>
+                                                        <option value={"massages"}>Massages</option>
+                                                        </Form.Select>
                                                     </Form>
                                                     <Button style={{width:"150px", fontSize:"10px"}} style={{backgroundColor:"#a2415e", borderRadius:"40px", width:"200px", height:"40px"}} onClick={()=>{validationDate(data[membreSelected].idMembre)}}>Ajouter</Button>
                                                 </div>
@@ -667,6 +671,7 @@ export default function Administration(props) {
                                                         <Form.Label>Categorie :<Form.Select type="texte" id="categorie" onClick={(event) => {fileAddIntoArrayOfFileCategorie(event,index)}}>
                                                             <option value={"Audios"} defaultValue={"Audios"}>Audios</option>
                                                             <option value={"Videos"}>Videos</option>
+                                                            <option value={"Fiches"}>Fiches</option>
                                                         </Form.Select></Form.Label>
                                                         <Form.Label>Date lié :<Form.Select type="texte" id="fichier" onClick={(event) => {fileAddIntoArrayOfFileDate(event,index)}}>
                                                             <option value={data[membreSelected].rdv[0]} defaultValue={data[membreSelected].rdv[0]}>{data[membreSelected].rdv[0]}</option>
@@ -688,7 +693,6 @@ export default function Administration(props) {
                                                 </thead>
                                                 <tbody style={{width:"100px"}}>
                                                 {data[membreSelected].fichier?.map((fichier, index)=> {
-                                                    console.log(fichier)
                                                     return(<tr key={fichier.titre} onClick={()=>setMembreSelected(index)}>
                                                         <td style={{padding:"10px", marginRight:"10px"}}>{fichier.titre} <CloseIcon style={{color:"#a2415e"}} onClick={()=> suppressionFichier(data[membreSelected].idMembre,fichier.titre)}/></td>
                                                     </tr>)

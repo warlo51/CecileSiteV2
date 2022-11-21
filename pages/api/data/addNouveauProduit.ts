@@ -20,7 +20,7 @@ export default async function handler(
     const paramsAll = {
         TableName: "Produits",
         Item:{
-            idProduit: uuidv4(),
+            idProduits: uuidv4(),
             priceCode: data.priceCode === undefined ? "":data.priceCode,
             prix: data.prix,
             createAt:new Date(),

@@ -16,7 +16,7 @@ export default async function handler(
         UpdateExpression: "SET #ri = list_append(#ri, :vals)",
         ExpressionAttributeNames:{"#ri": "rdv"},
         ExpressionAttributeValues:{
-            ":vals": [`${data.date}`]
+            ":vals": [{date:`${data.date}`,categorie:`${data.categorie}`}]
         }
 
     };

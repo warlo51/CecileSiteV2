@@ -40,7 +40,7 @@ export default async function handler(
     const params = {
         TableName: 'Produits',
         Key:{
-            idProduit:objetRequest.id
+            idProduits:objetRequest.id
         },
         UpdateExpression: `${updateExpression}`,
         ExpressionAttributeValues:ExpressionAttributeValues

@@ -12,7 +12,7 @@ export default async function handler(
     const paramsAll = {
         TableName: "Produits",
         Key:{
-            idProduit: data
+            idProduits: data
         }
     }
 
