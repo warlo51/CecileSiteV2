@@ -30,7 +30,7 @@ export default async function handler(
             fichier:data.fichier
         }
     }
-    if(data.titre !== undefined && data.prix !== undefined && data.image !== undefined && data.fichier !== undefined){
+    if(data.titre !== undefined && data.prix !== undefined && data.fichier !== undefined){
         try{
             const data = await db.put(paramsAll).promise();
             res.status(200).send({data: "Ok"});

@@ -148,6 +148,25 @@ export default function Administration(props) {
             tableauArticlesModifie[idAlreadyExist] = {...tableauArticlesModifie[idAlreadyExist],image:event.target.value}
         }
     }
+        async function changeFichierArticles(id, event){
+
+            const idAlreadyExist =  tableauArticlesModifie?.findIndex((element)=>element.id === id);
+            if(idAlreadyExist === -1){
+                tableauArticlesModifie.push({id:id,fichier:event.target.value})
+            }else{
+                tableauArticlesModifie[idAlreadyExist] = {...tableauArticlesModifie[idAlreadyExist],fichier:event.target.value}
+            }
+        }
+        async function changeCategorieArticles(id, event){
+
+            const idAlreadyExist =  tableauArticlesModifie?.findIndex((element)=>element.id === id);
+            if(idAlreadyExist === -1){
+                tableauArticlesModifie.push({id:id,categorie:event.target.value})
+            }else{
+                tableauArticlesModifie[idAlreadyExist] = {...tableauArticlesModifie[idAlreadyExist],categorie:event.target.value}
+            }
+        }
+
     function convertBase64(file){
         return new Promise((resolve, reject) => {
             const fileReader = new FileReader();
@@ -527,6 +546,12 @@ export default function Administration(props) {
                                             <img src={element.image} width={"200px"}/>
                                         </div>
                                         <label>Image :</label><input placeholder={element.image} type="texte" id="titre" onChange={(event) => {changeImageArticles(id,event)}}></input><br></br><br></br>
+                                        <label>Fichier :</label><input placeholder={element.fichier} type="texte" id="titre" onChange={(event) => {changeFichierArticles(id,event)}}></input><br></br><br></br>
+                                        <select onChange={(event) => {changeCategorieArticles(id,event)}}>
+                                            {element.categorie === "Outils" && <><option value={"Outils"}>{element.categorie}</option><option value={"Audios"}>Audios</option><option value={"Videos"}>Videos</option></>}
+                                            {element.categorie === "Videos" && <><option value={"Videos"}>{element.categorie}</option><option value={"Audios"}>Audios</option><option value={"Outils"}>Outils</option></>}
+                                            {element.categorie === "Audios" && <><option value={"Audios"}>{element.categorie}</option><option value={"Videos"}>Videos</option><option value={"Outils"}>Outils</option></>}
+                                        </select><br></br><br></br>
                                         <Button style={{marginRight:"10px"}} onClick={validationProduits}>Valider Modifications</Button>
                                         <Button onClick={()=>suppressionProduits(id)}>Supprimer le produit</Button>
                                     </Accordion.Body>
