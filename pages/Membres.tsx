@@ -118,6 +118,7 @@ export default function Contact(props:any) {
                 fiches:[]
             }
         }else{
+
             tableauFichiers[dateNewFormat] = {
                 fiches:[{
                     titre: element.titre,
