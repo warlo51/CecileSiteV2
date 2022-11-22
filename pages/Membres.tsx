@@ -79,9 +79,9 @@ export default function Contact(props:any) {
 
         const membreInformation = props.userFound;
         let tableauFichiers:any=[];
-    membreInformation.fichier.forEach((element:any)=>{
-    const dateNewFormat = format(new Date(element.date),"dd-MM-yyyy");
-    if(tableauFichiers[dateNewFormat]){
+        membreInformation.fichier.forEach((element:any)=>{
+        const dateNewFormat = format(new Date(element.date),"dd-MM-yyyy");
+        if(tableauFichiers[dateNewFormat]){
         if(element.categorie === "Videos"){
             tableauFichiers[dateNewFormat].videos = [...tableauFichiers[dateNewFormat].videos,{
                 titre: element.titre,
@@ -146,13 +146,14 @@ export default function Contact(props:any) {
 
         })
 
-        async function fileSelectedHandler(event: any) {
+
+        const fileSelectedHandler = async (event: any) => {
             const file = event.target.files[0];
             const base64 = await convertBase64(file);
             setPhotoProfil(base64);
         }
 
-        async function changePhoto(id: string) {
+        const changePhoto = async (id: string) => {
             await axios.post(`/api/data/changePhotoProfil`, {
                 idMembre: id,
                photo:photoProfil
@@ -164,7 +165,8 @@ export default function Contact(props:any) {
                 setInfoBulle(<></>)
             },3000)
         }
-        function convertBase64(file){
+
+            const convertBase64 = (file: any) => {
             return new Promise((resolve, reject) => {
                 const fileReader = new FileReader();
                 fileReader.readAsDataURL(file);
