@@ -31,7 +31,6 @@ export default function index() {
                         return(<CardImageGaucheBAO
                             image={produit.image}
                             tailleImage={50}
-                            type={"fichier"}
                             fichier={produit.fichier}
                             texte={produit.texte}
                             titre={<h2>{produit.titre}</h2>}
@@ -42,7 +41,6 @@ export default function index() {
                         return(<CardImageGaucheBAO
                             image={produit.image}
                             tailleImage={50}
-                            type={"fichier"}
                             fichier={produit.fichier}
                             texte={produit.texte}
                             priceCode={produit.priceCode}
