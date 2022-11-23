@@ -33,7 +33,8 @@ export default async function handler(
         }
 
     };
-
+    console.log("data",data)
+console.log("param",params)
     try{
         const data = await db.update(params).promise();
         res.status(200).send({data: "Ok"});

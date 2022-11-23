@@ -35,6 +35,11 @@ export default async function handler(
         updateExpression = updateExpression +"image = :image,"
         ExpressionAttributeValues[":image"]  = data[0].image;
     }
+    if(keys.includes("fichier")){
+        objetRequest.fichier = data[0].fichier
+        updateExpression = updateExpression +"fichier = :fichier,"
+        ExpressionAttributeValues[":fichier"]  = data[0].fichier;
+    }
     updateExpression = "Set " + updateExpression.substring(0, updateExpression.length - 1);
 
     const params = {

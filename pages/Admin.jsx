@@ -697,12 +697,12 @@ export default function Administration(props) {
                                                     return(<>
                                                         <Form.Label>Titre :<Form.Control type="texte" id="titre" onChange={(event) => {fileAddIntoArrayOfFileTitre(event.target.value,index)}}></Form.Control></Form.Label>
                                                         <Form.Label>Fichier :<Form.Control type="texte" id="fichier" onChange={(event) => {fileAddIntoArrayOfFile(event,index)}}></Form.Control></Form.Label>
-                                                        <Form.Label>Categorie :<Form.Select type="texte" id="categorie" onClick={(event) => {fileAddIntoArrayOfFileCategorie(event,index)}}>
+                                                        <Form.Label>Categorie :<Form.Select type="texte" id="categorie" onChange={(event) => {fileAddIntoArrayOfFileCategorie(event,index)}}>
                                                             <option value={"Audios"}>Audios</option>
                                                             <option value={"Videos"}>Videos</option>
                                                             <option value={"Fiches"}>Fiches</option>
                                                         </Form.Select></Form.Label>
-                                                        <Form.Label>Date lié :<Form.Select type="texte" id="fichier" onClick={(event) => {fileAddIntoArrayOfFileDate(event,index)}}>
+                                                        <Form.Label>Date lié :<Form.Select type="texte" id="fichier" onChange={(event) => {fileAddIntoArrayOfFileDate(event,index)}}>
                                                             <option value={data[membreSelected].rdv[0].date} defaultValue={data[membreSelected].rdv[0].date}>{data[membreSelected].rdv[0].date}</option>
                                                             {data[membreSelected].rdv.map((element, index)=>{
                                                                 if(index > 0){
