@@ -31,6 +31,7 @@ export default function index() {
                     if(produit.prix === "0"){
                         return(<CardImageGaucheBAO
                             image={produit.image}
+                            type={"audio"}
                             tailleImage={50}
                             fichier={produit.fichier}
                             texte={produit.texte}
@@ -41,6 +42,7 @@ export default function index() {
                     }else{
                         return(<CardImageGaucheBAO
                             image={produit.image}
+                            type={"audio"}
                             tailleImage={50}
                             fichier={produit.fichier}
                             texte={produit.texte}

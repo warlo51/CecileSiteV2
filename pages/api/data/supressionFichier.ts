@@ -18,12 +18,13 @@ export default async function handler(
         ProjectionExpression:'fichier'
 
     };
-
+console.log("membre",id)
+console.log("titre",titre)
     try{
-        const data = await db.scan(paramsAll).promise();
-        if(data.Items !== undefined){
-            if(data.Items[0].fichier.length !== 0){
-                const index = data.Items[0].fichier.findIndex((element: any) => element.titre === titre)
+        const data = await db.get(paramsAll).promise();
+        if(data.Item !== undefined){
+            if(data.Item.fichier.length !== 0){
+                const index = data.Item.fichier.findIndex((element: any) => element.titre === titre)
                 const deleteItem = await db.update({
                     TableName: 'Membres',
                     Key:{

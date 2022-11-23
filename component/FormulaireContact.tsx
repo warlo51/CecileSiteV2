@@ -33,8 +33,8 @@ const [email,setEmail] = useState();
                 <Form.Group className="mb-3" controlId="from_name" style={{width:"300px"}}>
                     <Form.Control type="text" name="from_name" placeholder="Prenom" onChange={(event:any)=>setPrenom(event.target.value)}/>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="nomContact" onChange={(event:any)=>setEmail(event.target.value)} style={{width:"300px"}}>
-                    <Form.Control type="email" name="nomContact"  placeholder="Email" />
+                <Form.Group className="mb-3" controlId="email" onChange={(event:any)=>setEmail(event.target.value)} style={{width:"300px"}}>
+                    <Form.Control type="email" name="email"  placeholder="Email" />
                 </Form.Group>
             </div>
             <Form.Group className="mb-3" controlId="message">

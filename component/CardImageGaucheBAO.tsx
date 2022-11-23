@@ -19,6 +19,7 @@ export default function CardImageGaucheBAO(props: any) {
     const [titre, setTitre] = useState()
     const [texte, setTexte] = useState()
     const [fichier, setFichier] = useState()
+    const [type, setType] = useState()
     const [gratuit, setGratuit] = useState()
     const [priceCode, setPriceCode] = useState()
     const image = props.image;
@@ -43,6 +44,7 @@ export default function CardImageGaucheBAO(props: any) {
         setTexte(props.texte)
         setGratuit(props.gratuit)
         setFichier(props.fichier)
+        setType(props.type)
         setPriceCode(props.priceCode)
 
     },[])
@@ -67,7 +69,12 @@ export default function CardImageGaucheBAO(props: any) {
                     </Typography>
                     <Typography style={{display:"flex",flexDirection:"column"}}>
                         {montant}
-                        {gratuit === true ? <Button style={{backgroundColor:"#a2415e",color:"white", borderRadius:"40px"}}><a href={fichier} download={titre} >Telécharger</a></Button>:<button style={{backgroundColor:"#a2415e",color:"white", borderRadius:"40px"}} type={"submit"}>Telécharger</button>}
+                        {gratuit === true ?
+                            type === "fichier" ? <Button style={{backgroundColor:"#a2415e",color:"white", borderRadius:"40px"}}><a href={fichier} target={"_blank"}download={titre} >Telécharger</a></Button> :
+                                <Button style={{backgroundColor:"#a2415e",color:"white", borderRadius:"40px"}}><a href={fichier} download={titre} >Telécharger</a></Button>
+
+                            :
+                            <button style={{backgroundColor:"#a2415e",color:"white", borderRadius:"40px"}} type={"submit"}>Telécharger</button>}
                     </Typography>
                 </CardContent>
             </div>

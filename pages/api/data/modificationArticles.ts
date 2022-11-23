@@ -14,9 +14,11 @@ export default async function handler(
 ) {
 
     const data = req.body.tableauArticlesModifie;
+
     const keys = Object.keys(data[0])
     const objetRequest: any = {
-        createAt: new Date()
+        createAt: new Date(),
+        id:data[0].id
     }
     let updateExpression= "";
     const ExpressionAttributeValues: any= {};
@@ -50,6 +52,7 @@ export default async function handler(
         ExpressionAttributeValues:ExpressionAttributeValues
     };
 
+    console.log("test", params)
     try{
         const data = await db.update(params).promise();
         res.status(200).send({data: "Ok"});

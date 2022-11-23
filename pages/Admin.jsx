@@ -393,6 +393,7 @@ export default function Administration(props) {
             setInfoBulle(<InfoBulle validation={true}/>)
             setTimeout(()=>{
                 setInfoBulle(<></>)
+                setReaload(true)
             },3000)
         }else{
             setInfoBulle(<InfoBulle validation={false}/>)
@@ -400,7 +401,6 @@ export default function Administration(props) {
                 setInfoBulle(<></>)
             },3000)
         }
-        setReaload(true)
     }
 
     async function suppressionMembre(id) {
@@ -646,15 +646,15 @@ export default function Administration(props) {
                                     </Table>
                                 </Col>
                                 <Col sm={7} className={"paperAdminMembre"}>
-                                    <Paper style={{width:"100%", height:"700px", padding:"10px"}}>
+                                    <Paper style={{width:"100%", height:"700px",marginBottom:"30px", padding:"10px", overflowY: "scroll", scrollbarColor: "rebeccapurple green",scrollbarWidth: "thin"}}>
                                     {membreSelected !== undefined &&
                                         <div style={{display:"flex",flexDirection:"column",justifyContent: "space-around"}}>
-                                               <Form style={{display:"flex",flexDirection:"row",justifyContent: "space-around"}}>
-                                                   <Form.Label>Nom :<Form.Control type="text" name="nom" placeholder={`${data[membreSelected].nom}`} onChange={(event)=>setNom(event.target.value)} /></Form.Label>
-                                                   <Form.Label>Prenom :<Form.Control type="text" name="prenom" placeholder={`${data[membreSelected].prenom}`} onChange={(event)=>setPrenom(event.target.value)} /></Form.Label>
-                                                   <Form.Label>Telephone :<Form.Control type="text" name="telephone" placeholder={`${data[membreSelected].telephone}`} onChange={(event)=>setTelephone(event.target.value)} /></Form.Label>
-                                                   <Form.Label>Email: <Form.Control type="text" name="email" placeholder={`${data[membreSelected].email}`} onChange={(event)=>setEmail(event.target.value)} /></Form.Label>
-                                               </Form>
+                                            {data[membreSelected] !== undefined && <Form style={{display:"flex",flexDirection:"row",justifyContent: "space-around"}}>
+                                                <Form.Label>Nom :<Form.Control type="text" name="nom" placeholder={`${data[membreSelected].nom}`} onChange={(event)=>setNom(event.target.value)} /></Form.Label>
+                                                <Form.Label>Prenom :<Form.Control type="text" name="prenom" placeholder={`${data[membreSelected].prenom}`} onChange={(event)=>setPrenom(event.target.value)} /></Form.Label>
+                                                <Form.Label>Telephone :<Form.Control type="text" name="telephone" placeholder={`${data[membreSelected].telephone}`} onChange={(event)=>setTelephone(event.target.value)} /></Form.Label>
+                                                <Form.Label>Email: <Form.Control type="text" name="email" placeholder={`${data[membreSelected].email}`} onChange={(event)=>setEmail(event.target.value)} /></Form.Label>
+                                            </Form>}
                                             <div style={{display:"flex",flexDirection:"row", justifyContent: "space-around"}}>
                                                 <Button style={{width:"150px", fontSize:"10px"}} style={{backgroundColor:"#a2415e", borderRadius:"40px"}}onClick={()=>{validationMembre(data[membreSelected].idMembre)}}>Valider Modifications</Button>
                                                 <Button style={{width:"150px",fontSize:"10px"}}style={{backgroundColor:"#a2415e", borderRadius:"40px"}} onClick={()=>suppressionMembre(data[membreSelected].idMembre)}>Supprimer le membre</Button>
@@ -714,15 +714,15 @@ export default function Administration(props) {
                                                 })}
                                             </div>
                                             {data[membreSelected].fichier.length !== 0 &&
-                                            <Table style={{width:"100px"}} striped bordered hover>
+                                            <Table style={{width:"100%", marginBottom:"20px"}} striped bordered hover>
                                                 <thead style={{borderBottom:"solid"}}>
                                                 <tr style={{fontWeight:"bold"}}>
                                                     <td>Lien</td>
                                                 </tr>
                                                 </thead>
-                                                <tbody style={{width:"100px"}}>
+                                                <tbody >
                                                 {data[membreSelected].fichier?.map((fichier, index)=> {
-                                                    return(<tr key={fichier.titre} onClick={()=>setMembreSelected(index)}>
+                                                    return(<tr key={fichier.titre}>
                                                         <td style={{padding:"10px", marginRight:"10px"}}>{fichier.titre} <CloseIcon style={{color:"#a2415e"}} onClick={()=> suppressionFichier(data[membreSelected].idMembre,fichier.titre)}/></td>
                                                     </tr>)
                                                 })}
