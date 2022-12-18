@@ -6,6 +6,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {useEffect, useState} from "react";
+import {PortableText} from "@portabletext/react";
+import {urlFor} from "../src/utils/function";
 
 export default function Bloc1(props: any) {
 
@@ -26,12 +28,11 @@ export default function Bloc1(props: any) {
                 image={props.image}
             />
             <CardContent>
-                <Typography gutterBottom style={{textAlign:"center"}}>
-                    {titre}
-                </Typography>
-                <Typography color="text.secondary">
-                    {texte}
-                </Typography>
+                {titre}
+
+                <PortableText
+                    value={props.texte}
+                />
             </CardContent>
         </Card>
     );

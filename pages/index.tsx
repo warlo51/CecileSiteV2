@@ -9,21 +9,31 @@ import PopUp from "../component/PopUp";
 import axios from "axios";
 import {formatDistance, isBefore} from "date-fns";
 import Link from "next/link";
+import {client} from "../src/database/sanity";
+import {orderArticlePerDate, urlFor} from "../src/utils/function";
 
-export default function Index() {
+
+export async function getServerSideProps(context: any) {
+    const requete = await client.fetch(`*[_type == "articles"]`);
+    const listeArticles = orderArticlePerDate(requete.map((article: any)=>{
+        return {
+            ...article,
+            image:urlFor(article.image).url()
+        }
+    }))
+
+    return {
+        props: {
+            listeArticles
+        }
+    };
+}
+
+export default function Index({listeArticles}:any) {
 const [PopUpShow, setShowPopUp] = useState(false);
 const [imagesBottom, setImagesBottom] = useState([])
 const [articles, setArticles] = useState([])
-    useEffect(()=>{
-        async function loadData(){
-            const dataImages =  await axios.get("/api/data/loadingData").then((result: any) => result);
-            const dataArticles =  await axios.get("/api/data/loadingArticles").then((result: any) => result);
 
-            setImagesBottom(dataImages.data.data)
-            setArticles(dataArticles.data.data.reverse())
-
-        }
-    },[])
     return (
         <Layout>
             <div className="BlocInformation">
@@ -57,10 +67,10 @@ const [articles, setArticles] = useState([])
             <div className="BlocActus">
                 <div className="TitreBlocActus"><h1 style={{textAlign:"center"}}>Les dernières actualités</h1></div>
                 <div className="BlocInformationActu">
-                    {articles?.map((article: any, index)=>{
+                    {listeArticles?.map((article: any, index: number)=>{
                         if(index <3){
                             return(<div key={index} className="BlocActualite">
-                                <Bloc1 titre={<h2>{article.titre}</h2>} image={article.image} texte={<p>{article.phrase}</p>}/>
+                                <Bloc1 titre={<h2>{article.titre}</h2>} image={article.image} texte={article.phrase}/>
                             </div>)
                         }
                     })}
