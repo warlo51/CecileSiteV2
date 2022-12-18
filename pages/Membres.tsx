@@ -80,7 +80,7 @@ export const getServerSideProps = async (context: any) =>{
 export default function Contact(props:any) {
 
 
-    const [showDetails, setShowDetails] = useState<any>("")
+    const [showDetails, setShowDetails] = useState<any>("Videos")
     const [showDate, setShowDate] = useState("yogatherapie")
     const [itemsReturn, setItemsReturn] = useState([])
     const [showModifyPhoto, setShowModifyPhoto] = useState(false)
@@ -187,17 +187,13 @@ export default function Contact(props:any) {
                 const data = listeOfDateMassages.map((date: any)=>{
                     return {title:date}
                 })
-                if(data.length !== 0) {
-                    setDateSelected(reverseString(data[0].title))
-                }
+                setDateSelected(data[0].title)
                 setItemsReturn(data);
             }else{
                 const data = listeOfDateYogatherapie.map((date: any)=>{
                     return {title:date}
                 })
-                if(data.length !== 0) {
-                    setDateSelected(reverseString(data[0].title))
-                }
+                setDateSelected(data[0].title)
                 setItemsReturn(data);
             }
         },[showDate])
@@ -205,6 +201,7 @@ export default function Contact(props:any) {
         useEffect(()=>{
             setPhotoProfil(membreInformation.photo)
         },[])
+
     return (
         <Layout>
             <div className="container" >
@@ -249,14 +246,20 @@ export default function Contact(props:any) {
                     </div>
 
                     <h3>Filtrez vos rendez vous</h3>
-                    <FormSelect onChange={(event: any)=>setShowDate(event.target.value)}>
-                        <option defaultValue={"yogatherapie"}>yogathérapie</option>
-                        <option defaultValue={"massages"}>massages</option>
-                    </FormSelect>
+                    <div style={{display:"flex",flexDirection:"row"}}>
+                        <FormSelect onChange={(event: any)=>setShowDate(event.target.value)}>
+                            <option defaultValue={"yogatherapie"}>yogathérapie</option>
+                            <option defaultValue={"massages"}>massages</option>
+                        </FormSelect>
+                        <FormSelect onChange={(event: any)=>setDateSelected(event.target.value)}>
+                            {itemsReturn.map((date: any, index:number)=>{
+                                return (
+                                    <option  key={index} value={date.title}>{date.title}</option>
+                                )
+                            })}
+                        </FormSelect>
+                    </div>
                     <div style={{ width: "100%", maxHeight: "2000px", height:"1000px", color:"black"}}>
-                        <div style={{padding:"30px", alignItems:"center"}}>
-                            <Chrono mode="HORIZONTAL" items={itemsReturn} allowDynamicUpdate={true} cardLess={true} activeItemIndex={0} onItemSelected={(event)=>setDateSelected(event.title)}/>
-                        </div>
                             {dateSelected !== "" && <Nav justify variant="tabs" defaultActiveKey="/home">
                             <Nav.Item>
                                 <Nav.Link onClick={()=>setShowDetails("Videos")}>Videos</Nav.Link>
@@ -269,7 +272,7 @@ export default function Contact(props:any) {
                             </Nav.Item>
                         </Nav>}
                         <Container>
-                            {(showDetails === "Videos" && dateSelected!== undefined && tableauFichiers[dateSelected] !== undefined) && tableauFichiers[dateSelected].videos?.map((video: any,index:number)=>{
+                            {(showDetails === "Videos" && dateSelected!== undefined && tableauFichiers[reverseString(dateSelected)] !== undefined) && tableauFichiers[reverseString(dateSelected)].videos?.map((video: any,index:number)=>{
                                 return(<Card key={index} style={{marginBottom:"10px"}}>
                                     <CardContent>
                                         <div style={{display:"flex",flexDirection:"row",justifyContent: "space-around"}}>
@@ -284,7 +287,7 @@ export default function Contact(props:any) {
                                     </CardContent>
                                 </Card>)
                             })}
-                            {(showDetails === "Audios" && dateSelected!== undefined && tableauFichiers[dateSelected] !== undefined) && tableauFichiers[dateSelected].audios?.map((audio: any,index:number)=>{
+                            {(showDetails === "Audios" && dateSelected!== undefined && tableauFichiers[reverseString(dateSelected)] !== undefined) && tableauFichiers[reverseString(dateSelected)].audios?.map((audio: any,index:number)=>{
                                 return(<Card key={index} style={{marginBottom:"10px"}}>
                                     <CardContent>
                                         <div style={{display:"flex",flexDirection:"row",justifyContent: "space-around"}}>
@@ -294,7 +297,7 @@ export default function Contact(props:any) {
                                     </CardContent>
                                 </Card>)
                             })}
-                            {(showDetails === "Fiches" && dateSelected!== undefined && tableauFichiers[dateSelected] !== undefined) && tableauFichiers[dateSelected].fiches?.map((fiche: any,index:number)=>{
+                            {(showDetails === "Fiches" && dateSelected!== undefined && tableauFichiers[reverseString(dateSelected)] !== undefined) && tableauFichiers[reverseString(dateSelected)].fiches?.map((fiche: any,index:number)=>{
                                 return(<Card key={index} style={{marginBottom:"10px"}}>
                                     <CardContent>
                                         <div style={{display:"flex",flexDirection:"row",justifyContent: "space-around"}}>
