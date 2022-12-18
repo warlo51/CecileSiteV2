@@ -16,6 +16,9 @@ import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 import {v4 as uuidv4} from "uuid";
 import InfoBulle from "../component/Toast";
+import {client} from "../src/database/sanity";
+import {reverseString, urlFor} from "../src/utils/function";
+import Link from "next/link";
 
 
 export const getServerSideProps = async (context: any) =>{
@@ -38,13 +41,24 @@ export const getServerSideProps = async (context: any) =>{
     }
 
     try{
-        const data: any = await db.scan(paramsAll).promise();
+        const data: any = await client.fetch(`*[_type=="membres"]{
+      ...,
+      "rdv": *[_type=='rdv' && references(^._id)]{ 
+      \tdate,
+      categorie,
+         'fichiers': fichiers[]->{
+        "fichier":*[_type=='fichiers' && ^._id == _id]{
+          ...,
+          "fichier": fichier.asset->url
+            }}
+    \t}
+    }`);
 
         let userFound;
-        if(data.Items.length === 0){
+        if(data.length === 0){
             userFound=null;
         }else{
-            const found = data.Items.find((element: any)=> element.email === auth0searchUser.email);
+            const found = data.find((element: any)=> element.email === auth0searchUser.email);
             if(found === undefined){
                 userFound=null;
             }else{
@@ -79,57 +93,6 @@ export default function Contact(props:any) {
 
         const membreInformation = props.userFound;
         let tableauFichiers:any=[];
-        membreInformation.fichier.forEach((element:any)=>{
-        const dateNewFormat = format(new Date(element.date),"dd-MM-yyyy");
-        if(tableauFichiers[dateNewFormat]){
-        if(element.categorie === "Videos"){
-            tableauFichiers[dateNewFormat].videos = [...tableauFichiers[dateNewFormat].videos,{
-                titre: element.titre,
-                lien: element.lien
-            }]
-        }else if(element.categorie === "Audios"){
-            tableauFichiers[dateNewFormat].audios = [...tableauFichiers[dateNewFormat].audios,{
-                titre: element.titre,
-                lien: element.lien
-            }]
-        }else{
-            tableauFichiers[dateNewFormat].fiches = [...tableauFichiers[dateNewFormat].fiches,{
-                titre: element.titre,
-                lien: element.lien
-            }]
-        }
-    }else{
-        if(element.categorie === "Videos"){
-            tableauFichiers[dateNewFormat] = {
-                videos:[{
-                    titre: element.titre,
-                    lien: element.lien
-                }],
-                audios:[],
-                fiches:[]
-            }
-        }else if(element.categorie === "Audios"){
-            tableauFichiers[dateNewFormat] = {
-                audios:[{
-                    titre: element.titre,
-                    lien: element.lien
-                }],
-                videos:[],
-                fiches:[]
-            }
-        }else{
-
-            tableauFichiers[dateNewFormat] = {
-                fiches:[{
-                    titre: element.titre,
-                    lien: element.lien
-                }],
-                audios:[],
-                videos:[]
-            }
-        }
-    }
-    });
 
         const listeOfDateMassages: any = []
         const listeOfDateYogatherapie: any = []
@@ -138,6 +101,55 @@ export default function Contact(props:any) {
                 if(!listeOfDateYogatherapie.includes(format(new Date(liste.date),"dd-MM-yyyy"))){
                     listeOfDateYogatherapie.push(format(new Date(liste.date),"dd-MM-yyyy"))
                 }
+                liste.fichiers?.forEach((element:any)=>{
+                    if(tableauFichiers[liste.date]){
+                        if(element.fichier[0].categorie === "videos"){
+                            tableauFichiers[liste.date].videos = [...tableauFichiers[liste.date].videos,{
+                                titre: element.fichier[0].titre,
+                                lien: element.fichier[0].fichier
+                            }]
+                        }else if(element.fichier[0] === "audios"){
+                            tableauFichiers[liste.date].audios = [...tableauFichiers[liste.date].audios,{
+                                titre: element.fichier[0].titre,
+                                lien: element.fichier[0].fichier
+                            }]
+                        }else{
+                            tableauFichiers[liste.date].fiches = [...tableauFichiers[liste.date].fiches,{
+                                titre: element.fichier[0].titre,
+                                lien: element.fichier[0].fichier
+                            }]
+                        }
+                    }else{
+                        if(element.fichier[0].categorie === "videos"){
+                            tableauFichiers[liste.date] = {
+                                videos:[{
+                                    titre: element.fichier[0].titre,
+                                    lien: element.fichier[0].fichier
+                                }],
+                                audios:[],
+                                fiches:[]
+                            }
+                        }else if(element.fichier[0].categorie === "audios"){
+                            tableauFichiers[liste.date] = {
+                                audios:[{
+                                    titre: element.fichier[0].titre,
+                                    lien: element.fichier[0].fichier
+                                }],
+                                videos:[],
+                                fiches:[]
+                            }
+                        }else{
+                            tableauFichiers[liste.date] = {
+                                fiches:[{
+                                    titre: element.fichier[0].titre,
+                                    lien: element.fichier[0].fichier
+                                }],
+                                audios:[],
+                                videos:[]
+                            }
+                        }
+                    }
+                });
             }else{
                 if(!listeOfDateMassages.includes(format(new Date(liste.date),"dd-MM-yyyy"))){
                     listeOfDateMassages.push(format(new Date(liste.date),"dd-MM-yyyy"))
@@ -147,24 +159,13 @@ export default function Contact(props:any) {
         })
 
 
+
         const fileSelectedHandler = async (event: any) => {
             const file = event.target.files[0];
             const base64 = await convertBase64(file);
             setPhotoProfil(base64);
         }
 
-        const changePhoto = async (id: string) => {
-            await axios.post(`/api/data/changePhotoProfil`, {
-                idMembre: id,
-               photo:photoProfil
-            }).then((result) => result);
-
-            setShowModifyPhoto(false);
-            setInfoBulle(<InfoBulle validation={true}/>)
-            setTimeout(()=>{
-                setInfoBulle(<></>)
-            },3000)
-        }
 
             const convertBase64 = (file: any) => {
             return new Promise((resolve, reject) => {
@@ -187,7 +188,7 @@ export default function Contact(props:any) {
                     return {title:date}
                 })
                 if(data.length !== 0) {
-                    setDateSelected(data[0].title)
+                    setDateSelected(reverseString(data[0].title))
                 }
                 setItemsReturn(data);
             }else{
@@ -195,7 +196,7 @@ export default function Contact(props:any) {
                     return {title:date}
                 })
                 if(data.length !== 0) {
-                    setDateSelected(data[0].title)
+                    setDateSelected(reverseString(data[0].title))
                 }
                 setItemsReturn(data);
             }
@@ -204,7 +205,6 @@ export default function Contact(props:any) {
         useEffect(()=>{
             setPhotoProfil(membreInformation.photo)
         },[])
-
     return (
         <Layout>
             <div className="container" >
@@ -212,14 +212,13 @@ export default function Contact(props:any) {
                 <div>
                     <Card  className="CardContent" style={{display:"flex",flexDirection:"column"}} >
                         <div style={{display:"flex",flexDirection:"row"}}>
-                            <CreateIcon onClick={()=>setShowModifyPhoto(true)}/>
                             <CardMedia
                                 className="imageCard"
                                 component="img"
                                 alt=""
                                 height={100}
                                 width={100}
-                                image={photoProfil}
+                                image={urlFor(membreInformation.photo).width(200).url()}
                             />
                             <CardContent className="texteCards">
                                 <Typography gutterBottom style={{color:"black",textAlign:"left"}}>
@@ -229,10 +228,13 @@ export default function Contact(props:any) {
                                     {membreInformation.prenom}
                                 </Typography>
                                 <Typography>
+                                    {membreInformation.age} ans
+                                </Typography>
+                                <Typography>
                                     {membreInformation.ville}
                                 </Typography>
                                 <Typography>
-                                    {membreInformation.codePostal}
+                                    {membreInformation.cp}
                                 </Typography>
                                 <hr/>
                             </CardContent>
@@ -297,7 +299,7 @@ export default function Contact(props:any) {
                                     <CardContent>
                                         <div style={{display:"flex",flexDirection:"row",justifyContent: "space-around"}}>
                                             <h2>{fiche.titre}</h2>
-                                            <Button><a href={fiche.lien} download={fiche.titre} >Telécharger la fiche</a></Button>
+                                            <Button><a href={fiche.lien} target="_blank">Telécharger la fiche</a></Button>
                                         </div>
                                     </CardContent>
                                 </Card>)
@@ -305,37 +307,14 @@ export default function Contact(props:any) {
                         </Container>
                     </div>
                 </div>
-                <>
-                    <Modal
-                        id={"popUpAddNewPhoto"}
-                        show={showModifyPhoto}
-                        onHide={() => setShowModifyPhoto(false)}
-                        dialogClassName="modal-90w"
-                        aria-labelledby="example-custom-modal-styling-title"
-                    >
-                        <Modal.Header closeButton>
-                            <Modal.Title id="example-custom-modal-styling-title" >
-                                <h3 style={{padding:"30px", color:"#a2415e"}}>Changer sa photo de profil</h3>
-                            </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <div style={{display:"flex", flexDirection:"column", textAlign:"center"}}>
-                                <Form className="formulaireContact">
-                                    <br/>
-                                    <div style={{display:"flex",flexDirection:"column"}}>
-                                        <Form.Label>Image :<Form.Control type="file" id="titre" onChange={(event) => {fileSelectedHandler(event)}}></Form.Control></Form.Label>
-                                    </div>
-                                    <Button onClick={()=>{changePhoto(membreInformation.idMembre)}} >
-                                        Valider
-                                    </Button>
-                                </Form>
-                            </div>
-                        </Modal.Body>
-                    </Modal>
-                </>
             </div>
         </Layout>
     )}else{
-        return(<>Vos accès ne sont pas encore crées</>)
+        return(<>
+            <br/>
+            <Link href={"/"}><button style={{backgroundColor:"#a2415e",color:"white",border:"none",borderRadius:"10px"}}>Retour</button></Link>
+            <br/>
+            <h1>Vos accès ne sont pas encore crées</h1>
+        </>)
     }
 }

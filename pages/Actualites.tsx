@@ -4,29 +4,30 @@ import axios from "axios";
 import CardImageArticleDroite from "../component/CardImageArticleDroite";
 import CardImageArticleGauche from "../component/CardImageArticleGauche";
 import Image from "next/image";
+import {client} from "./../src/database/sanity"
 
-export default function Actualites() {
+export async function getServerSideProps(context: any) {
+    const listeArticles = await client.fetch(`*[_type == "articles"]`);
 
-    const [articles, setArticles] = useState([])
-    useEffect(()=>{
-        async function loadData(){
-            const listeArticles =  await axios.get("/api/data/loadingArticles").then((result: any) => result);
-
-            setArticles(listeArticles.data.Items.reverse())
+    return {
+        props: {
+            listeArticles
         }
-        loadData();
-    },[])
+    };
+}
+
+export default function Actualites({listeArticles}:any) {
 
     return (
         <Layout>
             <div className="container">
                 <br/>
                 <br/>
-                {articles?.map((article: any, index)=>{
+                {listeArticles?.map((article: any, index: number)=>{
                     if(index%2 == 0){
                         return(
                             <div key={index}>
-                                <CardImageArticleGauche titre={article.titre} phrase={<p>{article.phrase}</p>}  texte={article.texte} image={article.image}/>
+                                <CardImageArticleGauche titre={article.titre} phrase={article.phrase}  texte={article.texte} image={article.image}/>
                                 <div className="Separateur1" style={{textAlign:"center"}}>
                                     <Image alt="" src={"/SeparationBarre.png"} width={300} height={150}/>
                                 </div>
@@ -36,7 +37,7 @@ export default function Actualites() {
                     }else{
                         return(
                             <div key={index}>
-                                <CardImageArticleDroite  titre={article.titre} phrase={<p>{article.phrase}</p>}  texte={article.texte} image={article.image}/>
+                                <CardImageArticleDroite  titre={article.titre} phrase={article.phrase}  texte={article.texte} image={article.image}/>
                                 <div className="Separateur1" style={{textAlign:"center"}}>
                                     <Image alt="" src={"/SeparationBarre.png"} width={300} height={150}/>
                                 </div>

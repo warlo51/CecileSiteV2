@@ -38,7 +38,7 @@ export default async function handler(
         path: "/",
       }),
     ]);
-    if (mailUserAuth0 === "cecile.fabie@gmail.com") {
+    if (mailUserAuth0 === "yogavedasante@gmail.com") {
       res.redirect(303, "/Admin");
     } else {
       res.redirect(`/Membres`);

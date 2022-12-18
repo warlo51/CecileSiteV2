@@ -12,3 +12,4 @@ export function getDatabase(): Promise<MongoClient> {
     return cachedDb;
   });
 }
+
