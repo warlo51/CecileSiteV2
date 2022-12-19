@@ -209,14 +209,6 @@ export default function Contact(props:any) {
                 <div>
                     <Card  className="CardContent" style={{display:"flex",flexDirection:"column"}} >
                         <div style={{display:"flex",flexDirection:"row"}}>
-                            <CardMedia
-                                className="imageCard"
-                                component="img"
-                                alt=""
-                                height={100}
-                                width={100}
-                                image={urlFor(membreInformation.photo).width(200).url()}
-                            />
                             <CardContent className="texteCards">
                                 <Typography gutterBottom style={{color:"black",textAlign:"left"}}>
                                     {membreInformation.nom}

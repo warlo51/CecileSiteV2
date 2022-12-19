@@ -49,7 +49,7 @@ export default function ArticleDetails(props: any) {
                     <h2 style={{marginTop:"40px"}}>
                         {titre}
                     </h2>
-                    <div style={{width: "400px",height: `${nbOfCharacters}px`, fontSize:"12px"}}>
+                    <div style={{width: "400px",height: `100%`, fontSize:"12px"}}>
                         <PortableText
                             value={texteParse}
                         />

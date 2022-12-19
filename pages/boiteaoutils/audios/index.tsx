@@ -1,23 +1,23 @@
 import Layout from "../../../component/Layout";
-import CardImageGauche from "../../../component/CardImageGauche";
 import CardImageGaucheBAO from "../../../component/CardImageGaucheBAO";
 import Link from "next/link";
-import {loadStripe} from "@stripe/stripe-js";
-import {useEffect, useState} from "react";
-import axios from "axios";
+import {client} from "../../../src/database/sanity";
+import {urlFor} from "../../../src/utils/function";
 
+export async function getServerSideProps(context: any) {
+    const listeProduitsAudios = await client.fetch(`*[_type == "produits" && categorie == "audios"]{
+    ...,
+    "fichier": fichier.asset->url
+    }`);
 
-export default function index() {
-
-    const [produits, setProduits] = useState([])
-    useEffect(()=>{
-        async function loadData(){
-            const listeProduits =  await axios.get("/api/data/loadingProduits?categorie=Audios").then((result: any) => result);
-
-            setProduits(listeProduits.data.Items.reverse())
+    return {
+        props: {
+            listeProduitsAudios
         }
-        loadData();
-    },[])
+    };
+}
+
+export default function index({listeProduitsAudios}: any) {
 
     return (
         <Layout>
@@ -27,23 +27,23 @@ export default function index() {
                 <div style={{textAlign:"center", marginTop:"50px"}}>
                     <h1 style={{marginBottom:"20px"}}>Les outils audios</h1>
                 </div>
-                {produits.length !== 0 && produits.map((produit:any)=> {
-                    if(produit.prix === "0"){
+                {listeProduitsAudios.length !== 0 && listeProduitsAudios.map((produit:any)=> {
+                    if(produit.gratuit === "Oui"){
                         return(<CardImageGaucheBAO
-                            image={produit.image}
+                            image={urlFor(produit.image).url()}
                             tailleImage={50}
                             fichier={produit.fichier}
-                            texte={produit.texte}
+                            texte={produit.description}
                             titre={<h2>{produit.titre}</h2>}
-                            montant={<h2>{produit.prix} €</h2>}
+                            montant={<h2>Gratuit</h2>}
                             gratuit={true}/>)
 
                     }else{
                         return(<CardImageGaucheBAO
-                            image={produit.image}
+                            image={urlFor(produit.image).url()}
                             tailleImage={50}
                             fichier={produit.fichier}
-                            texte={produit.texte}
+                            texte={produit.description}
                             priceCode={produit.priceCode}
                             titre={<h2>{produit.titre}</h2>}
                             montant={<h2>{produit.prix} €</h2>}

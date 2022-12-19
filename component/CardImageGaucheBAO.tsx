@@ -59,10 +59,10 @@ export default function CardImageGaucheBAO(props: any) {
                     image={image}
             />
                 <CardContent className="texteCardsBAO">
-                    <Typography gutterBottom style={{color:"gray",textAlign:"left",marginLeft:"70px", marginRight:"200px"}}>
+                    <Typography gutterBottom style={{color:"gray",textAlign:"left",marginLeft:"30px", marginRight:"100px"}}>
                         {titre}
                     </Typography>
-                    <Typography gutterBottom style={{color:"gray",textAlign:"left",marginLeft:"70px", marginRight:"200px"}}>
+                    <Typography gutterBottom style={{color:"gray",textAlign:"left",marginLeft:"30px", marginRight:"100px"}}>
                         {texte}
                     </Typography>
                     <Typography style={{display:"flex",flexDirection:"column"}}>

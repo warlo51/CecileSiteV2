@@ -19,7 +19,7 @@ export default function CardImageArticleDroite(props: any) {
             <CardMedia
                 component="img"
                 alt=""
-                image={urlFor(image).width(200).url()}
+                image={urlFor(image).url()}
                 className="imageCard"
             />
             <CardContent className={"texteCardDroite"}>
@@ -32,7 +32,7 @@ export default function CardImageArticleDroite(props: any) {
                 <Link
                     href={{
                         pathname: "/ArticleDetails",
-                        query: { titre: titre, texte:JSON.stringify(texte), image:urlFor(image).width(200).url() },
+                        query: { titre: titre, texte:JSON.stringify(texte), image:urlFor(image).url() },
                     }}
                 >
                     <p style={{color:"black"}}>Voir l'article</p>

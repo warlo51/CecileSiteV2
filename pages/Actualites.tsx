@@ -1,6 +1,4 @@
 import Layout from "../component/Layout";
-import {useEffect, useState} from "react";
-import axios from "axios";
 import CardImageArticleDroite from "../component/CardImageArticleDroite";
 import CardImageArticleGauche from "../component/CardImageArticleGauche";
 import Image from "next/image";
