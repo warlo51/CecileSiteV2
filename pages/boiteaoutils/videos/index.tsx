@@ -10,7 +10,6 @@ export async function getServerSideProps(context: any) {
     ...,
     "fichier": fichier.asset->url
     }`);
-
     return {
         props: {
             listeProduitsVideos
