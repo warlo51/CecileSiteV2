@@ -23,7 +23,7 @@ export default function CardImageGauche(props: any) {
     },[])
     return (
         <Card  className="CardContent" style={{display:"flex",flexDirection:"column"}} >
-            <div style={{display:"flex",flexDirection:"row"}}>
+            <div className="CardInterieur" style={{display:"flex",flexDirection:"row"}}>
                 <CardMedia
                     className="imageCard"
                     component="img"
@@ -33,19 +33,19 @@ export default function CardImageGauche(props: any) {
                     image={image}
             />
                 <CardContent className="texteCards">
-                    <Typography gutterBottom style={{color:"gray",textAlign:"left"}}>
+                    <p  style={{color:"gray",textAlign:"left"}}>
                         {titre}
-                    </Typography>
-                    <Typography>
+                    </p>
+                    <p>
                         {texte}
-                    </Typography>
+                    </p>
                 </CardContent>
             </div>
-            {commentaires !== "" && <div>
-                <CardContent>
-                    <Typography gutterBottom className={"commentaireCard"}>
+            {commentaires !== undefined && <div id={"commentaires"}>
+                <CardContent >
+                    <span className={"commentaireCard"}>
                         {commentaires}
-                    </Typography>
+                    </span>
                 </CardContent>
             </div>}
 

@@ -48,37 +48,37 @@ export default function CardImageGaucheBAO(props: any) {
     },[])
     return (
         <form action={`/api/achats/checkout_sessions?priceCode=${priceCode}`} method="POST">
-        <Card  className="CardContent" style={{display:"flex",flexDirection:"column",width:"1000px"}} >
-            <div style={{display:"flex",flexDirection:"row"}}>
-                <CardMedia
+        <Card  className="CardContent" >
+            <div className={"cardBaoInterieur"}>
+                {image !== "" && <CardMedia
                     className="imageCardBOA"
                     component="img"
                     alt=""
                     height={tailleImage}
                     width={tailleImage}
                     image={image}
-            />
+                />}
                 <CardContent className="texteCardsBAO">
-                    <Typography gutterBottom style={{color:"gray",textAlign:"left",marginLeft:"30px", marginRight:"100px"}}>
+                    <p  style={{color:"gray",textAlign:"left",marginLeft:"30px", marginRight:"100px"}}>
                         {titre}
-                    </Typography>
-                    <Typography gutterBottom style={{color:"gray",textAlign:"left",marginLeft:"30px", marginRight:"100px"}}>
+                    </p>
+                    <p  style={{color:"gray",textAlign:"left",marginLeft:"30px", marginRight:"100px"}}>
                         {texte}
-                    </Typography>
-                    <Typography style={{display:"flex",flexDirection:"column"}}>
+                    </p>
+                    <p style={{display:"flex",flexDirection:"column"}}>
                         {montant}
                         {gratuit === true ?
                             <Button style={{backgroundColor:"#a2415e",color:"white", borderRadius:"40px"}}><a href={fichier} target={"_blank"}download={titre} >Telécharger</a></Button>
                             :
                             <button style={{backgroundColor:"#a2415e",color:"white", borderRadius:"40px"}} type={"submit"}>Telécharger</button>}
-                    </Typography>
+                    </p>
                 </CardContent>
             </div>
-            {commentaires !== "" && <div>
+            {commentaires !== undefined && <div>
                 <CardContent>
-                    <Typography gutterBottom style={{color:"gray",textAlign:"center", fontWeight:"bold", marginTop:"30px"}}>
+                    <p  style={{color:"gray",textAlign:"center", fontWeight:"bold", marginTop:"30px"}}>
                         {commentaires}
-                    </Typography>
+                    </p>
                 </CardContent>
             </div>}
         </Card>   </form>

@@ -208,7 +208,7 @@ export default function Contact(props:any) {
                 <br />
                 <div>
                     <Card  className="CardContent" style={{display:"flex",flexDirection:"column"}} >
-                        <div style={{display:"flex",flexDirection:"row"}}>
+                        <div>
                             <CardContent className="texteCards">
                                 <Typography gutterBottom style={{color:"black",textAlign:"left"}}>
                                     {membreInformation.nom}
@@ -229,7 +229,7 @@ export default function Contact(props:any) {
                             </CardContent>
                         </div>
                     </Card>
-                    <div>
+                    <div className={"container"} id={"membreInfo"}>
                         <p>
                             Bienvenue dans votre Espace membres ! Ici vous retrouverez tout l'historique de votre suivie.
                             Il vous suffit de cliquer sur vos date de rendez-vous pour acèder à vos fichies explicatives ainsi qu'a vos audios.
@@ -238,7 +238,7 @@ export default function Contact(props:any) {
                     </div>
 
                     <h3>Filtrez vos rendez vous</h3>
-                    <div style={{display:"flex",flexDirection:"row"}}>
+                    <div className={"membreRdvSelector"}>
                         <FormSelect onChange={(event: any)=>setShowDate(event.target.value)}>
                             <option defaultValue={"yogatherapie"}>yogathérapie</option>
                             <option defaultValue={"massages"}>massages</option>
@@ -251,7 +251,7 @@ export default function Contact(props:any) {
                             })}
                         </FormSelect>
                     </div>
-                    <div style={{ width: "100%", maxHeight: "2000px", height:"1000px", color:"black"}}>
+                    <div className={"membreBox"} >
                             {dateSelected !== "" && <Nav justify variant="tabs" defaultActiveKey="/home">
                             <Nav.Item>
                                 <Nav.Link onClick={()=>setShowDetails("Videos")}>Videos</Nav.Link>

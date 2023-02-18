@@ -10,13 +10,13 @@ export default function Massages() {
     return (
         <Layout>
             <div className="container">
-                <div style={{textAlign:"center", marginTop:"50px"}}>
+                <div className={"messageIntro"} style={{textAlign:"center", marginTop:"50px"}}>
                     <h1 style={{marginBottom:"20px"}}>Massages Ayurvédiques</h1>
                     <p>Les massages ayurvédiques sont des massages traditionnels indiens, effectués avec une huile tiédit. Ces massages sont adaptés à votre constitution, l&apos;`huile utilisés, la durée du massage et son intensité
                     variera en fonction de vos besoins du moments. Nous déterminerons cela ensemble lors de notre rencontre grâce à un questionnaire.</p>
                 </div>
                 <div className="Separateur1" style={{textAlign:"center"}}>
-                    <Image alt="" src={"/SeparationBarre.png"} width={300} height={150}/>
+                    <Image alt="" src={"/SeparationBarre.png"} className={"Separateur1"} width={300} height={150}/>
                 </div>
                 <div className="Cards">
                     <CardImageGauche
@@ -56,7 +56,7 @@ export default function Massages() {
                     <CardTroisImages premiereImage={"/MassageTroisiemePhoto.png"} deuxiemeImage={"/MassageQuatriemePhoto.png"} troisiemeImage={"/MassageCinquiemePhoto.png"} />
                 </div>
                 <div className="Separateur1" style={{textAlign:"center"}}>
-                    <Image alt="" src={"/SeparationBarre.png"} width={300} height={150}/>
+                    <Image alt="" src={"/SeparationBarre.png"} className={"Separateur1"} width={300} height={150}/>
                 </div>
                 <div style={{marginBottom:"50px"}}>
                     <Link href={"https://www.celeste-community.com/places/cecile-fabie/"} target={"_blank"}><Button style={{backgroundColor:"#a2415e", color:"white",borderRadius:"40px", border:"none"}}>Prise de RDV</Button></Link>

@@ -15,7 +15,7 @@ export default function CardImageArticleDroite(props: any) {
     const image = props.image;
 
     return (
-        <Card className="CardContent" style={{display:"flex",flexDirection:"row-reverse", backgroundColor:"white", padding:"30px", borderRadius:"40px"}} >
+        <Card className="CardContent" id={"articleCard"} >
             <CardMedia
                 component="img"
                 alt=""
@@ -23,9 +23,9 @@ export default function CardImageArticleDroite(props: any) {
                 className="imageCard"
             />
             <CardContent className={"texteCardDroite"}>
-                <Typography gutterBottom style={{color:"gray",textAlign:"center"}}>
+                <p style={{color:"gray",textAlign:"center"}}>
                     {titre}
-                </Typography>
+                </p>
                 <PortableText
                     value={phrase}
                 />
