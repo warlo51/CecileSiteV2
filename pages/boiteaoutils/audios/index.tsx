@@ -30,7 +30,7 @@ export default function index({listeProduitsAudios}: any) {
                 {listeProduitsAudios.length !== 0 && listeProduitsAudios.map((produit:any)=> {
                     if(produit.gratuit === "Oui"){
                         return(<CardImageGaucheBAO
-                            image={urlFor(produit.image).url()}
+                            image={""}
                             tailleImage={50}
                             fichier={produit.fichier}
                             texte={produit.description}
@@ -40,7 +40,7 @@ export default function index({listeProduitsAudios}: any) {
 
                     }else{
                         return(<CardImageGaucheBAO
-                            image={urlFor(produit.image).url()}
+                            image={""}
                             tailleImage={50}
                             fichier={produit.fichier}
                             texte={produit.description}

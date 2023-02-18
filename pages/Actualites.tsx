@@ -27,7 +27,7 @@ export default function Actualites({listeArticles}:any) {
                             <div key={index}>
                                 <CardImageArticleGauche titre={article.titre} phrase={article.phrase}  texte={article.texte} image={article.image}/>
                                 <div className="Separateur1" style={{textAlign:"center"}}>
-                                    <Image alt="" src={"/SeparationBarre.png"} width={300} height={150}/>
+                                    <Image alt=""  className="Separateur1" src={"/SeparationBarre.png"} width={300} height={150}/>
                                 </div>
                             </div>
 
@@ -37,7 +37,7 @@ export default function Actualites({listeArticles}:any) {
                             <div key={index}>
                                 <CardImageArticleDroite  titre={article.titre} phrase={article.phrase}  texte={article.texte} image={article.image}/>
                                 <div className="Separateur1" style={{textAlign:"center"}}>
-                                    <Image alt="" src={"/SeparationBarre.png"} width={300} height={150}/>
+                                    <Image alt=""  className="Separateur1" src={"/SeparationBarre.png"} width={300} height={150}/>
                                 </div>
                             </div>
                         )

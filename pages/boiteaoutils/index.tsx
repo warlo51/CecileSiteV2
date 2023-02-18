@@ -13,7 +13,7 @@ export default function index() {
                         Retrouvez des outils à télécharger mêlants yogathérapie et des concepts de médecine ayurvédiques pour venir prendre soin de vous.</p>
                 </div>
                 <div className="Separateur2" style={{textAlign:"center"}}>
-                    <img alt="" src={"/SeparationBarre.png"} width={300} height={150}/>
+                    <img alt="" src={"/SeparationBarre.png"} className="Separateur1" width={300} height={150}/>
                 </div>
                 <div className="BlocLiens">
                     <div className="TitreBlocLiens"><h1 style={{textAlign:"center"}}></h1></div>
@@ -31,7 +31,7 @@ export default function index() {
                     <br/>
                 </div>
                 <div className="Separateur1" style={{textAlign:"center"}}>
-                    <img alt="" src={"/SeparationBarre.png"} width={300} height={150}/>
+                    <img alt="" src={"/SeparationBarre.png"} className="Separateur1" width={300} height={150}/>
                 </div>
             </div>
             <br/>

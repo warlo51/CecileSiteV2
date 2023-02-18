@@ -91,6 +91,13 @@ body{
     margin-right: 200px;
 }
 
+#articleCard{
+    display:flex;
+    flex-direction:row;
+    background-color:white;
+    padding:30px;
+    border-radius:40px;
+}
 .articleDetails{
     padding-top: 20px;
     display: flex;
@@ -115,6 +122,10 @@ body{
 .centerOfFooter{
     display: flex;
     flex-direction: column;
+}
+.cardBaoInterieur{
+    display: flex;
+    flex-direction: row;
 }
 .logosReseaux{
     display: flex;
@@ -178,10 +189,20 @@ body{
     height: 300px;
     width: 300px;
 }
+.membreBox{
+    width: 100%;
+    max-height: 2000px;
+    height:1000px;
+    color:black;
+}
 .phraseBlocPres{
     text-align:center;
     margin-top:20px;
     font-size:40px;
+}
+.membreRdvSelector{
+    display: flex;
+    flex-direction: row;
 }
 .imageCardBOA{
     border-radius: 50%;
@@ -403,6 +424,11 @@ body{
         display: flex;
         flex-direction: column;
         align-content: center;
+        align-items: center;
+    }
+
+    .blocPrestations{
+        margin-bottom: 50px;
     }
     .Information{
         width: 100%;
@@ -435,6 +461,32 @@ body{
         display: flex;
         flex-direction: column;
         align-content: center;
+        align-items: center;
+    }
+    .BlocInformationActu img{
+        margin-bottom: 20px;
+    }
+    .BlocActualite{
+        margin-bottom: 50px;
+    }
+    .BlocActualite h2{
+        font-size: 18px;
+    }
+    .BlocActualite p{
+        font-size: 10px;
+    }
+    .Bloc1{
+        width: 300px;
+    }
+    .rdvLogo{
+        display: none;
+    }
+    h1{
+        font-size: 24px;
+    }
+    textarea.form-control {
+        width: 300px;
+        margin-left: -85px;
     }
     .Footer{
         background-color: #a2415e;
@@ -446,6 +498,90 @@ body{
     }
     .centerOfFooter{
         align-items: center;
+    }
+    .CardContent{
+        width: 300px;
+    }
+    .CardContent h2{
+        font-size: 18px;
+    }
+    .CardContent p{
+        font-size: 10px;
+    }
+    .imageCard{
+        height: 100px;
+        margin-left: 0;
+    }
+    .texteCards{
+        padding-left: 0;
+    }
+    .texteCardsBis{
+        padding-left: 0;
+    }
+    .commentaireCard{
+        padding-left: 0;
+    }
+    .imageCardTroisImages{
+        margin-right: 5px;
+        height: 70px;
+        width: 70px;
+    }
+    .messageIntro p{
+        font-size: 10px;
+    }
+    .yogaTherapieIntro p{
+        font-size: 10px;
+    }
+    .BlocBoiteAOutils{
+        display: flex;
+        flex-direction: column;
+    }
+    .blocBoiteOutil{
+        margin-bottom: 20px;
+    }
+    .cardBaoInterieur{
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #cardActu{
+        background-color: #0a53be;
+        display: flex;
+        flex-direction: column;
+    }
+    .texteCardsBAO{
+        display: flex;
+        flex-direction: column;
+    }
+    #articleCard{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #articleCard img{
+        margin: 0;
+    }
+    .texteCardGauche{
+        margin-left: 0;
+    }
+    .texteCardDroite{
+        margin-right: 0;
+    }
+    .membreRdvSelector{
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+    }
+    #membreInfo{
+        width: 300px;
+    }
+    .membreBox{
+        width: 400px;
+    }
+    .membreBox video{
+        height: 200px;
+        width: 300px;
     }
 }
 
