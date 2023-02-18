@@ -3,6 +3,8 @@ import Image from "next/image";
 import CardImageGauche from "../component/CardImageGauche";
 import CardTexte from "../component/CardTexte";
 import CardTroisImages from "../component/CardTroisImages";
+import Link from "next/link";
+import {Button} from "react-bootstrap";
 
 export default function Yogatherapie() {
     return (
@@ -65,6 +67,9 @@ export default function Yogatherapie() {
                 </div>
                 <div className="Separateur1" style={{textAlign:"center"}}>
                     <Image alt="" src={"/SeparationBarre.png"} width={300} height={150}/>
+                </div>
+                <div style={{marginBottom:"50px"}}>
+                    <Link href={"https://www.celeste-community.com/places/cecile-fabie/"} target={"_blank"}><Button style={{backgroundColor:"#a2415e", color:"white",borderRadius:"40px", border:"none"}}>Prise de RDV</Button></Link>
                 </div>
             </div>
         </Layout>

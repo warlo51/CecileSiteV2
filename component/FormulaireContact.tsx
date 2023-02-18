@@ -4,6 +4,7 @@ import {FloatingLabel, Form} from "react-bootstrap";
 import emailjs from '@emailjs/browser';
 import {useRef, useState} from "react";
 import {getRefTarget} from "@restart/ui/useClickOutside";
+import InfoBulle from "./Toast";
 
 export default function FormulaireContact() {
 
@@ -11,19 +12,26 @@ const [message,setMessage] = useState();
 const [nom,setNom] = useState();
 const [prenom,setPrenom] = useState();
 const [email,setEmail] = useState();
+const [infoBulle, setInfoBulle] = useState(<></>)
 
     const sendEmail = (e:any) => {
         e.preventDefault();
 
         emailjs.sendForm('service_nd3yrnh', 'template_7iue6tf', e.target, 'ou3dfBGfGf6Vh5h23')
             .then((result) => {
-                console.log(result.text);
+                setInfoBulle(<InfoBulle validation={true}/>)
+                setTimeout(() => {
+                    setInfoBulle(<></>)
+                },2000)
             }, (error) => {
-                console.log(error.text);
+                setInfoBulle(<InfoBulle validation={false}/>)
+                setTimeout(() => {
+                    setInfoBulle(<></>)
+                },2000)
             });
     };
     return (
-        <Form className="formulaireContact" onSubmit={sendEmail}>
+        <><Form className="formulaireContact" onSubmit={sendEmail}>
             <h1 >Formulaire de contact</h1>
             <br/>
             <div style={{display:"flex",flexDirection:"column", alignItems:"center"}}>
@@ -43,5 +51,7 @@ const [email,setEmail] = useState();
             </Form.Group>
             <input type="submit" value="Envoyer" />
         </Form>
+            {infoBulle}
+        </>
     );
 }

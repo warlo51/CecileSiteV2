@@ -35,7 +35,7 @@ export default function CardImageArticleDroite(props: any) {
                         query: { titre: titre, texte:JSON.stringify(texte), image:urlFor(image).url() },
                     }}
                 >
-                    <p style={{color:"black"}}>Voir l'article</p>
+                    <p style={{color:"black",textDecoration: "underline"}}>Voir l'article</p>
                 </Link>
             </CardContent>
         </Card>

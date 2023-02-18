@@ -20,8 +20,8 @@ export default function Footer() {
                 <div className="centerOfFooter">
                     <Image alt=""  width={150} height={150} src={"/LogoEntier.png"} style={{backgroundColor:"#F8E7DD",border:"solid", borderRadius:"20px",marginTop:"15px"}}/>
                     <div className="logosReseaux">
-                        <FacebookIcon sx={{ color: "#ee9251" }}/>
-                        <InstagramIcon sx={{ color: "#ee9251" }}/>
+                        <a href="https://m.facebook.com/yogatherapiebycecile/" target={"_blank"}><FacebookIcon sx={{ color: "#ee9251" }}/></a>
+                        <a href="https://www.instagram.com/yogavedasante/?hl=nb" target={"_blank"}><InstagramIcon sx={{ color: "#ee9251" }}/></a>
                     </div>
                 </div>
             </div>

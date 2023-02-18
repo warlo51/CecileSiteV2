@@ -6,9 +6,9 @@ function InfoBulle(props:any) {
         <Toast style={{position:"fixed",top:"0"}}>
             <Toast.Header>
                 <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-                <strong className="me-auto">Modifications</strong>
+                <strong className="me-auto">Envoi du formulaire</strong>
             </Toast.Header>
-            {props.validation === true ? <Toast.Body>Modifications validées</Toast.Body> : <Toast.Body>Erreur lors de la modification</Toast.Body>}
+            {props.validation === true ? <Toast.Body>Formulaire envoyé !</Toast.Body> : <Toast.Body>Erreur lors de l'envoie du formulaire</Toast.Body>}
         </Toast>
     );
 }
