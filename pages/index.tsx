@@ -49,13 +49,13 @@ const [articles, setArticles] = useState([])
                 <div className="TitreBlocLiens"><h1 style={{textAlign:"center"}}>Mes prestations</h1></div>
                 <div className="BlocInformationLien">
                     <div className="blocPrestations">
-                        <Bloc1 titre={<h2 style={{color:"#ee9251"}}>Yogathérapie</h2>}  image={"/Yogatherapie.png"} texte={<p>Je vous accompagne grâce aux outils du yoga pour la gestions de vos maux.</p>}/>
+                        <Link href={"/Yogatherapie"}><Bloc1 titre={<h2 style={{color:"#ee9251"}}>Yogathérapie</h2>}  image={"/Yogatherapie.png"} texte={<p>Je vous accompagne grâce aux outils du yoga pour la gestions de vos maux.</p>}/></Link>
                     </div>
                     <div className="blocPrestations">
                         <Link href={"/boiteaoutils"}><Bloc1 titre={<h2 style={{color:"#458a83"}}>Boite à outils</h2>} image={"/Boiteaoutil.png"}texte={<p>Retrouvez ici des e-book, vidéos et audios à télécharger.</p>}/></Link>
                     </div>
                     <div className="blocPrestations">
-                        <Bloc1 titre={<h2 style={{color:"#a2415e"}}>Massages Ayurvédiques</h2>}  image={"/Massages.png"} texte={<p>Massages à l'huile tiédit a destinations des femmes</p>}/>
+                        <Link href={"/Massages"}><Bloc1 titre={<h2 style={{color:"#a2415e"}}>Massages Ayurvédiques</h2>}  image={"/Massages.png"} texte={<p>Massages à l'huile tiédit a destinations des femmes</p>}/></Link>
                     </div>
                 </div>
                 <br/>
