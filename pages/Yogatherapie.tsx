@@ -68,8 +68,8 @@ export default function Yogatherapie() {
                 <div className="Separateur1" style={{textAlign:"center"}}>
                     <Image alt="" src={"/SeparationBarre.png"} className={"Separateur1"} width={300} height={150}/>
                 </div>
-                <div style={{marginBottom:"50px"}}>
-                    <Link href={"https://www.celeste-community.com/places/cecile-fabie/"} target={"_blank"}><Button style={{backgroundColor:"#a2415e", color:"white",borderRadius:"40px", border:"none"}}>Prise de RDV</Button></Link>
+                <div style={{marginBottom:"10px"}}>
+                    <Link href={"https://www.celeste-community.com/places/cecile-fabie/"} target={"_blank"}><Image alt="" src={"/Bouton_rdv_site.svg"} width={200} height={200}/></Link>
                 </div>
             </div>
         </Layout>
