@@ -30,7 +30,7 @@ export default function index({listeProduitsVideos}:any) {
                 {listeProduitsVideos.length !== 0 && listeProduitsVideos.map((produit:any)=> {
                     if(produit.gratuit === "Oui"){
                         return(<CardImageGaucheBAO
-                            image={urlFor(produit.image).url()}
+                            image={produit.image ? urlFor(produit.image).url() : "/6-min.png"}
                             tailleImage={40}
                             fichier={produit.fichier}
                             texte={produit.texte}
@@ -40,7 +40,7 @@ export default function index({listeProduitsVideos}:any) {
 
                     }else{
                         return(<CardImageGaucheBAO
-                            image={urlFor(produit.image).url()}
+                            image={produit.image ? urlFor(produit.image).url() : "/6-min.png"}
                             tailleImage={50}
                             fichier={produit.fichier}
                             texte={produit.description}
