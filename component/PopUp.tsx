@@ -35,7 +35,7 @@ export default function PopUp(props: any) {
                             en tuote autonomie, des actions simples pour votre mieux-etre</span>
                         </p>
                         <div style={{textAlign:"center"}}>
-                            <Button style={{backgroundColor:"#a2415e", width:"200px", border:"none"}}><a href="/EBook.pdf" download="EBooK_gratuit">JE LE VEUX !</a></Button>
+                            <Button style={{backgroundColor:"#a2415e", width:"200px", border:"none"}}><a href="https://yogavedasante.systeme.io/b8a6e197" target="_blank" download="EBooK_gratuit">JE LE VEUX !</a></Button>
                         </div>
 
                     </div>

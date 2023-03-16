@@ -35,7 +35,7 @@ export default function index({listeProduitsNumeriques}: any) {
                 {listeProduitsNumeriques.length !== 0 && listeProduitsNumeriques.map((produit:any)=> {
                     if(produit.gratuit === "Oui"){
                         return(<CardImageGaucheBAO
-                            image={urlFor(produit.image).url()}
+                            image={produit.image ? urlFor(produit.image).url() : "/6-min.png"}
                             tailleImage={50}
                             fichier={produit.fichier}
                             texte={produit.description}
@@ -45,7 +45,7 @@ export default function index({listeProduitsNumeriques}: any) {
 
                     }else{
                         return(<CardImageGaucheBAO
-                            image={urlFor(produit.image).url()}
+                            image={produit.image ? urlFor(produit.image).url() : "/6-min.png"}
                             tailleImage={50}
                             fichier={produit.fichier}
                             texte={produit.description}
