@@ -67,7 +67,7 @@ permet un mieux être globale.</span>
 
                     <div className="BlocLiens">
                         <div className="TitreBlocLiens"><h1 style={{textAlign:"center"}}>Les types d'accompagnements</h1></div>
-                        <div className="BlocInformationLien">
+                        <div className="BlocTypeAccompagnements">
                             <div className="blocPrestations" onClick={() => setPopUpDeroulementSeance(true)}>
                                 <Bloc1 titre={<h2 style={{color:"#ee9251"}}>Séance Individuelle</h2>} name={""} image={"/Yogatherapie.png"} />
                             </div>

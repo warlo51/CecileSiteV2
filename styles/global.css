@@ -47,6 +47,13 @@ body{
     width: 60%;
     justify-content: space-around;
 }
+.BlocTypeAccompagnements{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
 .react-player {
     width: 100%;
     height: auto;
@@ -154,11 +161,11 @@ body{
     font-size: 20px;
 }
 
-.Cards{
+.CardsYoga{
     display: flex;
     flex-direction: column;
 }
-.Cards h2{
+.CardsYoga h2{
     font-family: 'Merriweather', serif;
     font-size:20px;
 }
@@ -356,6 +363,13 @@ body{
         width: 90%;
         justify-content: space-around;
     }
+    .BlocTypeAccompagnements{
+             margin-top: 40px;
+             display: flex;
+             flex-direction: row;
+             width: 90%;
+             justify-content: space-around;
+         }
     .BlocInformationActu{
         margin-top: 40px;
         display: flex;
@@ -483,7 +497,13 @@ body{
         align-content: center;
         align-items: center;
     }
-
+.BlocTypeAccompagnements{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
     .blocPrestations{
         margin-bottom: 50px;
     }
@@ -647,6 +667,12 @@ body{
         margin-left: -200px;
     }
     .BlocInformationLien{
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+    }
+    .BlocTypeAccompagnements{
         margin-top: 20px;
         display: flex;
         flex-direction: column;
