@@ -43,7 +43,7 @@ export default function Yogatherapie() {
 permet un mieux être globale.</span>
                         </p>}/>
                     <CardImageGauche
-                        image={"/YogathérapieCoucher.png"}
+                        image={"/Yogatherapie.png"}
                         tailleImage={"200px"}
                         titre={<h2>Pour qui ?</h2>}
                         texte={<p>
@@ -52,7 +52,7 @@ permet un mieux être globale.</span>
                             <span>J’accompagne des personnes du jeunes adolescent jusqu’à la personne âgée</span>
                         </p>}/>
                     <CardImageDroite
-                        image={"/YogathérapieCoucher.png"}
+                        image={"/YogathérapiePhoto1.png"}
                         tailleImage={"200px"}
                         titre={<h2>Les indications :</h2>}
                         texte={<p>Elles sont nombreuses et variés, la yogathérapie s’utilise aussi bien pour prévenir
