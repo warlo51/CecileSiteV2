@@ -22,7 +22,7 @@ export default function CardImageGauche(props: any) {
         setTitre(props.titre)
     },[])
     return (
-        <Card  className="CardContent" style={{display:"flex",flexDirection:"column"}} >
+        <div  className="CardContent" style={{display:"flex",flexDirection:"column"}} >
             <div className="CardInterieur" style={{display:"flex",flexDirection:"row"}}>
                 <CardMedia
                     className="imageCard"
@@ -32,23 +32,23 @@ export default function CardImageGauche(props: any) {
                     width={tailleImage}
                     image={image}
             />
-                <CardContent className="texteCards">
+                <div className="texteCards">
                     <p  style={{color:"gray",textAlign:"left"}}>
                         {titre}
                     </p>
                     <p>
                         {texte}
                     </p>
-                </CardContent>
+                </div>
             </div>
             {commentaires !== undefined && <div id={"commentaires"}>
-                <CardContent >
+                <div >
                     <span className={"commentaireCard"}>
                         {commentaires}
                     </span>
-                </CardContent>
+                </div>
             </div>}
 
-        </Card>
+        </div>
     );
 }

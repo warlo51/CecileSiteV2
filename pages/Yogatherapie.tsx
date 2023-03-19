@@ -33,7 +33,7 @@ export default function Yogatherapie() {
                         <span className={"boldTexte"}>développer ses propres ressources au quotidien</span>.</p>
                 </div>
                 <div id={"horizontalBar"} style={{width:"80%"}}/>
-                <div className="Cards">
+                <div className="CardsYoga">
                     <CardImageDroite
                         image={"/Schema.svg"}
                         tailleImage={"200px"}

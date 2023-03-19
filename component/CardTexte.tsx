@@ -16,15 +16,15 @@ export default function CardTexte(props: any) {
         setTitre(props.titre)
     },[])
     return (
-        <Card  className="CardContent" >
-            <CardContent className="texteCardsBis">
-                <Typography gutterBottom style={{color:"gray",textAlign:"left"}}>
+        <div  className="CardContent" >
+            <div className="texteCardsBis">
+                <div style={{color:"gray",textAlign:"left"}}>
                     {titre}
-                </Typography>
-                <Typography color="text.secondary">
+                </div>
+                <div color="text.secondary">
                     {texte}
-                </Typography>
-            </CardContent>
-        </Card>
+                </div>
+            </div>
+        </div>
     );
 }

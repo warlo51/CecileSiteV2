@@ -13,7 +13,7 @@ export default function CardTroisImages(props: any) {
     const troisiemeImage = props.troisiemeImage;
 
     return (
-        <Card  className="CardContent" style={{display:"flex",flexDirection:"row", justifyContent: "space-around"}} >
+        <div  className="CardContent" style={{display:"flex",flexDirection:"row", justifyContent: "space-around"}} >
             <CardMedia
                 component="img"
                 alt=""
@@ -38,6 +38,6 @@ export default function CardTroisImages(props: any) {
                 image={troisiemeImage}
                 className="imageCardTroisImages"
             />
-        </Card>
+        </div>
     );
 }
