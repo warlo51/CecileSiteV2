@@ -29,6 +29,7 @@ export default function CardImageArticleDroite(props: any) {
                 <PortableText
                     value={phrase}
                 />
+
                 <Link
                     href={{
                         pathname: "/ArticleDetails",
