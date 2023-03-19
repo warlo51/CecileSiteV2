@@ -11,25 +11,35 @@ export default function CardImageDroite(props: any) {
 
     const [texte, setTexte] = useState()
     const [titre, setTitre] = useState()
+    const [commentaires, setCommentaire] = useState()
     const image = props.image;
     const tailleImage = props.tailleImage;
 
     useEffect(()=>{
         setTexte(props.texte)
         setTitre(props.titre)
+        setCommentaire(props.commentaires)
     },[])
 
     return (
-        <Card className="CardContent" style={{display:"flex",flexDirection:"row-reverse"}} >
-            <CardMedia
+        <Card className="CardContent" style={{display:"flex",flexDirection:"column"}}  >
+            <div className="CardInterieur" style={{display:"flex",flexDirection:"row-reverse"}}>
+            {image === "/Schema.svg" ? <CardMedia
                 component="img"
                 alt=""
                 height={tailleImage}
                 width={tailleImage}
                 image={image}
                 className="imageCard"
-            />
-            <CardContent>
+            />:  <CardMedia
+                component="img"
+                alt=""
+                height={tailleImage}
+                width={tailleImage}
+                image={image}
+                className="imageCard"
+            />}
+            <CardContent >
                 <Typography gutterBottom style={{color:"gray",textAlign:"center"}}>
                     {titre}
                 </Typography>
@@ -37,6 +47,14 @@ export default function CardImageDroite(props: any) {
                     {texte}
                 </Typography>
             </CardContent>
+            </div>
+            {commentaires !== undefined && <div id={"commentaires"}>
+                <CardContent >
+                    <span className={"commentaireCard"}>
+                        {commentaires}
+                    </span>
+                </CardContent>
+            </div>}
         </Card>
     );
 }

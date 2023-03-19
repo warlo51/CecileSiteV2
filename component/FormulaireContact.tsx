@@ -49,7 +49,7 @@ const [infoBulle, setInfoBulle] = useState(<></>)
                 <Form.Label>Votre message :</Form.Label>
                 <Form.Control as="textarea" name="message"  onChange={(event:any)=>setMessage(event.target.value)} rows={7} />
             </Form.Group>
-            <input type="submit" value="Envoyer" />
+            <input style={{backgroundColor:"#a2415e",color:"white",border:"none",borderRadius:"10px"}} type="submit" value="Envoyer" />
         </Form>
             {infoBulle}
         </>
