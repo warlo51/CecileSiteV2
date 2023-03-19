@@ -67,7 +67,7 @@ export default function Massages() {
                     <div className="BlocLiens">
                         <div className="TitreBlocLiens"><h1 style={{textAlign:"center"}}>Les types de massages</h1></div>
                         <h2>Je vous propose 3 types de massages différents, que vous pouvez combiner selon vos désir.</h2>
-                        <div className="BlocInformationLien">
+                        <div className="BlocTypeAccompagnements">
                             <div className="blocPrestations" onClick={() => setPopUpAbhyanga(true)}>
                                 <Bloc1 titre={<h2 style={{color:"#ee9251"}}>Abhyanga</h2>} name={""} image={"/Yogatherapie.png"} />
                             </div>
