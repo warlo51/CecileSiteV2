@@ -22,7 +22,7 @@ export default function CardImageDroite(props: any) {
     },[])
 
     return (
-        <Card className="CardContent" style={{display:"flex",flexDirection:"column"}}  >
+        <div className="CardContent" style={{display:"flex",flexDirection:"column"}}  >
             <div className="CardInterieur" style={{display:"flex",flexDirection:"row-reverse"}}>
             {image === "/Schema.svg" ? <CardMedia
                 component="img"
@@ -39,22 +39,22 @@ export default function CardImageDroite(props: any) {
                 image={image}
                 className="imageCard"
             />}
-            <CardContent >
-                <Typography gutterBottom style={{color:"gray",textAlign:"center"}}>
+            <div >
+                <div style={{color:"gray",textAlign:"center"}}>
                     {titre}
-                </Typography>
-                <Typography color="text.secondary">
+                </div>
+                <div color="text.secondary">
                     {texte}
-                </Typography>
-            </CardContent>
+                </div>
+            </div>
             </div>
             {commentaires !== undefined && <div id={"commentaires"}>
-                <CardContent >
+                <div >
                     <span className={"commentaireCard"}>
                         {commentaires}
                     </span>
-                </CardContent>
+                </div>
             </div>}
-        </Card>
+        </div>
     );
 }

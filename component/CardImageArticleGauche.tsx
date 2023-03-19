@@ -17,14 +17,14 @@ export default function CardImageArticleGauche(props: any) {
     const image = props.image;
 
     return (
-        <Card className="CardContent" id={"articleCard"} >
+        <div className="CardContent" id={"articleCard"} >
             <CardMedia
                 component="img"
                 alt=""
                 image={urlFor(image).url()}
                 className="imageCard"
             />
-            <CardContent className={"texteCardGauche"}>
+            <div className={"texteCardGauche"}>
                 <p style={{color:"gray",textAlign:"center"}}>
                     {titre}
                 </p>
@@ -39,7 +39,7 @@ export default function CardImageArticleGauche(props: any) {
                 >
                     <p style={{color:"black", textDecoration: "underline"}}>Voir l'article</p>
                 </Link>
-            </CardContent>
-        </Card>
+            </div>
+        </div>
     );
 }

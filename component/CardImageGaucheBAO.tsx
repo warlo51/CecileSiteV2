@@ -48,7 +48,7 @@ export default function CardImageGaucheBAO(props: any) {
     },[])
     return (
         <form action={`/api/achats/checkout_sessions?priceCode=${priceCode}`} method="POST">
-        <Card  className="CardContent" >
+        <div  className="CardContent" >
             <div className={"cardBaoInterieur"}>
                 {image !== "" && <CardMedia
                     className="imageCardBOA"
@@ -58,7 +58,7 @@ export default function CardImageGaucheBAO(props: any) {
                     width={tailleImage}
                     image={image}
                 />}
-                <CardContent className="texteCardsBAO">
+                <div className="texteCardsBAO">
                     <p  style={{color:"gray",textAlign:"left",marginLeft:"30px", marginRight:"100px"}}>
                         {titre}
                     </p>
@@ -72,15 +72,15 @@ export default function CardImageGaucheBAO(props: any) {
                             :
                             <button style={{backgroundColor:"#a2415e",color:"white", borderRadius:"40px"}} type={"submit"}>Telécharger</button>}
                     </p>
-                </CardContent>
+                </div>
             </div>
             {commentaires !== undefined && <div>
-                <CardContent>
+                <div>
                     <p  style={{color:"gray",textAlign:"center", fontWeight:"bold", marginTop:"30px"}}>
                         {commentaires}
                     </p>
-                </CardContent>
+                </div>
             </div>}
-        </Card>   </form>
+        </div>   </form>
     );
 }
